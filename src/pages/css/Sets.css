@@ -1,0 +1,99 @@
+@import '../../App.css';
+
+.sets-container {
+  padding: 50px 0;
+  background-color: var(--back-color);
+}
+
+.sets-list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 30px; 
+  row-gap: 30px;
+}
+
+.set-li {
+  border-radius: 4px;
+  background-color: var(--fore-color);
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.image-container {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-container {
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.set-icon {
+  width: 40px;
+}
+
+.name-container {
+  display: flex;
+  gap: 10px;
+  max-width: 90%;
+  justify-content: center;
+}
+
+.set-name {
+  padding: 0;
+  text-align: center;
+}
+
+.info-container span {
+  text-align: center;
+}
+
+
+.set-img{
+  width: 200px;
+}
+
+.sets-container {
+  width: 70vw;
+  margin: auto;
+}
+
+.set-name {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .sets-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .sets-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sets-container {
+    min-width: none;
+  }
+
+  .set-li {
+    width: 340px;
+  }
+}

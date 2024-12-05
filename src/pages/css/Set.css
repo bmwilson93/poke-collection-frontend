@@ -1,0 +1,29 @@
+.set-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.set-image-container > img {
+  margin-bottom: 20px;
+}
+
+.set-name-container {
+  width: 70%;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-top-btn {
+  background: none;
+  border: none;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.back-to-top-btn:hover {
+  color: var(--link-color);
+  cursor: pointer;
+}

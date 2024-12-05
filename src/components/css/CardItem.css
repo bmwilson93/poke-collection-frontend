@@ -1,0 +1,27 @@
+.avg-price {
+  background-color: rgba(25, 29, 50, 0.8);
+  color: var(--text-color);
+  position: absolute;
+  bottom: 0px;
+  width: 250px;
+  text-align: center;
+  line-height: 34px;
+  left: 50%;
+  height: 64px;
+  display: none;
+  transform: translate(-50%);
+}
+
+.cardlist-image {
+  width: 100%;
+}
+
+.card-item:hover > .avg-price {
+  display: inline-block;
+}
+
+@media (max-width: 480px) {
+  .avg-price {
+    width: 150px;
+  }
+}

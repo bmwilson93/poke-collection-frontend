@@ -1,0 +1,31 @@
+@import '../../App.css';
+
+form {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+input {
+  color: #6c7aa3;
+  background-color: var(--fore-color);
+  border-radius: 2px;
+  border: 1px solid #4b5572;
+  height: 40px;
+  width: 450px;
+  font-size: 18px;
+  padding-left: 40px;
+  background-image: url(../../assets/search-regular.png);
+  background-repeat: no-repeat;
+  background-position: 8px 8px;
+}
+
+input:focus {
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  outline: none;
+}
+
+.make-small {
+  width: 280px;
+}

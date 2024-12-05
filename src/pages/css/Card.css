@@ -1,0 +1,349 @@
+@import '../../App.css';
+
+.bottom-border {
+  border-bottom: 2px solid var(--text-color);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  width: 70vw;
+  margin: 50px auto 25px auto;
+  display: flex;
+  justify-content: space-between;
+  min-height: calc(100vh - 180px);
+}
+
+.image-container{
+  width: 440px;
+  border-radius: 25px;
+  box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.5);
+  margin-right: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-image {
+  width: 100%;
+}
+
+.price-header {
+  margin-bottom: 5px;
+}
+
+.card-hp {
+  font-size: 22px;
+}
+
+.card-hp-container {
+  display: flex;
+  gap: 8px;
+}
+
+
+.bold {
+  font-weight: 600;
+}
+
+.card-info-container {
+  width: 48%;
+  margin-right: 8%;
+}
+
+
+.card-info-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.update-date {
+  font-size: 12px;
+}
+
+.prices-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-title {
+  font-weight: 200;
+  width: 130px;
+}
+
+.price {
+  font-size: 25px;
+}
+
+.price-market {
+  color: #999;
+}
+
+.price-low {
+  color: #2AB249;
+}
+
+.price-mid {
+  color: #3D90AA;
+}
+
+.price-high {
+  color: #D73558;
+}
+
+
+
+/* Card Info */
+
+.section-title{
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-section {
+  margin-bottom: 30px;
+}
+
+.card-info-list > li{
+  margin-bottom: 16px;
+}
+
+
+.info-item {
+  font-size: 18px;
+}
+
+
+
+/* Abilities */
+.ability-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* Attacks */
+.attack-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.align-left {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.align-right {
+  margin-right: 20px;
+}
+
+.attack-cost-container {
+  display: flex;
+  gap: 8px;
+}
+
+.attack-name, .ability-name {
+  font-size: 24px;
+}
+
+.attack-damage {
+  font-size: 24px;
+}
+
+
+
+/* Misc Info Section */
+.info-line {
+  display: flex;
+  gap: 18%;
+  padding-bottom: 10px;
+}
+
+.info-line > div > ul {
+  margin-top: 6px;
+} 
+
+#resistance-list {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* Retreat Cost */
+.retreat-cost-container > ul {
+  display: flex;
+  gap: 10px;
+}
+
+.card-set-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+}
+
+.type-image {
+  width: 28px;
+}
+
+.no-prices {
+  font-weight: 600;
+  font-size: 20px;
+  /* border: 1px solid red; */
+  position: relative;
+  top: 5px;
+}
+
+
+/* Media Queries */
+@media (max-width: 1440px) {
+  .image-container {
+    width: 350px;
+    margin: 0 50px 28px 0;
+  }
+
+
+  .prices-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding-top: 20px;
+  }
+
+  .prices-container:not(:first-child) {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+
+}
+
+@media (max-width: 1080px) {
+  .card-container {
+    width: 90vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-container {
+    width: 350px;
+    margin: 0 0 28px 0;
+  }
+
+  .card-info-prices {
+    text-align: center;
+  }
+
+  .card-info-container {
+    margin: 0;
+    width: 75%;
+  }
+
+  .prices-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-number-container {
+    border-top: 1px solid var(--accent-color);
+    padding-top: 16px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+  .card-container {
+    width: 90vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-container {
+    width: 90%;
+    margin: 0 0 28px 0;
+  }
+
+  .card-info-title {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-name-container {
+    text-align: center;
+  }
+
+  .type-image {
+    height: 100%;
+  }
+
+  .card-type {
+    margin: 0;
+    padding: 0;
+  }
+
+  .card-info-container {
+    margin: 0;
+    width: 90%;
+  }
+
+  .prices-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding-top: 20px;
+  }
+
+  .prices-container:not(:first-child) {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .info-line {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  .info-line > div > ul {
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+  } 
+
+  .resistance-container {
+    text-align: center;
+  }
+
+  .center-text {
+    text-align: center;
+  }
+
+  .card-number-container {
+    border-top: 1px solid var(--accent-color);
+    padding-top: 16px;
+  }
+
+  .attack-name {
+    margin-right: 10px;
+  }
+
+  .align-left {
+    flex-direction: column;
+  }
+
+  .attack-container {
+    margin-bottom: 30px;
+  }
+
+}

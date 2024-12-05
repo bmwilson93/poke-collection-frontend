@@ -1,0 +1,58 @@
+@import '../../App.css';
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18vw;
+    height: 80px;
+    background-color: var(--fore-color);
+    gap: 18px;
+}
+
+.home-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-home-link {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+.header-title, .set-link {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+@media (max-width: 820px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+    height: 110px;
+    margin-bottom: 50px;
+  }
+
+  nav {
+    padding-top: 10px;
+    border-top: 1px solid var(--accent-color);
+    padding-bottom: 5px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .set-link {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* Effects the search bar outside of the home page */
+  .home-container {
+    flex-direction: column;
+  }
+}
+

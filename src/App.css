@@ -1,0 +1,121 @@
+/* Variables */
+:root {
+  --back-color: #191D32;
+  --fore-color: #282F44;
+  --text-color: #F3F0F8;
+  --link-color: #1EA6D1;
+  --accent-color: #4b5572;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scrollbar-color: var(--fore-color) var(--back-color);
+}
+
+.App {
+  background-color: var(--back-color);
+  color: var(--text-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Global Styles */
+ul {
+  list-style-type: none;
+}
+
+
+/* Hover Effect */
+.hover-grow {
+  transform-origin: center;
+  transition: all 0.2s;
+}
+
+.hover-grow:hover {
+  transform: scale(1.08);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+
+/* Link Styles */
+a, .link {
+  cursor: pointer;
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover, .link:hover {
+  color: #6c7aa3;
+}
+
+.white-link {
+  color: var(--text-color);
+}
+
+.white-link:hover {
+  color: var(--link-color);
+}
+
+
+
+
+.scroll-button {
+  position: fixed;
+  left: 10px;
+}
+
+.scroll-to-top {
+  top: 50%;
+}
+
+.scroll-to-bottom {
+  top: 58%;
+}
+
+
+
+
+/* Search Results */
+.search-results-container {
+  min-height: calc(100vh - 180px);
+}
+
+.not-found-message {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  font-size: 28px;
+  top: 50%;
+}
+
+
+/* Page Navigation Comp */
+.page-navigation-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.page-navigation-container > button {
+  width: 80px;
+  height: 38px;
+  font-size: 16px;
+  background-color: var(--fore-color);
+  color: var(--text-color);
+  border: 1px solid #4b5572;
+  border-radius: 4px;
+}
+
+.page-navigation-container > button:hover {
+  background-color: #4b5572;
+}
