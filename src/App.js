@@ -14,7 +14,7 @@ import Sets from './pages/Sets';
 import Set from './pages/Set';
 import Card from './pages/Card';
 import Login from './pages/Login';
-import Signup from './pages/SIgnup';
+import SIgnup from './pages/SIgnup';
 import NoPage from './pages/NoPage';
 
 import { fetchData } from './utils/fetchData';
@@ -108,7 +108,7 @@ function App() {
         <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards}/>} />
         <Route path="/card/:id" element={<Card />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SIgnup />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
 

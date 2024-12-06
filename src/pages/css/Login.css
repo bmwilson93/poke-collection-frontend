@@ -5,7 +5,7 @@
   background-color: var(--accent-color);
   /* box-shadow: 2px 3px 10px black; */
   width: 400px;
-  margin: 0px auto;
+  margin: 40px auto;
   height: 600px;
   border-radius: 4px;
   display: flex;
@@ -21,10 +21,6 @@
 .login-container > h2,
 .signup-container > h2 {
   font-size: 38px;
-}
-
-.login-container > h2 {
-  /* margin-bottom: 50px; */
 }
 
 .signup-container > h2 {
@@ -50,6 +46,7 @@
   width: 320px;
   padding: 0 20px;
   background-color: var(--fore-color);
+  background-image: none;
 }
 
 input:-webkit-autofill {
@@ -64,6 +61,11 @@ input:-webkit-autofill {
   margin: auto;
   cursor: pointer;
   border: none;
+}
+
+.login-container button:hover,
+.signup-container button:hover {
+  color: var(--link-color);
 }
 
 .login-container button, 
