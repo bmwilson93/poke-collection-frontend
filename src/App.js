@@ -13,6 +13,7 @@ import SearchResult from './pages/SearchResult';
 import Sets from './pages/Sets';
 import Set from './pages/Set';
 import Card from './pages/Card';
+import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 
 import { fetchData } from './utils/fetchData';
@@ -105,6 +106,7 @@ function App() {
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
         <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards}/>} />
         <Route path="/card/:id" element={<Card />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
 
