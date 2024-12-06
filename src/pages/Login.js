@@ -29,7 +29,7 @@ const Login = () => {
           <input type='password' value={password} onChange={handlePasswordChange} placeholder='Password'/>
           <button onClick={handleSubmit}>Log In</button>
         </form>
-        <p>Don't have an account? Sign Up</p>
+        <p>Don't have an account? <a>Sign Up</a></p>
       </div>
       
     </div>
