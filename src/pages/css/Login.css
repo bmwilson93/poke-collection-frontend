@@ -1,0 +1,110 @@
+@import '../../App.css';
+
+.login-container, .signup-container {
+  color: var(--text-color);
+  background-color: var(--accent-color);
+  /* box-shadow: 2px 3px 10px black; */
+  width: 400px;
+  margin: 0px auto;
+  height: 600px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-container {
+  height: 680px;
+}
+
+.login-container > h2,
+.signup-container > h2 {
+  font-size: 38px;
+}
+
+.login-container > h2 {
+  /* margin-bottom: 50px; */
+}
+
+.signup-container > h2 {
+  margin-bottom: 10px;
+}
+
+.login-container form,
+.signup-container form {
+  /* margin: auto; */
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* width: 90%; */
+  gap: 50px;
+  margin-top: 50px;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.login-container input,
+.signup-container input {
+  color: var(--text-color);
+  width: 320px;
+  padding: 0 20px;
+  background-color: var(--fore-color);
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--fore-color) inset;
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-border-before: none;
+}
+
+.login-container button,
+.signup-container button {
+  width: 120px;
+  margin: auto;
+  cursor: pointer;
+  border: none;
+}
+
+.login-container button, 
+.login-container input,
+.signup-container button,
+.signup-container input {
+  height: 40px;
+  font-size: 18px;
+  border-radius: 4px;
+  border: none;
+}
+
+/* .toggle-link {
+  margin-top: 60px;
+}
+
+.toggle-link > a {
+  color: var(--blue);
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+} */
+
+.login-container a {
+  color: var(--link-color);
+}
+
+.login-container a:hover {
+  color: var(--back-color);
+}
+
+@media screen and (max-width: 420px) {
+  .login-container, 
+  .signup-container {
+    width: 90vw;
+  }
+
+  .login-container input,
+  .signup-container input {
+  width: 80vw;
+  padding: 0 20px;
+}
+}
