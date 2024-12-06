@@ -1,10 +1,10 @@
-.home-div {
+/* .home-div {
   text-align: center;
   height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+} */
 
 .title-container {
   padding-bottom: 150px;
