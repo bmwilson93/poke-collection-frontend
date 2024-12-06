@@ -34,11 +34,30 @@ function App() {
 
   const [search, setSearch] = useState("");
 
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     console.log('Location changed');
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    // check if the user is logged in on load
+    fetchUser();
+  }, [])
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch('http://localhost:4001/api/isloggedin');
+      if (response.status === 200) {
+        const data = await response.json();
+        setUser(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   const url = "https://api.pokemontcg.io/v2/";
@@ -59,7 +78,9 @@ function App() {
     if('error' in result) {
       console.log("found an error");
     } else { // No errors, set the data in states
+
       setCards(setCollected(result.data, mockCollection));
+
       setCardCount(result.totalCount);
       setPages(Math.ceil(result.totalCount / result.pageSize));
       setCurrentPage(result.page);
