@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import './css/Login.css';
 
 const Login = () => {
   // Form Input States
@@ -20,12 +21,17 @@ const Login = () => {
 
   return (
     <div className='full-height'>
-      <h2>Log In</h2>
-      <form>
-        <input type='email' value={email} onChange={handleEmailChange} placeholder='Email'/>
-        <input type='password' value={password} onChange={handlePasswordChange} placeholder='Password'/>
-        <button>Log In</button>
-      </form>
+
+      <div className="login-container">
+        <h2>Log In</h2>
+        <form>
+          <input type='email' value={email} onChange={handleEmailChange} placeholder='Email'/>
+          <input type='password' value={password} onChange={handlePasswordChange} placeholder='Password'/>
+          <button onClick={handleSubmit}>Log In</button>
+        </form>
+        <p>Don't have an account? Sign Up</p>
+      </div>
+      
     </div>
   )
 }
