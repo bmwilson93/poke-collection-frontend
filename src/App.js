@@ -99,7 +99,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch}/>
+      <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} user={user}/>
       {/* <TestPage /> */}
       <Routes>
         <Route path="/" element={<Home getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} search={search} setSearch={setSearch}/>} searchbarState={searchbarState}/>
