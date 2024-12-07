@@ -45,13 +45,21 @@ function App() {
   }, [location]);
 
   useEffect(() => {
-    // check if the user is logged in on load
-    fetchUser();
+    fetchUser(); // check if the user is logged in on load
   }, [])
 
   const fetchUser = async () => {
     try {
-      const response = await fetch('http://localhost:4001/api/isloggedin');
+      const response = await fetch('http://localhost:4001/api/isloggedin', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        method: 'GET',
+        credentials: "include",
+        withCredentials: true
+      });
+      console.log(response);
       if (response.status === 200) {
         const data = await response.json();
         setUser(data);
@@ -105,7 +113,7 @@ function App() {
         <Route path="/" element={<Home getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} search={search} setSearch={setSearch}/>} searchbarState={searchbarState}/>
         <Route path="/search=/:id" element={<SearchResult cards={cards} currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch} cardCount={cardCount}/>} />
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
-        <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards}/>} />
+        <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user}/>} />
         <Route path="/card/:id" element={<Card />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
