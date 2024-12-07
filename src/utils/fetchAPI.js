@@ -5,6 +5,8 @@ const fetchAPI = async (route, method, body) => {
       method: method,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true
+
       },
       body: body,
       credentials: "include"
