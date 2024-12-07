@@ -69,6 +69,8 @@ const Card = () => {
   return (
     <div className="card-container">
 
+      {card.collected ? <p>collected</p> : <></>}
+
       {/* Card Image */}
       <div className="image-container">
         <img className="card-image" src={card.images.large} alt={card.name}/>
