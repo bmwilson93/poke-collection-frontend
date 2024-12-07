@@ -107,8 +107,8 @@ function App() {
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
         <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards}/>} />
         <Route path="/card/:id" element={<Card />} />
-        <Route path="/login" element={<Login user={user} setUser={setUser} />} />
-        <Route path="/signup" element={<SIgnup />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<SIgnup setUser={setUser} />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
 
