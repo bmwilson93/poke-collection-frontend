@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchAPI } from "../utils/fetchAPI";
 import './css/Login.css';
 
-const Login = () => {
+const Login = ({ user, setUser }) => {
+  const navigate = useNavigate();
+
   // Form Input States
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,10 +16,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // build the body object
-    // make the call with a login util function
-    // set the user State (passed from App.js)
-    // clear the password state
+    let body = JSON.stringify({
+      "email": email,
+      "password": password
+    });
+    const response = await fetchAPI('login', 'POST', body);
+    setUser(response);
+    setPassword('');
   }
 
 
