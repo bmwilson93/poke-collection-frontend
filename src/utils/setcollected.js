@@ -31,7 +31,7 @@ const setCollected = (cards, collection) => {
     const found = findInSet(card.id, currentSet.cards);
     if (found) {
       card.collected = true;
-      card.collectedQuantity = found.quantity;
+      card.collectedQuantities = found.quantities;
     }
     return card;
   })
