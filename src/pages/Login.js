@@ -36,7 +36,7 @@ const Login = ({ user, setUser }) => {
           <input type='password' value={password} onChange={handlePasswordChange} placeholder='Password'/>
           <button onClick={handleSubmit}>Log In</button>
         </form>
-        <p>Don't have an account? <a>Sign Up</a></p>
+        <p>Don't have an account? <a onClick={() => {navigate('/signup')}}>Sign Up</a></p>
       </div>
       
     </div>
