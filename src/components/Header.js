@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Searchbar from './Searchbar';
 import './css/Header.css';
+import userLogo from '../assets/user-solid-24.png';
 
 import logo from '../assets/Pokecoin.png';
 
-const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, search, setSearch}) => {
+const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, search, setSearch, user}) => {
   const location = useLocation();
 
   return (
@@ -14,7 +15,7 @@ const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, searc
         <div className="home-container">
           <Link to='/' className="header-home-link white-link">
             <img src={logo} alt="logo" width="40px"/>
-            <span className="header-title">Pok&eacute;mon TCG Dex</span>
+            <span className="header-title">Pok&eacute;-Collect</span>
           </Link>
 
           {/* If not on the home page, dispaly the search bar in the header */}
@@ -32,6 +33,18 @@ const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, searc
 
         <nav>
           <Link to='/sets' className='set-link white-link'>Browse By Set</Link>
+          {
+          user 
+          ? <span>
+            
+              <Link to='/' className='set-link white-link'>
+                <img src={userLogo} />
+                {user.username}
+              </Link>
+            </span> 
+          : <Link to='/login'>Log In</Link>
+          }
+          
         </nav>
     </header>
 
