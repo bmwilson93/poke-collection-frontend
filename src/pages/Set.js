@@ -12,7 +12,7 @@ import { setCollected } from '../utils/setcollected';
 import { mockCollection } from '../testing/mockData';
 
 
-const Set = ({ currentSet, setCurrentSet, cards, setCards }) => {
+const Set = ({ currentSet, setCurrentSet, cards, setCards, user }) => {
   const location = useLocation();
   const dataOfSet = location.state.set;
 
@@ -27,13 +27,20 @@ const Set = ({ currentSet, setCurrentSet, cards, setCards }) => {
     if ('error' in responseData) {
       console.log("found an error");
     } else {
-      allCards.push(...setCollected(responseData.data, mockCollection));
-  
-      if (responseData.totalCount > responseData.pageSize) {
-        responseData = await fetchData(url + "&page=2");
-
-        allCards.push(...setCollected(responseData.data, mockCollection));
+      if (user) {
+        allCards.push(...setCollected(responseData.data, user.collection));
+        if (responseData.totalCount > responseData.pageSize) {
+          responseData = await fetchData(url + "&page=2");
+          allCards.push(...setCollected(responseData.data, user.collection));
+        }
+      } else { // no user, don't run setCollected
+        allCards.push(...responseData.data);
+        if (responseData.totalCount > responseData.pageSize) {
+          responseData = await fetchData(url + "&page=2");
+          allCards.push(...responseData.data);
+        }
       }
+      
   
       setCards(allCards);
       console.log(allCards.length);
