@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../utils/fetchAPI";
 import './css/Login.css';
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, applyCollected }) => {
   const navigate = useNavigate();
 
   // Form Input States
@@ -23,6 +23,7 @@ const Login = ({ setUser }) => {
     const response = await fetchAPI('login', 'POST', body);
     setUser(response);
     setPassword('');
+    applyCollected();
   }
 
 
