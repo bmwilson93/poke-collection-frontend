@@ -14,6 +14,10 @@ const Card = () => {
 
   const subtypes = card.subtypes ? card.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
 
+  const handleCollectionClick = () => {
+
+  } 
+
   // Map each of the card details (attacks, abilities, rules, etc...)
   const abilities = (card.abilities 
     ? card.abilities.map((ability) => {
@@ -103,14 +107,84 @@ const Card = () => {
 
 
         <div className="card-collection bottom-border">
+          <h2 className='price-header bold'>Your Collection</h2>
           {/* If card has tcgplayer prices, use them to display card variants */}
             {card.tcgplayer
             ? <ul>
-                {[<li key='normal'>Normal</li>, 
-                  <li key='reverseHolofoil'>Reverse Holofoil</li>, 
-                  <li key='holofoil'>Holofoil</li>,
-                  <li key='1stEditionHolofoil'>1st Edition Holofoil</li>,
-                  <li key='1stEditionNormal'>1st Edition Normal</li>
+                {[<li key='normal' className='section-title'>
+                    <span className='variant'>Normal</span>
+                    <div>
+                      <button 
+                        className='collection-btn' 
+                        onClick={() => handleCollectionClick('remove', 'normal')}
+                      >-</button>
+                      <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                      <button 
+                        className='collection-btn' 
+                        onClick={() => handleCollectionClick('add', 'normal')}
+                      >+</button>
+                    </div>
+                  </li>, 
+
+                  <li key='reverseHolofoil' className='section-title'>
+                  <span className='variant'>Reverse Holofoil</span>
+                  <div>
+                    <button 
+                      className='collection-btn' 
+                      onClick={() => handleCollectionClick('remove', 'reverseHolofoil')}
+                    >-</button>
+                    <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                    <button 
+                      className='collection-btn' 
+                      onClick={() => handleCollectionClick('add', 'reverseHolofoil')}
+                    >+</button>
+                  </div>
+                </li>, 
+
+                <li key='holofoil' className='section-title'>
+                <span className='variant'>Holofoil</span>
+                <div>
+                  <button 
+                    className='collection-btn' 
+                    onClick={() => handleCollectionClick('remove', 'holofoil')}
+                  >-</button>
+                  <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                  <button 
+                    className='collection-btn' 
+                    onClick={() => handleCollectionClick('add', 'holofoil')}
+                  >+</button>
+                </div>
+              </li>, 
+
+              <li key='1stEditionHolofoil' className='section-title'>
+              <span className='variant'>1st Edition Holofoil</span>
+              <div>
+                <button 
+                  className='collection-btn' 
+                  onClick={() => handleCollectionClick('remove', '1stEditionHolofoil')}
+                >-</button>
+                <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                <button 
+                  className='collection-btn' 
+                  onClick={() => handleCollectionClick('add', '1stEditionHolofoil')}
+                >+</button>
+              </div>
+            </li>, 
+
+            <li key='1stEditionNormal' className='section-title'>
+            <span className='variant'>1st Edition Normal</span>
+            <div>
+              <button 
+                className='collection-btn' 
+                onClick={() => handleCollectionClick('remove', '1stEditionNormal')}
+              >-</button>
+              <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+              <button 
+                className='collection-btn' 
+                onClick={() => handleCollectionClick('add', '1stEditionNormal')}
+              >+</button>
+            </div>
+          </li>, 
                 ].filter(li => {
                   if (card.tcgplayer.prices.hasOwnProperty(li.key)) return true;
                 })}
