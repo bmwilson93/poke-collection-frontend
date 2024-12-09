@@ -101,6 +101,29 @@ const Card = () => {
           </div>
         </div>
 
+
+        <div className="card-collection bottom-border">
+          {/* If card has tcgplayer prices, use them to display card variants */}
+            {card.tcgplayer
+            ? <ul>
+                {[<li key='normal'>Normal</li>, 
+                  <li key='reverseHolofoil'>Reverse Holofoil</li>, 
+                  <li key='holofoil'>Holofoil</li>,
+                  <li key='1stEditionHolofoil'>1st Edition Holofoil</li>,
+                  <li key='1stEditionNormal'>1st Edition Normal</li>
+                ].filter(li => {
+                  if (card.tcgplayer.prices.hasOwnProperty(li.key)) return true;
+                })}
+              </ul>
+            : <ul>
+                <li>Normal</li>
+                <li>Reverse Holofoil</li>
+                <li>Holofoil</li>
+              </ul>
+            }
+        </div>
+
+
         {/* Prices Section */}
         <div className="card-info-prices bottom-border">
           <h2 className="price-header bold">Prices</h2>
