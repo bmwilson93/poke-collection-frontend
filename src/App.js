@@ -69,6 +69,13 @@ function App() {
     }
   }
 
+  const applyCollection = () => {
+    if (user && cards.length > 0) {
+      let collectedCards = setCollected(cards, user.collection);
+      setCards(collectedCards);
+    }
+  }
+
 
   const url = "https://api.pokemontcg.io/v2/";
 
@@ -89,11 +96,12 @@ function App() {
       console.log("found an error");
     } else { // No errors, set the data in states
 
-      setCards(setCollected(result.data, mockCollection));
+      setCards(result.data);
 
       setCardCount(result.totalCount);
       setPages(Math.ceil(result.totalCount / result.pageSize));
       setCurrentPage(result.page);
+      applyCollection();
     }
   } 
 
@@ -113,7 +121,7 @@ function App() {
         <Route path="/" element={<Home getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} search={search} setSearch={setSearch}/>} searchbarState={searchbarState}/>
         <Route path="/search=/:id" element={<SearchResult cards={cards} currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch} cardCount={cardCount}/>} />
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
-        <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user}/>} />
+        <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user} applyCollection={applyCollection}/>} />
         <Route path="/card/:id" element={<Card user={user}/>} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
