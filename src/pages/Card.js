@@ -1,22 +1,46 @@
 // Page that displays the detailed information for a specific card
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchAPI } from '../utils/fetchAPI';
 
 import { getTypeImage } from '../utils/getTypeImage';
 
 import './css/Card.css';
 
-const Card = ({ user }) => {
+const Card = ({ user, setUser, applyCollection }) => {
   const location = useLocation();
   const card = location.state.card;
   const navigate = useNavigate();
 
+  // Card State - to track quantity chages for display
+
   const subtypes = card.subtypes ? card.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
 
-  const handleCollectionClick = () => {
+  // runs the call to the backend to update the collection
+  const handleCollectionClick = async (action, variant) => {
+    const body = JSON.stringify({
+      "card_id": card.id,
+      "set_id": card.set.id,
+      "variant": variant
+    })
+    const response = await fetchAPI(`collection/${action}`, 'POST', body)
+    // ISSUE here,
+    // applycollection runs before setUser updates
+    setUser(response);
+    // applyCollection();
+  }  
 
-  } 
+
+  // Displays the collected qty
+  const displayQuantities = (variant) => {
+    if (card.collectedQuantities) {
+      for (let i = 0; i < card.collectedQuantities.length; i++) {
+        if (Object.hasOwn(card.collectedQuantities[i], variant)) return card.collectedQuantities[i][variant];
+      }
+    }
+    return 0;
+  }
 
   // Map each of the card details (attacks, abilities, rules, etc...)
   const abilities = (card.abilities 
@@ -118,7 +142,9 @@ const Card = ({ user }) => {
                         className='collection-btn' 
                         onClick={() => handleCollectionClick('remove', 'normal')}
                       >-</button>
-                      <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                      <span className='variant variant-total'>
+                        {displayQuantities('normal')} {/* Quantity */}
+                      </span>
                       <button 
                         className='collection-btn' 
                         onClick={() => handleCollectionClick('add', 'normal')}
@@ -133,7 +159,9 @@ const Card = ({ user }) => {
                       className='collection-btn' 
                       onClick={() => handleCollectionClick('remove', 'reverseHolofoil')}
                     >-</button>
-                    <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                    <span className='variant variant-total'>
+                      {displayQuantities('reverseHolofoil')}
+                    </span>
                     <button 
                       className='collection-btn' 
                       onClick={() => handleCollectionClick('add', 'reverseHolofoil')}
@@ -148,7 +176,9 @@ const Card = ({ user }) => {
                     className='collection-btn' 
                     onClick={() => handleCollectionClick('remove', 'holofoil')}
                   >-</button>
-                  <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                  <span className='variant variant-total'>
+                    {displayQuantities('holofoil')}
+                  </span>
                   <button 
                     className='collection-btn' 
                     onClick={() => handleCollectionClick('add', 'holofoil')}
@@ -163,7 +193,9 @@ const Card = ({ user }) => {
                   className='collection-btn' 
                   onClick={() => handleCollectionClick('remove', '1stEditionHolofoil')}
                 >-</button>
-                <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+                <span className='variant variant-total'>
+                  {displayQuantities('1stEditionHolofoil')}
+                </span>
                 <button 
                   className='collection-btn' 
                   onClick={() => handleCollectionClick('add', '1stEditionHolofoil')}
@@ -178,7 +210,9 @@ const Card = ({ user }) => {
                 className='collection-btn' 
                 onClick={() => handleCollectionClick('remove', '1stEditionNormal')}
               >-</button>
-              <span className='variant variant-total'>0</span> {/* Update to display the number in collection here */}
+              <span className='variant variant-total'>
+                {displayQuantities('1stEditionNormal')}
+              </span>
               <button 
                 className='collection-btn' 
                 onClick={() => handleCollectionClick('add', '1stEditionNormal')}

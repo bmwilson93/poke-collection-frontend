@@ -6,10 +6,7 @@ import Loading from '../components/Loading';
 import './css/Set.css';
 
 import { fetchData } from '../utils/fetchData';
-import { setCollected } from '../utils/setcollected';
 
-// TEST
-import { mockCollection } from '../testing/mockData';
 
 
 const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
@@ -32,9 +29,9 @@ const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection
           responseData = await fetchData(url + "&page=2");
           allCards.push(...responseData.data);
         }
-      setCards(allCards);
-      console.log(allCards.length);
-      applyCollection();
+      // setCards(allCards);
+      // console.log(allCards.length);
+      applyCollection(allCards);
     }
   };
 
