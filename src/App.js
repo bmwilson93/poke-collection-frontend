@@ -114,7 +114,7 @@ function App() {
         <Route path="/search=/:id" element={<SearchResult cards={cards} currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch} cardCount={cardCount}/>} />
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
         <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user}/>} />
-        <Route path="/card/:id" element={<Card />} />
+        <Route path="/card/:id" element={<Card user={user}/>} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
         <Route path="*" element={<NoPage />} />

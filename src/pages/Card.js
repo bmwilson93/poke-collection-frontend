@@ -7,7 +7,7 @@ import { getTypeImage } from '../utils/getTypeImage';
 
 import './css/Card.css';
 
-const Card = () => {
+const Card = ({ user }) => {
   const location = useLocation();
   const card = location.state.card;
   const navigate = useNavigate();
