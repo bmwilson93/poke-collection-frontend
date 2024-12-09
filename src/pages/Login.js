@@ -23,7 +23,6 @@ const Login = ({ setUser, applyCollected }) => {
     const response = await fetchAPI('login', 'POST', body);
     setUser(response);
     setPassword('');
-    applyCollected();
   }
 
 
