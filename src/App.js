@@ -123,7 +123,7 @@ function App() {
         <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
         <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user} applyCollection={applyCollection}/>} />
         <Route path="/card/:id" element={<Card user={user}/>} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} applyCollection={applyCollection}/>} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
