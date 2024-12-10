@@ -129,7 +129,7 @@ function App() {
         <Route path="/card/:id" element={<Card user={user} setUser={setUser} applyCollection={applyCollection}/>} />
         <Route path="/login" element={<Login setUser={setUser} applyCollection={applyCollection}/>} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
-        <Route path="/account/:username" element={<Account user={user}/>} />
+        <Route path="/account/:username" element={<Account user={user} setUser={setUser}/>} />
         <Route path="*" element={<NoPage />} />
       </Routes>
 
