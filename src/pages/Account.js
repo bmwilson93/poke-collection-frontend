@@ -25,7 +25,7 @@ const Account = ({ user, setUser }) => {
     <div className='full-height'>
     {user 
       ? <div className='account-container'>
-          <div className='account-info'>
+          <div className='account-info bottom-border'>
             <h2>{user.username}</h2>
             <p>{user.email}</p>
           </div>
@@ -33,16 +33,20 @@ const Account = ({ user, setUser }) => {
           <div className='collection-info'>
             <h3>Your Collection:</h3>
 
-            <h4>Total Cards:</h4>
-            <p>{getTotalCards(user.collection.sets)}</p>
+            <div>
+              <h4>Total Cards:</h4>
+              <p>{getTotalCards(user.collection.sets)}</p>
+            </div>
 
-            <h4>Total Unique Cards:</h4>
-            <p>{getTotalUniqueCards(user.collection.sets)}</p>
+            <div>
+              <h4>Total Unique Cards:</h4>
+              <p>{getTotalUniqueCards(user.collection.sets)}</p>
+            </div>
 
           </div>
 
           <div>
-            <p onClick={handleLogout}>Log OUt</p>
+            <a onClick={handleLogout}>Log Out</a>
           </div>
         </div>
       : <></>
