@@ -33,18 +33,17 @@ const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, searc
 
         <nav>
           <Link to='/sets' className='set-link white-link'>Browse By Set</Link>
-          {
-          user 
+          
+          {user 
           ? <span>
-            
-              <Link to='/' className='set-link white-link'>
+              <Link to={`/account/${user.username}`} className='set-link white-link'>
                 <img src={userLogo} />
                 {user.username}
               </Link>
             </span> 
-          : <Link to='/login'>Log In</Link>
+          : <Link to='/login' className='set-link white-link'>Log In</Link>
           }
-          
+
         </nav>
     </header>
 
