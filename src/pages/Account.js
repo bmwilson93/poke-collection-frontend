@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { fetchAPI } from "../utils/fetchAPI";
+import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
 import './css/Account.css';
 
 const Account = ({ user, setUser }) => {
@@ -23,14 +24,21 @@ const Account = ({ user, setUser }) => {
   return (
     <div className='full-height'>
     {user 
-      ? <div>
-          <div>
+      ? <div className='account-container'>
+          <div className='account-info'>
             <h2>{user.username}</h2>
             <p>{user.email}</p>
           </div>
 
-          <div>
+          <div className='collection-info'>
             <h3>Your Collection:</h3>
+
+            <h4>Total Cards:</h4>
+            <p>{getTotalCards(user.collection.sets)}</p>
+
+            <h4>Total Unique Cards:</h4>
+            <p>{getTotalUniqueCards(user.collection.sets)}</p>
+
           </div>
 
           <div>
