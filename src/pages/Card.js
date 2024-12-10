@@ -5,12 +5,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchAPI } from '../utils/fetchAPI';
 
 import { getTypeImage } from '../utils/getTypeImage';
+import checkmark from '../assets/check-circle-solid-48.png';
 
 import './css/Card.css';
 
 const Card = ({ user, setUser, applyCollection }) => {
   const location = useLocation();
-  const card = location.state.card;
+
+  const [card, setCard] = useState(location.state.card)
+  // const card = location.state.card;
   const navigate = useNavigate();
 
   // Card State - to track quantity chages for display
@@ -25,10 +28,42 @@ const Card = ({ user, setUser, applyCollection }) => {
       "variant": variant
     })
     const response = await fetchAPI(`collection/${action}`, 'POST', body)
-    // ISSUE here,
-    // applycollection runs before setUser updates
     setUser(response);
-    // applyCollection();
+
+    //update the card state
+    setCard(prevCard => {
+
+      if (!prevCard.collected) {
+
+        prevCard.collected = true;
+        prevCard.collectedQuantities = [{[variant]: 1}]
+
+      } else {
+
+        let found = false;
+        for (let i = 0; i < prevCard.collectedQuantities.length; i++) {
+          if (Object.hasOwn(prevCard.collectedQuantities[i], variant)) {
+            found = true;
+            if (action === "add" ) {
+              prevCard.collectedQuantities[i][variant]++;
+            } else { // remove
+              prevCard.collectedQuantities[i][variant]--;
+              if (prevCard.collectedQuantities[i][variant] === 0) prevCard.collectedQuantities.splice(i, 1)
+              if (prevCard.collectedQuantities.length < 1) {
+                delete prevCard.collected;
+              }
+            }
+          }
+        }
+
+        if (!found && action === "add") { // variant not found, add it to the collectedQuantities array
+          prevCard.collectedQuantities.push({[variant]: 1})
+        }
+      }
+
+
+      return prevCard;
+    })
   }  
 
 
@@ -97,11 +132,16 @@ const Card = ({ user, setUser, applyCollection }) => {
   return (
     <div className="card-container">
 
-      {card.collected ? <p>collected</p> : <></>}
+      
 
       {/* Card Image */}
       <div className="image-container">
         <img className="card-image" src={card.images.large} alt={card.name}/>
+
+        {/* Checkmark for collected card */}
+        {card.collected 
+        ? <img src={checkmark} className='checkmark-card'/>
+        : <></>}
       </div>
 
       {/* Card Info */}
