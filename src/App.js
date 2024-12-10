@@ -15,6 +15,7 @@ import Set from './pages/Set';
 import Card from './pages/Card';
 import Login from './pages/Login';
 import SIgnup from './pages/SIgnup';
+import Account from './pages/Account';
 import NoPage from './pages/NoPage';
 
 import { fetchData } from './utils/fetchData';
@@ -128,6 +129,7 @@ function App() {
         <Route path="/card/:id" element={<Card user={user} setUser={setUser} applyCollection={applyCollection}/>} />
         <Route path="/login" element={<Login setUser={setUser} applyCollection={applyCollection}/>} />
         <Route path="/signup" element={<SIgnup setUser={setUser} />} />
+        <Route path="/account/:username" element={<Account />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
 
