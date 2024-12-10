@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import './css/Account.css';
 
-const Account = () => {
+const Account = ({ user }) => {
+  const navigate = useNavigate();
+
+  // On load, check if logged in
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [])
+
   return (
-    <div>Account</div>
+    <div className='full-height'>
+
+      Account
+
+    </div>
   )
 }
 
