@@ -14,6 +14,15 @@
 
 .card-list li {
   width: 250px;
+  position: relative;
+}
+
+.checkmark-list {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  left: -18px;
+  top: -16px;
 }
 
 
