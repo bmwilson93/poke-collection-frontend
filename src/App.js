@@ -39,7 +39,6 @@ function App() {
 
 
   useEffect(() => {
-    console.log('Location changed');
     window.scrollTo(0, 0);
   }, [location]);
 
@@ -71,9 +70,7 @@ function App() {
   }
 
   const applyCollection = (cardArray = cards) => {
-    console.log("running apply collection:")
     if (user) {
-      console.log("Found user, and cards.length")
       let collectedCards = setCollected(cardArray, user.collection);
       setCards(collectedCards);
     }
