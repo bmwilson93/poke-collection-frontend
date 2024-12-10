@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import CardItem from './CardItem'
 import './css/CardList.css';
 
+import checkmark from '../assets/check-circle-solid-36.png'
+
 const CardList = ({ cards }) => {
   const navigate = useNavigate();
 
@@ -10,7 +12,7 @@ const CardList = ({ cards }) => {
   const listOfCards = cards.map(card => 
     <li key={card.id} onClick={() => navigate(`/card/${card.id}`, {state:{card: card}})}>
       
-      {card.collected ? <p>collected {}</p> : <></>}
+      {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
       {card.collectedQuantity}
       
       <CardItem name={card.name} 
