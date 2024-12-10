@@ -37,8 +37,8 @@ const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, searc
           {user 
           ? <span>
               <Link to={`/account/${user.username}`} className='set-link white-link'>
-                <img src={userLogo} />
-                {user.username}
+                {/* <img src={userLogo} /> */}
+                Hi, {user.username}
               </Link>
             </span> 
           : <Link to='/login' className='set-link white-link'>Log In</Link>
