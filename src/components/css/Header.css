@@ -29,6 +29,13 @@ header {
 }
 
 
+nav {
+  /* border: 1px solid orange; */
+  display: flex;
+  gap: 38px;
+}
+
+
 @media (max-width: 820px) {
   header {
     flex-direction: column;
@@ -43,6 +50,7 @@ header {
     padding-bottom: 5px;
     width: 100%;
     text-align: center;
+    flex-direction: column-reverse;
   }
 
   .set-link {
