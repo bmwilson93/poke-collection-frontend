@@ -25,15 +25,25 @@ const setCollected = (cards, collection) => {
     // check the current set, and if the set is in the collection
     if (currentSet == null || card.set.id !== currentSet.set_id) {
       currentSet = findSet(card.set.id, collection.sets);
-      if (!currentSet) return card
+      if (!currentSet) {
+        if (card.collected) {
+          delete card.collected;
+          delete card.collectedQuantities;
+        }
+        return card }
     }
 
     const found = findInSet(card.id, currentSet.cards);
     if (found) {
       card.collected = true;
       card.collectedQuantities = found.quantities;
+    } else { // not found
+      if (card.collected) {
+        delete card.collected;
+        delete card.collectedQuantities;
+      }
     }
-    return card;
+    return card; // TODO updated to remove collected property
   })
 
   return updatedCards;
