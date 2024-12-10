@@ -1,0 +1,41 @@
+@import '../../App.css';
+
+.account-container {
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 60vw;
+  margin: auto;
+  padding: 50px;
+  padding-bottom: 30px;
+  font-size: 20px;
+}
+/* 
+.account-info {
+  border: 1px solid orange;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 50px;
+  gap: 20px;
+} */
+
+.collection-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} 
+
+.bottom-border {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.account-container a {
+  color: var(--text-color)
+}
+
+.account-container a:hover {
+  color: var(--link-color);
+}
