@@ -98,7 +98,8 @@ input:-webkit-autofill {
   color: var(--back-color);
 }
 
-.login-container form div {
+.login-container form div,
+.signup-container form div {
   position: relative;
 }
 
