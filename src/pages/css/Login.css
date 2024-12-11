@@ -98,6 +98,21 @@ input:-webkit-autofill {
   color: var(--back-color);
 }
 
+.login-container form div {
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  top: -28px;
+  left: 18px;
+  color: #D73558;
+}
+
+.hidden {
+  display: none;
+}
+
 @media screen and (max-width: 420px) {
   .login-container, 
   .signup-container {
