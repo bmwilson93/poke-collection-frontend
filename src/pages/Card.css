@@ -1,4 +1,4 @@
-@import '../../App.css';
+@import '../App.css';
 
 .bottom-border {
   border-bottom: 2px solid var(--text-color);
