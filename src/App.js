@@ -51,7 +51,7 @@ function App() {
   
   const fetchUser = async () => {
     try {
-      const response = await fetch('http://localhost:4001/api/isloggedin', {
+      const response = await fetch(`${process.env.REACT_APP_API_PATH}/isloggedin`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
