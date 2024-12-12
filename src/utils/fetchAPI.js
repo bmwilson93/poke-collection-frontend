@@ -5,8 +5,8 @@ const fetchAPI = async (route, method, body) => {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true
-
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": "https://poke-collection-backend.onrender.com"
       },
       body: body,
       credentials: "include"
