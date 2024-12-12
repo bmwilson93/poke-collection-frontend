@@ -4,7 +4,7 @@ import { fetchAPI } from "../utils/fetchAPI";
 import validator from "validator";
 import './css/Login.css';
 
-const Signup = ( setUser ) => {
+const Signup = ({ setUser }) => {
   const navigate = useNavigate();
 
   // Form Error States
@@ -31,8 +31,6 @@ const Signup = ( setUser ) => {
     let tempEmail = validator.trim(validator.escape(email));
     let tempUsername = validator.trim(validator.escape(username));
     let tempPass = validator.trim(validator.escape(password));
-
-    console.log(tempEmail);
 
     if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempUsername, {min: 1, max: 64})) {
