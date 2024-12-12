@@ -169,8 +169,9 @@ const Card = ({ user, setUser, applyCollection }) => {
           </div>
         </div>
 
-
-        <div className="card-collection bottom-border">
+        {/* Card Collection Section */}
+        {user
+        ? <div className="card-collection bottom-border">
           <h2 className='price-header bold'>Your Collection</h2>
           {/* If card has tcgplayer prices, use them to display card variants */}
             {card.tcgplayer
@@ -269,8 +270,9 @@ const Card = ({ user, setUser, applyCollection }) => {
                 <li>Holofoil</li>
               </ul>
             }
-        </div>
-
+          </div>
+        : <></>
+        }
 
         {/* Prices Section */}
         <div className="card-info-prices bottom-border">
