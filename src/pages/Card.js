@@ -7,7 +7,7 @@ import { fetchAPI } from '../utils/fetchAPI';
 import { getTypeImage } from '../utils/getTypeImage';
 import checkmark from '../assets/check-circle-solid-48.png';
 
-import './css/Card.css';
+import './Card.css';
 
 const Card = ({ user, setUser, applyCollection }) => {
   const location = useLocation();
