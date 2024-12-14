@@ -3,10 +3,10 @@ import CardList from '../components/CardList'
 import PageNavigation from '../components/PageNavigation'
 import Loading from '../components/Loading'
 
-const SearchResult = ({ cards, currentPage, pages, getCards, recentSearch, cardCount}) => {
+const SearchResult = ({ cards, currentPage, pages, getCards, recentSearch, cardCount, user}) => {
   return (
     <div className="search-results-container">
-      <CardList cards={cards}/>
+      <CardList cards={cards} user={user}/>
       
       {(() => {
         if (cardCount == -1) {

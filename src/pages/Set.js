@@ -58,7 +58,7 @@ const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection
 
       <div className="card-list-container2">
         {cards.length > 0 
-        ? <CardList cards={cards}/>
+        ? <CardList cards={cards} user={user}/>
         : <Loading />}
         
       </div>
