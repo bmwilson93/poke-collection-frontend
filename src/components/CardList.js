@@ -6,7 +6,7 @@ import './css/CardList.css';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cards }) => {
+const CardList = ({ cards, user }) => {
   const navigate = useNavigate();
   const [filterState, setFilterState] = useState('all');
 
@@ -35,12 +35,15 @@ const CardList = ({ cards }) => {
   return (
     <div className="card-list-container">
 
-      <div className='filter-container'>
-        <button onClick={() => setFilterState('all')} className={filterState === 'all' ? 'selected' : ''}>All Cards</button>
-        <button onClick={() => setFilterState('collected')} className={filterState === 'collected' ? 'selected' : ''}>Collected</button>
-        <button onClick={() => setFilterState('notCollected')} className={filterState === 'notCollected' ? 'selected' : ''}>Not Collected</button>
-      </div>
-
+      {user
+      ? <div className='filter-container'>
+          <button onClick={() => setFilterState('all')} className={filterState === 'all' ? 'selected' : ''}>All Cards</button>
+          <button onClick={() => setFilterState('collected')} className={filterState === 'collected' ? 'selected' : ''}>Collected</button>
+          <button onClick={() => setFilterState('notCollected')} className={filterState === 'notCollected' ? 'selected' : ''}>Not Collected</button>
+        </div>
+      : <></>
+      }
+      
       <ul className="card-list">
         {filterState === 'all' 
           ? listOfCards
