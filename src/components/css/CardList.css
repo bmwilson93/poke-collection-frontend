@@ -26,6 +26,35 @@
 }
 
 
+.filter-container {
+  border-bottom: 1px solid var(--accent-color);
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  margin-bottom: 48px;
+}
+
+.filter-container button {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 2px;
+}
+
+.filter-container .selected {
+  border: 1px inset var(--link-color);
+  color: var(--link-color);
+  /* background-color: red; */
+}
+
+.filter-container button:hover {
+  background-color: var(--link-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
 
 
 /* 1440 - 4 wide*/
