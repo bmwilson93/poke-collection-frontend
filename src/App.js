@@ -122,15 +122,72 @@ function App() {
       <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} user={user}/>
       {/* <TestPage /> */}
       <Routes>
-        <Route path="/" element={<Home getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} search={search} setSearch={setSearch}/>} searchbarState={searchbarState}/>
-        <Route path="/search=/:id" element={<SearchResult cards={cards} currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch} cardCount={cardCount}/>} />
-        <Route path="/sets" element={<Sets sets={sets} setSets={setSets} setCurrentSet={setCurrentSet}/>} />
-        <Route path="/set/:id" element={<Set currentSet={currentSet} setCurrentSet={setCurrentSet} cards={cards} setCards={setCards} user={user} applyCollection={applyCollection}/>} />
-        <Route path="/card/:id" element={<Card user={user} setUser={setUser} applyCollection={applyCollection}/>} />
-        <Route path="/login" element={<Login setUser={setUser} applyCollection={applyCollection}/>} />
-        <Route path="/signup" element={<SIgnup setUser={setUser} />} />
-        <Route path="/account/:username" element={<Account user={user} setUser={setUser}/>} />
-        <Route path="*" element={<NoPage />} />
+        <Route 
+          path="/" 
+          element={<Home 
+          getCards={getCards} 
+          setRecentSearch={setRecentSearch} 
+          recentSearch={recentSearch} 
+          search={search} 
+          setSearch={setSearch}/>} 
+          searchbarState={searchbarState}
+        />
+        <Route 
+          path="/search=/:id" 
+          element={<SearchResult 
+            cards={cards} 
+            currentPage={currentPage} 
+            pages={pages} 
+            getCards={getCards} 
+            recentSearch={recentSearch} 
+            cardCount={cardCount}
+            user={user}/>} 
+        />
+        <Route 
+          path="/sets" 
+          element={<Sets 
+            sets={sets} 
+            setSets={setSets} 
+            setCurrentSet={setCurrentSet}/>}
+         />
+        <Route 
+          path="/set/:id" 
+          element={<Set 
+            currentSet={currentSet} 
+            setCurrentSet={setCurrentSet} 
+            cards={cards} 
+            setCards={setCards} 
+            user={user} 
+            applyCollection={applyCollection}/>} 
+        />
+        <Route 
+          path="/card/:id" 
+          element={<Card 
+            user={user} 
+            setUser={setUser} 
+            applyCollection={applyCollection}/>} 
+        />
+        <Route 
+          path="/login" 
+          element={<Login 
+            setUser={setUser} 
+            applyCollection={applyCollection}/>} 
+        />
+        <Route 
+          path="/signup" 
+          element={<SIgnup 
+            setUser={setUser} />} 
+        />
+        <Route 
+          path="/account/:username" 
+          element={<Account 
+            user={user} 
+            setUser={setUser}/>} 
+        />
+        <Route 
+          path="*" 
+          element={<NoPage />} 
+        />
       </Routes>
 
       <Footer searchbarState={searchbarState}/>
