@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardItem from './CardItem'
 import './css/CardList.css';
@@ -8,6 +9,8 @@ import { render } from '@testing-library/react';
 
 const CardList = ({ cards }) => {
   const navigate = useNavigate();
+
+  const [filterState, setFilterState] = useState('all')
 
   // save collected and notCollected my filtering cards
   const collectedCards = cards.filter(card => Object.hasOwn(card, "collected"));
