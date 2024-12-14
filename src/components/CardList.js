@@ -9,10 +9,10 @@ const CardList = ({ cards }) => {
   const navigate = useNavigate();
 
   // save collected and notCollected my filtering cards
-  const collectedCards = cards.filter();
+  const collectedCards = cards.filter(card => Object.hasOwn(card, "collected"));
 
-  const notCollectedCards = cards.filter();
-  
+  const notCollectedCards = cards.filter(card => !Object.hasOwn(card, "collected"));
+
   // then take the list of cards var and turn it into a function that takes cards as arg
   // then call the function from the component, and view only what is selected
   // use a state to manage which filter is selected and shown
