@@ -10,7 +10,7 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
   const navigate = useNavigate();
 
   const fetchSets = async () => {
-    const url = "https://api.pokemontcg.io/v2/sets?orderBy:releaseDate";
+    const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
 
     let responseData = await fetchData(url);
 
