@@ -38,6 +38,7 @@ function App() {
 
   const [user, setUser] = useState(null);
 
+  const [scrollValue, setScrollValue] = useState(0)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -153,6 +154,8 @@ function App() {
         <Route 
           path="/set/:id" 
           element={<Set 
+            scrollValue={scrollValue}
+            setScrollValue={setScrollValue}
             currentSet={currentSet} 
             setCurrentSet={setCurrentSet} 
             cards={cards} 
