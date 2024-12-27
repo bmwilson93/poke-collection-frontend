@@ -132,8 +132,6 @@ const Card = ({ user, setUser, applyCollection }) => {
   return (
     <div className="card-container">
 
-      
-
       {/* Card Image */}
       <div className="image-container">
         <img className="card-image" src={card.images.large} alt={card.name}/>
@@ -142,6 +140,10 @@ const Card = ({ user, setUser, applyCollection }) => {
         {card.collected 
         ? <img src={checkmark} className='checkmark-card'/>
         : <></>}
+      </div>
+
+      <div id='back-btn'>
+      <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
       </div>
 
       {/* Card Info */}
