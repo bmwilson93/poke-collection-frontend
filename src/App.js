@@ -136,6 +136,8 @@ function App() {
         <Route 
           path="/search=/:id" 
           element={<SearchResult 
+            scrollValue={scrollValue}
+            setScrollValue={setScrollValue}
             cards={cards} 
             currentPage={currentPage} 
             pages={pages} 
