@@ -33,6 +33,7 @@ function App() {
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [recentSearch, setRecentSearch] = useState("");
+  const [filterState, setFilterState] = useState('all');
 
   const [search, setSearch] = useState("");
 
@@ -136,6 +137,8 @@ function App() {
         <Route 
           path="/search=/:id" 
           element={<SearchResult 
+            filterState={filterState}
+            setFilterState={setFilterState}
             scrollValue={scrollValue}
             setScrollValue={setScrollValue}
             cards={cards} 
@@ -156,6 +159,8 @@ function App() {
         <Route 
           path="/set/:id" 
           element={<Set 
+            filterState={filterState}
+            setFilterState={setFilterState}
             scrollValue={scrollValue}
             setScrollValue={setScrollValue}
             currentSet={currentSet} 

@@ -9,7 +9,7 @@ import { fetchData } from '../utils/fetchData';
 
 
 
-const Set = ({ scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
+const Set = ({ filterState, setFilterState, scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
   const location = useLocation();
   const dataOfSet = location.state.set;
 
@@ -60,7 +60,7 @@ const Set = ({ scrollValue, setScrollValue, currentSet, setCurrentSet, cards, se
 
       <div className="card-list-container2">
         {cards.length > 0 
-        ? <CardList cards={cards} user={user} scrollValue={scrollValue} setScrollValue={setScrollValue}/>
+        ? <CardList filterState={filterState} setFilterState={setFilterState} cards={cards} user={user} scrollValue={scrollValue} setScrollValue={setScrollValue}/>
         : <Loading />}
         
       </div>

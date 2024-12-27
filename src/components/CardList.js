@@ -6,9 +6,9 @@ import './css/CardList.css';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cards, user, scrollValue, setScrollValue }) => {
+const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setScrollValue }) => {
   const navigate = useNavigate();
-  const [filterState, setFilterState] = useState('all');
+  // const [filterState, setFilterState] = useState('all');
 
   const makeCard = (card) => {
     return (<li key={card.id} onClick={() => {
