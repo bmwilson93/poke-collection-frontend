@@ -9,7 +9,7 @@ import { fetchData } from '../utils/fetchData';
 
 
 
-const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
+const Set = ({ scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
   const location = useLocation();
   const dataOfSet = location.state.set;
 
@@ -38,9 +38,11 @@ const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection
   useEffect(() => {
     if (cards.length > 0) {
       if (cards[0].set.id !== dataOfSet.id) {
+        setScrollValue(0);
         fetchAllCards();
       }
     } else {
+      setScrollValue(0);
       fetchAllCards();
     }
   }, []);
@@ -58,7 +60,7 @@ const Set = ({ currentSet, setCurrentSet, cards, setCards, user, applyCollection
 
       <div className="card-list-container2">
         {cards.length > 0 
-        ? <CardList cards={cards} user={user}/>
+        ? <CardList cards={cards} user={user} scrollValue={scrollValue} setScrollValue={setScrollValue}/>
         : <Loading />}
         
       </div>
