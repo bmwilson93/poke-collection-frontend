@@ -6,12 +6,15 @@ import './css/CardList.css';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cards, user }) => {
+const CardList = ({ cards, user, scrollValue, setScrollValue }) => {
   const navigate = useNavigate();
   const [filterState, setFilterState] = useState('all');
 
   const makeCard = (card) => {
-    return (<li key={card.id} onClick={() => navigate(`/card/${card.id}`, {state:{card: card}})}>
+    return (<li key={card.id} onClick={() => {
+      setScrollValue(window.scrollY);
+      navigate(`/card/${card.id}`, {state:{card: card}})}
+    }>
       
     {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
     {card.collectedQuantity}
@@ -28,9 +31,19 @@ const CardList = ({ cards, user }) => {
   const notCollectedCards = cards.filter(card => !Object.hasOwn(card, "collected"));
 
   // Renders a list of cards that is stored in a cards state the App.js file
-  const listOfCards = cards.map(card => makeCard(card))
+  
+  const doCards = () => {
+    let retCard = cards.map(card => makeCard(card));
+    window.scrollTo(0, scrollValue);
+    return retCard;
+  }
+  const listOfCards = doCards();
   const listOfCardsCollected = collectedCards.map(card => makeCard(card))
   const listOfCardsNotCollected = notCollectedCards.map(card => makeCard(card))
+
+  useEffect(() => {
+    setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
+  }, []);
 
   return (
     <div className="card-list-container">
