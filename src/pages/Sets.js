@@ -18,14 +18,14 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
       console.log("found an error");
     } else {
       const orderedData = responseData.data;
-      orderedData.reverse();
-  
+      orderedData.reverse(); // sets are giving by release date, reversing puts the newest sets first
       setSets(orderedData);
     }
   };
 
-  useEffect(() => {
 
+  // Fetch all sets on load if not already fetched
+  useEffect(() => {
     if (sets.length < 1) {
       fetchSets();
     }
