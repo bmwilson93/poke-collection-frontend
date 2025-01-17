@@ -10,15 +10,12 @@
 
 /* Sort Dropdown */
 .sets-container .sort-container {
-  position: relative;
-  /* border: 1px solid blue; */
   margin-bottom: 50px;
   display: flex;
   gap: 10px;
 }
 
 select {
-  /* appearance: none;  */
   background-color: var(--back-color);
   border: 1px solid var(--accent-color);
   border-radius: 2px;
@@ -28,11 +25,6 @@ select {
   cursor: pointer;
   outline: none;
 }
-
-select:after {
-  border: none;
-}
-
 
 
 /* Sets List */
@@ -121,14 +113,15 @@ select:after {
   .sets-list {
     grid-template-columns: 1fr;
   }
+
+  .sets-container .sort-container {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
   .sets-container {
-    min-width: none;
-  }
-
-  .set-li {
-    width: 340px;
+    /* min-width: none; */
+    width: 90%;
   }
 }
