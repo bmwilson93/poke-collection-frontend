@@ -71,9 +71,9 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
   const handleSortChange = (e) => {
     setSelectedSort(e.target.value)
     if (e.target.value === "oldest") {
-      setMappedSets(mapSets(sets.reverse()));
+      setMappedSets(mapSets(sets.toReversed()));
     } else {
-      setMappedSets(mapSets(sets.reverse()));
+      setMappedSets(mapSets(sets));
     }
   }
 
@@ -91,10 +91,12 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
         </select>
       </div>
 
-      {/* If no sets, display Loading component */}
-      {sets.length > 0 
-      ? <ul className="sets-list">{mappedSets}</ul> 
-      : <Loading />}
+      <div className='list-container'>
+        {/* If no sets, display Loading component */}
+        {sets.length > 0 
+        ? <ul className="sets-list">{mappedSets}</ul> 
+        : <Loading />}
+      </div>
 
     </div>
   )
