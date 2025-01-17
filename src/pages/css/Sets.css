@@ -8,24 +8,34 @@
   flex-direction: column;
 }
 
-/* Sort Button */
-.sets-container div {
-  margin: 10px auto;
+/* Sort Dropdown */
+.sets-container .sort-container {
+  position: relative;
+  /* border: 1px solid blue; */
+  margin-bottom: 50px;
+  display: flex;
+  gap: 10px;
 }
 
-.sets-container div button {
-  background-color: var(--accent-color);
-  border: 1px inset var(--link-color);
-  padding: 10px 18px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-color);
-  border: none;
+select {
+  /* appearance: none;  */
+  background-color: var(--back-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
-  display: block;
+  padding: 2px 4px 2px 8px;
+  color: var(--text-color);
+  font-size: 16px;
   cursor: pointer;
+  outline: none;
 }
 
+select:after {
+  border: none;
+}
+
+
+
+/* Sets List */
 .sets-list {
   list-style-type: none;
   display: grid;
