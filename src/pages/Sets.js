@@ -6,7 +6,7 @@ import './css/Sets.css'
 
 import { fetchData } from '../utils/fetchData';
 
-const Sets = ({ sets, setSets, setCurrentSet }) => {
+const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const navigate = useNavigate();
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [selectedSort, setSelectedSort] = useState('Newest');
@@ -34,11 +34,12 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
     } else {
       setMappedSets(mapSets(sets));
     }
+    
+    setTimeout(() => {window.scrollTo(0, setsScrollValue)}, 10);
   }, []);
 
 
   const mapSets = (allSets) => {
-    console.log('test')
     return allSets.map((item) => {
       return (
         <li 
@@ -46,6 +47,7 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
           key={item.id} 
           onClick={() => {
             setCurrentSet(item.id); 
+            setSetsScrollValue(window.scrollY);
             navigate(`/set/${item.id}`, {state:{set: item}});
           }}
         >
