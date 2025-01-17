@@ -9,6 +9,7 @@ import { fetchData } from '../utils/fetchData';
 const Sets = ({ sets, setSets, setCurrentSet }) => {
   const navigate = useNavigate();
   const [mappedSets, setMappedSets] = useState([<li></li>]);
+  const [selectedSort, setSelectedSort] = useState('Newest');
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
@@ -66,16 +67,28 @@ const Sets = ({ sets, setSets, setCurrentSet }) => {
       )
     });
   }
-
-  // let allSets = mapSets(sets);
-  // setMappedSets(mapSets(sets));
   
+  const handleSortChange = (e) => {
+    setSelectedSort(e.target.value)
+    if (e.target.value === "oldest") {
+      setMappedSets(mapSets(sets.reverse()));
+    } else {
+      setMappedSets(mapSets(sets.reverse()));
+    }
+  }
 
   return (
     <div className='sets-container'>
 
-      <div>
-        <button onClick={() => {setMappedSets(mapSets(sets.reverse()))}}>CLick</button>
+      <div className='sort-container'>
+        <p>Sort by Release Date: {}</p>
+        <select
+          value={selectedSort}
+          onChange={(e) => {handleSortChange(e)}}
+        >
+          <option value='newest'>Newest</option>
+          <option value='oldest'>Oldest</option>
+        </select>
       </div>
 
       {/* If no sets, display Loading component */}
