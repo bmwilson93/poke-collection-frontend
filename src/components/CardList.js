@@ -12,6 +12,7 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
   const [cardSort, setCardSort] = useState('number');
 
 
+  // TODO DELTE BELOW HERE --
   const makeCard = (card) => {
     return (<li key={card.id} onClick={() => {
       setScrollValue(window.scrollY);
@@ -47,11 +48,31 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
   const listOfCards = doCards();
   const listOfCardsCollected = collectedCards.map(card => makeCard(card))
   const listOfCardsNotCollected = notCollectedCards.map(card => makeCard(card))
+  // TODO DELETE ABOVE HERE --
 
   // Set to saved scroll on page load
   useEffect(() => {
     setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
   }, []);
+
+
+  const mapCards = (cardlist) => {
+    return cardlist.map((card) => {
+      return (<li key={card.id} onClick={() => {
+        setScrollValue(window.scrollY);
+        navigate(`/card/${card.id}`, {state:{card: card}})}
+      }>
+        
+      {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
+      {card.collectedQuantity}
+      
+      <CardItem name={card.name} 
+        setName={card.set.name} 
+        avgSellPrice={card.cardmarket && card.cardmarket.prices && card.cardmarket.prices.averageSellPrice}
+        imgSrc={card.images.small}/>
+    </li>);
+    })
+  }
 
 
   // WORK IN PROGRESS
