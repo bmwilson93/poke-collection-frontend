@@ -63,7 +63,7 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
     } else if (filterState === 'notCollected') {
       filteredCards === cards.filter(card => !Object.hasOwn(card, "collected"));
     } else { // all cards
-      filteredCards = cards;
+      filteredCards.push(...cards);
     }
     // check the sort and map accordingly
     if (cardSort === 'revNumber') {
