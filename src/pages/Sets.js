@@ -9,7 +9,7 @@ import { fetchData } from '../utils/fetchData';
 const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const navigate = useNavigate();
   const [mappedSets, setMappedSets] = useState([<li></li>]);
-  const [selectedSort, setSelectedSort] = useState('Newest');
+  const [selectedSort, setSelectedSort] = useState('newest'); // TODO: May need to move to App.js
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
@@ -32,7 +32,11 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
     if (sets.length < 1) {
       fetchSets();
     } else {
-      setMappedSets(mapSets(sets));
+      if (selectedSort == 'oldest') {
+        setMappedSets(mapSets(sets.toReversed()));
+      } else {
+        setMappedSets(mapSets(sets));
+      }
     }
     
     setTimeout(() => {window.scrollTo(0, setsScrollValue)}, 10);
