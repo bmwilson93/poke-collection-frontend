@@ -10,12 +10,17 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
   const navigate = useNavigate();
   const [mappedCards, setMappedCards] = useState([]);
   const [cardSort, setCardSort] = useState('number');
-  
+
 
   // Set to saved scroll on page load
   useEffect(() => {
     setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
   }, []);
+
+  // Trying this out,to see if I can get this to run once the filter or sort state updates
+  useEffect(() => {
+    handleDisplayCardlist();
+  }, [filterState, cardSort])
 
 
   const mapCards = (cardlist) => {
@@ -58,6 +63,17 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
 
   return (
     <div className="card-list-container">
+
+      <div className='sort-container'>
+        <p>Sort by: {}</p>
+        <select
+          value={selectedSort}
+          onChange={(e) => {handleSortChange(e)}}
+        >
+          <option value='number'>Set Number</option>
+          <option value='revNumber'>Set Number -desc-</option>
+        </select>
+      </div>
 
       {user
       ? <div className='filter-container'>
