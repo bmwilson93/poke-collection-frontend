@@ -124,11 +124,7 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
       
       {/* TODO, update to display the mappedCards state */}
       <ul className="card-list">
-        {filterState === 'all' 
-          ? listOfCards
-          : filterState === 'collected'
-            ? listOfCardsCollected
-            : listOfCardsNotCollected}
+        {mappedCards}
       </ul>
 
     </div>
