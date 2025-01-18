@@ -8,7 +8,9 @@ import checkmark from '../assets/check-circle-solid-36.png'
 
 const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setScrollValue }) => {
   const navigate = useNavigate();
-  // const [filterState, setFilterState] = useState('all');
+  const [mappedCards, setMappedCards] = useState([]);
+  const [cardSort, setCardSort] = useState('number');
+
 
   const makeCard = (card) => {
     return (<li key={card.id} onClick={() => {
@@ -26,6 +28,7 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
   </li>);
   }
   
+  // TODO, add states to hold collected and notCollected
   // save collected and notCollected my filtering cards
   const collectedCards = cards.filter(card => Object.hasOwn(card, "collected"));
   const notCollectedCards = cards.filter(card => !Object.hasOwn(card, "collected"));
@@ -37,13 +40,27 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
     window.scrollTo(0, scrollValue);
     return retCard;
   }
+
+  // TODO, currently, these arrays are calculated once, not dynamicaly
+  // need to set a function that maps the correct card list based on both filter and sort
+  // and save in a state
   const listOfCards = doCards();
   const listOfCardsCollected = collectedCards.map(card => makeCard(card))
   const listOfCardsNotCollected = notCollectedCards.map(card => makeCard(card))
 
+  // Set to saved scroll on page load
   useEffect(() => {
     setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
   }, []);
+
+
+  // WORK IN PROGRESS
+  const handleDisplayCardlist = () => {
+    // check the filter
+    // check the sort
+    // setMappedCards accordingly
+  }
+
 
   return (
     <div className="card-list-container">
@@ -57,6 +74,7 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
       : <></>
       }
       
+      {/* TODO, update to display the mappedCards state */}
       <ul className="card-list">
         {filterState === 'all' 
           ? listOfCards
