@@ -67,9 +67,24 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
 
       {user
       ? <div className='filter-container'>
-          <button onClick={() => setFilterState('all')} className={filterState === 'all' ? 'selected' : ''}>All Cards</button>
-          <button onClick={() => setFilterState('collected')} className={filterState === 'collected' ? 'selected' : ''}>Collected</button>
-          <button onClick={() => setFilterState('notCollected')} className={filterState === 'notCollected' ? 'selected' : ''}>Not Collected</button>
+          <button 
+            onClick={() => setFilterState('all')} 
+            className={filterState === 'all' ? 'selected' : ''}
+          >
+            All Cards
+          </button>
+          <button 
+            onClick={() => setFilterState('collected')} 
+            className={filterState === 'collected' ? 'selected' : ''}
+          >
+            Collected
+          </button>
+          <button 
+            onClick={() => setFilterState('notCollected')} 
+            className={filterState === 'notCollected' ? 'selected' : ''}
+          >
+            Not Collected
+          </button>
         </div>
       : <></>
       }
