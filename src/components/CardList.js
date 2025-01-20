@@ -6,10 +6,10 @@ import './css/CardList.css';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setScrollValue }) => {
+const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, user, scrollValue, setScrollValue }) => {
   const navigate = useNavigate();
   const [mappedCards, setMappedCards] = useState([]);
-  const [cardSort, setCardSort] = useState('number');
+  // const [cardSort, setCardSort] = useState('number');
 
 
   // Set to saved scroll on page load

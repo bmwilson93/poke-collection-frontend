@@ -3,10 +3,10 @@ import CardList from '../components/CardList'
 import PageNavigation from '../components/PageNavigation'
 import Loading from '../components/Loading'
 
-const SearchResult = ({ filterState, setFilterState, scrollValue, setScrollValue, cards, currentPage, pages, getCards, recentSearch, cardCount, user}) => {
+const SearchResult = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, cards, currentPage, pages, getCards, recentSearch, cardCount, user}) => {
   return (
     <div className="search-results-container">
-      <CardList filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue}cards={cards} user={user}/>
+      <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue}cards={cards} user={user}/>
       
       {(() => {
         if (cardCount == -1) {
