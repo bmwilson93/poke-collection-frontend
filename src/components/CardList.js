@@ -41,6 +41,33 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
     })
   }
 
+  const sortByPrice = (cardArray, option = 'high') => {
+    let newArray = [...cardArray];
+    
+    if (option === 'high') { // high to low
+      newArray.sort((x, y) => {
+        // If card has cardmarket prices
+        if (x.cardmarket?.prices?.averageSellPrice && y.cardmarket?.prices?.averageSellPrice) {
+          return y.cardmarket.prices.averageSellPrice - x.cardmarket.prices.averageSellPrice;
+        }
+
+        // no prices for card, just return 0 to keep array in same order
+        return 0;        
+      });
+
+    } else { // low to high
+      newArray.sort((x, y) => {
+        if (x.cardmarket?.prices?.averageSellPrice && y.cardmarket?.prices?.averageSellPrice) {
+          return x.cardmarket.prices.averageSellPrice - y.cardmarket.prices.averageSellPrice;
+        }
+
+        // no prices for card, just return 0 to keep array in same order
+        return 0;    
+      });
+    }
+    return newArray;
+  }
+
 
   const handleDisplayCardlist = () => {
     // check the filter
@@ -56,6 +83,10 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
     if (cardSort === 'revNumber') {
       setMappedCards(mapCards(filteredCards.toReversed()));
       // Simply add else if here to add more sort options
+    } else if (cardSort === 'price h-l') {
+      setMappedCards(mapCards(sortByPrice(filteredCards, 'high')));
+    } else if (cardSort === 'price l-h') {
+      setMappedCards(mapCards(sortByPrice(filteredCards, 'low')));
     } else {
       setMappedCards(mapCards(filteredCards));
     }
@@ -99,6 +130,8 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
         >
           <option value='number'>Set Number -asc-</option>
           <option value='revNumber'>Set Number -desc-</option>
+          <option value='price h-l'>Price high-low</option>
+          <option value='price l-h'>Price low-high</option>
         </select>
       </div>
       
