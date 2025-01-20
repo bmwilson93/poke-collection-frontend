@@ -48,13 +48,14 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
     if (filterState === "collected") {
       filteredCards = cards.filter(card => Object.hasOwn(card, "collected"));
     } else if (filterState === 'notCollected') {
-      filteredCards === cards.filter(card => !Object.hasOwn(card, "collected"));
+      filteredCards = cards.filter(card => !Object.hasOwn(card, "collected"));
     } else { // all cards
       filteredCards.push(...cards);
     }
     // check the sort and map accordingly
     if (cardSort === 'revNumber') {
       setMappedCards(mapCards(filteredCards.toReversed()));
+      // Simply add else if here to add more sort options
     } else {
       setMappedCards(mapCards(filteredCards));
     }
@@ -67,10 +68,10 @@ const CardList = ({ filterState, setFilterState, cards, user, scrollValue, setSc
       <div className='sort-container'>
         <p>Sort by: {}</p>
         <select
-          value={selectedSort}
-          onChange={(e) => {handleSortChange(e)}}
+          value={cardSort}
+          onChange={(e) => {setCardSort(e.target.value)}}
         >
-          <option value='number'>Set Number</option>
+          <option value='number'>Set Number -asc-</option>
           <option value='revNumber'>Set Number -desc-</option>
         </select>
       </div>
