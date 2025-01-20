@@ -65,16 +65,7 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
   return (
     <div className="card-list-container">
 
-      <div className='sort-container'>
-        <p>Sort by: {}</p>
-        <select
-          value={cardSort}
-          onChange={(e) => {setCardSort(e.target.value)}}
-        >
-          <option value='number'>Set Number -asc-</option>
-          <option value='revNumber'>Set Number -desc-</option>
-        </select>
-      </div>
+      
 
       {user
       ? <div className='filter-container'>
@@ -99,6 +90,17 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
         </div>
       : <></>
       }
+
+      <div className='sort-container'>
+        <p>Sort by: {}</p>
+        <select
+          value={cardSort}
+          onChange={(e) => {setCardSort(e.target.value)}}
+        >
+          <option value='number'>Set Number -asc-</option>
+          <option value='revNumber'>Set Number -desc-</option>
+        </select>
+      </div>
       
       <ul className="card-list">
         {mappedCards}
