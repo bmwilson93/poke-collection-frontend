@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { fetchAPI } from "../utils/fetchAPI";
 import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
+import { getCollectionValue } from '../utils/getCollectionValue';
 import './css/Account.css';
 
 const Account = ({ user, setUser }) => {
   const navigate = useNavigate();
+  const [collectionValue, setCollectionValue] = useState(0)
 
   // On load, check if logged in
   useEffect(() => {
@@ -43,6 +45,11 @@ const Account = ({ user, setUser }) => {
               <p>{getTotalUniqueCards(user.collection.sets)}</p>
             </div>
 
+          </div>
+
+          <div>
+            <button onClick={async () => setCollectionValue(await getCollectionValue(user.collection))}>Calculate Collection Value</button>
+            <p>${collectionValue}</p>
           </div>
 
           <div>
