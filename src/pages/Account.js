@@ -5,16 +5,16 @@ import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
 import { getCollectionValue } from '../utils/getCollectionValue';
 import './css/Account.css';
 
-const Account = ({ user, setUser }) => {
+const Account = ({ checkingUser, user, setUser }) => {
   const navigate = useNavigate();
   const [collectionValue, setCollectionValue] = useState(0)
 
   // On load, check if logged in
   useEffect(() => {
-    if (!user) {
+    if (!user && !checkingUser) {
       navigate('/login')
     }
-  }, [])
+  }, [checkingUser])
 
   const handleLogout = async (e) => {
     e.preventDefault();
