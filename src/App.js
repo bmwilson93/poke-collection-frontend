@@ -39,6 +39,7 @@ function App() {
   const [search, setSearch] = useState("");
 
   const [user, setUser] = useState(null);
+  const [checkingUser, setCheckingUser] = useState(true)
 
   const [scrollValue, setScrollValue] = useState(0)
   const [setsScrollValue, setSetsScrollValue] = useState(0)
@@ -72,6 +73,7 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+    setCheckingUser(false);
   }
 
   const applyCollection = (cardArray = cards) => {
@@ -200,6 +202,7 @@ function App() {
         <Route 
           path="/account/:username" 
           element={<Account 
+            checkingUser={checkingUser}
             user={user} 
             setUser={setUser}/>} 
         />
