@@ -28,9 +28,23 @@ const Account = ({ checkingUser, user, setUser }) => {
     {user 
       ? <div className='account-container'>
           <div className='account-info bottom-border'>
-            <h2>{user.username}</h2>
-            <p>{user.email}</p>
+
+            <div>
+              <h2>{user.username}</h2>
+            </div>
+
+            <div className="email-container">
+              <p>Email:</p>
+              <span>{user.email}</span><button>Update</button>
+            </div>
+
+            <div className="password-container">
+              <span>Change Password:</span>
+              <button>Update</button>
+            </div>
+
           </div>
+
 
           <div className='collection-info'>
             <h3>Your Collection:</h3>
@@ -40,17 +54,21 @@ const Account = ({ checkingUser, user, setUser }) => {
               <p>{getTotalCards(user.collection.sets)}</p>
             </div>
 
+
             <div>
               <h4>Total Unique Cards:</h4>
               <p>{getTotalUniqueCards(user.collection.sets)}</p>
             </div>
 
+
+            <div>
+              <h4>Calculate your total collection's value</h4>
+              <button onClick={async () => setCollectionValue(await getCollectionValue(user.collection))}>Calculate Collection Value</button>
+              <p>${collectionValue}</p>
+            </div>
+
           </div>
 
-          <div>
-            <button onClick={async () => setCollectionValue(await getCollectionValue(user.collection))}>Calculate Collection Value</button>
-            <p>${collectionValue}</p>
-          </div>
 
           <div>
             <a onClick={handleLogout}>Log Out</a>
