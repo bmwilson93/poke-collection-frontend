@@ -86,21 +86,25 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
   return (
     <div className='sets-container full-height'>
 
-      <div className='sort-container'>
-        <p>Sort by Release Date: {}</p>
-        <select
-          value={selectedSort}
-          onChange={(e) => {handleSortChange(e)}}
-        >
-          <option value='newest'>Newest</option>
-          <option value='oldest'>Oldest</option>
-        </select>
-      </div>
+      
 
       <div className='list-container'>
         {/* If no sets, display Loading component */}
         {sets.length > 0 
-        ? <ul className="sets-list">{mappedSets}</ul> 
+        ? <>
+            <div className='sort-container'>
+              <p>Sort by Release Date: {}</p>
+              <select
+                value={selectedSort}
+                onChange={(e) => {handleSortChange(e)}}
+              >
+                <option value='newest'>Newest</option>
+                <option value='oldest'>Oldest</option>
+              </select>
+            </div>
+            
+            <ul className="sets-list">{mappedSets}</ul> 
+          </>
         : <Loading />}
       </div>
 
