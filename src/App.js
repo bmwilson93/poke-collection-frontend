@@ -96,7 +96,7 @@ function App() {
     
     //build the url with search query
     let fixedSearch = search.replace(/ /g, '.')
-    let searchTerm = "cards?q=name:*" + fixedSearch + "*" + "&page=" + page + "&pageSize=25"
+    let searchTerm = "cards?q=name:*" + fixedSearch + "*" + "&page=" + page + "&pageSize=25" + "&orderBy=set.releaseDate"
     let query = url + searchTerm
 
     let result = await fetchData(query);
