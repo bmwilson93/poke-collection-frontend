@@ -38,6 +38,7 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, u
       <CardItem name={card.name} 
         setName={card.set.name} 
         avgSellPrice={card.cardmarket?.prices?.averageSellPrice}
+        tcgPrices={card.tcgplayer?.prices}
         imgSrc={card.images.small}/>
     </li>);
     })
