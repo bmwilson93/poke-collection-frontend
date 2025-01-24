@@ -49,7 +49,7 @@ const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, 
 
 
   return (
-    <div className="set-container">
+    <div className="set-container full-height">
       <div className="set-image-container">
         <img src={dataOfSet.images.logo} alt={dataOfSet.name} width='340px'/>
       </div>
