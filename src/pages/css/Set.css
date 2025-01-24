@@ -6,13 +6,14 @@
 }
 
 .set-image-container > img {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .set-name-container {
   width: 70%;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 18px;
 }
 
 .back-to-top-btn {
