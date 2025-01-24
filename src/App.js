@@ -92,6 +92,7 @@ function App() {
   // Call API to get results for search (search from Searchbar.js)
   const getCards = async (search, page=1) => {
     setCards([]);
+    setCardCount(-1);
     
     //build the url with search query
     let fixedSearch = search.replace(/ /g, '.')
