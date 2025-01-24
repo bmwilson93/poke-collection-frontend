@@ -17,6 +17,10 @@ html {
   scrollbar-color: var(--fore-color) var(--back-color);
 }
 
+html, body {
+  height: 100%;
+}
+
 .App {
   background-color: var(--back-color);
   color: var(--text-color);
@@ -37,6 +41,14 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.loading {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
 }
 
 
@@ -92,9 +104,9 @@ a:hover, .link:hover {
 
 
 /* Search Results */
-.search-results-container {
+/* .search-results-container {
   min-height: calc(100vh - 180px);
-}
+} */
 
 .not-found-message {
   display: flex;
