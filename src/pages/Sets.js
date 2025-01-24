@@ -84,7 +84,7 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
   }
 
   return (
-    <div className='sets-container'>
+    <div className='sets-container full-height'>
 
       <div className='sort-container'>
         <p>Sort by Release Date: {}</p>
