@@ -30,7 +30,6 @@ header {
 
 
 nav {
-  /* border: 1px solid orange; */
   display: flex;
   gap: 38px;
 }
@@ -41,16 +40,16 @@ nav {
     flex-direction: column;
     gap: 10px;
     height: 110px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
   }
 
   nav {
     padding-top: 10px;
     border-top: 1px solid var(--accent-color);
-    padding-bottom: 5px;
     width: 100%;
     text-align: center;
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
+    justify-content: center;
   }
 
   .set-link {
