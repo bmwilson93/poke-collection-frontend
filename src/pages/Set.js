@@ -50,13 +50,29 @@ const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, 
 
   return (
     <div className="set-container full-height">
+
+      
       <div className="set-image-container">
         <img src={dataOfSet.images.logo} alt={dataOfSet.name} width='340px'/>
       </div>
 
-      <div className="set-name-container">
-        <h1>{dataOfSet.name}</h1>
+      <div className="set-info-container">
+
+        <div className="set-name-container">
+          <h1>{dataOfSet.name}</h1>
+          <p>Release Date: {dataOfSet.releaseDate}</p>
+        </div>
+
+
+        <div className="set-details">
+          <p>Series: {dataOfSet.series}</p>
+          <p>Printed Total: {dataOfSet.printedTotal}</p>
+          <p>Total: {dataOfSet.total}</p>
+          <img src={dataOfSet.images.symbol} alt={dataOfSet.name + " symbol"} width='40px' />
+        </div>
+
       </div>
+
 
       <div className="card-list-container2">
         {cards.length > 0 
