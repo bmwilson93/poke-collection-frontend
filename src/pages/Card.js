@@ -347,12 +347,12 @@ const Card = ({ user, setUser, applyCollection }) => {
               </div>
             : null}
             
-            {card.tcgplayer.prices.reverseHolofoil 
+            {card.tcgplayer?.prices?.reverseHolofoil 
             ? <div className="reverse-holofoil-price-container prices-container">
                 <div>
                   <p className="price-title">Reverse Holofoil Market</p>
                   <p className="price price-market">
-                    ${card.tcgplayer.prices.reverseHolofoil.market.toFixed(2)}
+                    ${card.tcgplayer?.prices?.reverseHolofoil?.market?.toFixed(2)}
                   </p>
                 </div>
                 <div>
