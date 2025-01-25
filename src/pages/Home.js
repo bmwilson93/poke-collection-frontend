@@ -7,8 +7,8 @@ const Home = ({ getCards, setRecentSearch, recentSearch, search, setSearch}) => 
   return (
     <div className="home-div full-height">
       <div className="title-container">
-        <h1>Pok&eacute;mon TCG Dex</h1>
-        <h3>The Ultimate Pok&eacute;mon Card Database</h3>
+        <h1>Pok&eacute;-Collect</h1>
+        <h3>The Ultimate Pok&eacute;mon Card Database and Collection App</h3>
         <Searchbar 
           getCards={getCards} 
           setRecentSearch={setRecentSearch} 
