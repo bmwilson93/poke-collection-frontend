@@ -75,7 +75,7 @@ const Account = ({ checkingUser, user, setUser }) => {
 
 
           <div className="logout">
-            <a onClick={handleLogout}>Log Out</a>
+            <button onClick={handleLogout}>Log Out</button>
           </div>
         </div>
       : <></>
