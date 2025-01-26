@@ -1,7 +1,7 @@
 @import '../../App.css';
 
 .account-container {
-  border: 1px solid var(--accent-color);
+  /* border: 1px solid var(--accent-color); */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -12,19 +12,30 @@
   padding-bottom: 30px;
   font-size: 20px;
 }
-/* 
+
 .account-info {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: space-between;
+  justify-content: space-evenly;
   padding-left: 50px;
   gap: 20px;
-} */
+}
 
-.collection-info {
+.account-info-container {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  padding-right: 50px;
+  border-right: 1px solid var(--accent-color);
+}
+
+.collection-info {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
   gap: 10px;
 } 
 
@@ -38,4 +49,17 @@
 
 .account-container a:hover {
   color: var(--link-color);
+}
+
+.logout {
+  margin-top: 100px;
+}
+
+.logout > button {
+  padding: 8px 16px;
+  font-size: 20px;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
 }
