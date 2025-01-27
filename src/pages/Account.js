@@ -34,13 +34,12 @@ const Account = ({ checkingUser, user, setUser }) => {
               <h2>{user.username}</h2>
 
               <div className="email-container">
-                <p>Email:</p>
-                <span>{user.email}</span><button>Update</button>
+                <p>{user.email}</p>
+                <button className="white-link">Update Email</button>
               </div>
 
               <div className="password-container">
-                <span>Change Password:</span>
-                <button>Update</button>
+                <button className="white-link">Change Password</button>
               </div>
             </div>
 
