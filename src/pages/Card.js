@@ -263,7 +263,7 @@ const Card = ({ user, setUser, applyCollection }) => {
             </div>
           </li>, 
                 ].filter(li => {
-                  if (card.tcgplayer.prices.hasOwnProperty(li.key)) return true;
+                  if (card.tcgplayer?.prices.hasOwnProperty(li.key)) return true;
                 })}
               </ul>
             : <ul>
@@ -280,68 +280,68 @@ const Card = ({ user, setUser, applyCollection }) => {
         <div className="card-info-prices bottom-border">
           <h2 className="price-header bold">Prices</h2>
           {card.tcgplayer
-            ? <a href={card.tcgplayer.url} className='bold' target='_blank' rel="noreferrer">Buy Now From TCGPlayer</a>
+            ? <a href={card.tcgplayer?.url} className='bold' target='_blank' rel="noreferrer">Buy Now From TCGPlayer</a>
             : <></>}
-          <p className="update-date">Last Updated {card.tcgplayer.updatedAt}</p>
+          <p className="update-date">Last Updated {card.tcgplayer?.updatedAt}</p>
 
           {/* Check if card has TCGplayer section */}
-          {card.tcgplayer.prices 
+          {card.tcgplayer?.prices 
             ?<div className="pricing-container">
             {/* Renders the prices for each card price type found */}
             
-            {card.tcgplayer.prices.normal 
+            {card.tcgplayer?.prices?.normal 
             ? <div className="normal-price-container prices-container">
                 <div>
                   <p className="price-title">Normal Market</p>
                   <p className="price price-market">
-                    ${card.tcgplayer.prices.normal.market.toFixed(2)}
+                    ${card.tcgplayer?.prices?.normal?.market?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Normal Low</p>
                   <p className="price price-low">
-                    ${card.tcgplayer.prices.normal.low.toFixed(2)}
+                    ${card.tcgplayer?.prices?.normal?.low?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Normal Mid</p>
                   <p className="price price-mid">
-                    ${card.tcgplayer.prices.normal.mid.toFixed(2)}
+                    ${card.tcgplayer?.prices?.normal?.mid?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Normal High</p>
                   <p className="price price-high">
-                    ${card.tcgplayer.prices.normal.high.toFixed(2)}
+                    ${card.tcgplayer?.prices?.normal?.high?.toFixed(2)}
                   </p>
                 </div>
               </div>
             : null}
             
-            {card.tcgplayer.prices.holofoil 
+            {card.tcgplayer?.prices?.holofoil 
             ? <div className="holofoil-price-container prices-container">
                 <div>
                   <p className="price-title">Holofoil Market</p>
                   <p className="price price-market">
-                    ${card.tcgplayer.prices.holofoil.market.toFixed(2)}
+                    ${card.tcgplayer?.prices?.holofoil?.market?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Holofoil Low</p>
                   <p className="price price-low">
-                    ${card.tcgplayer.prices.holofoil.low.toFixed(2)}
+                    ${card.tcgplayer?.prices?.holofoil?.low?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Holofoil Mid</p>
                   <p className="price price-mid">
-                    ${card.tcgplayer.prices.holofoil.mid.toFixed(2)}
+                    ${card.tcgplayer?.prices?.holofoil?.mid?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Holofoil High</p>
                   <p className="price price-high">
-                    ${card.tcgplayer.prices.holofoil.high.toFixed(2)}
+                    ${card.tcgplayer?.prices?.holofoil?.high?.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -358,19 +358,19 @@ const Card = ({ user, setUser, applyCollection }) => {
                 <div>
                   <p className="price-title">Reverse Holofoil Low</p>
                   <p className="price price-low">
-                    ${card.tcgplayer.prices.reverseHolofoil.low.toFixed(2)}
+                    ${card.tcgplayer?.prices?.reverseHolofoil?.low?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Reverse Holofoil Mid</p>
                   <p className="price price-mid">
-                    ${card.tcgplayer.prices.reverseHolofoil.mid.toFixed(2)}
+                    ${card.tcgplayer?.prices?.reverseHolofoil?.mid?.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="price-title">Reverse Holofoil High</p>
                   <p className="price price-high">
-                    ${card.tcgplayer.prices.reverseHolofoil.high.toFixed(2)}
+                    ${card.tcgplayer?.prices?.reverseHolofoil?.high?.toFixed(2)}
                   </p>
                 </div>
               </div>
