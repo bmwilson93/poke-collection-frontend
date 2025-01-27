@@ -26,7 +26,7 @@
 .account-info-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
   padding-right: 50px;
   border-right: 1px solid var(--accent-color);
 }
@@ -42,6 +42,13 @@
 .bottom-border {
   border-bottom: 1px solid var(--accent-color);
 }
+
+.email-container > p {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+
 
 .logout {
   margin-top: 100px;
