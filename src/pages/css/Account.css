@@ -43,14 +43,6 @@
   border-bottom: 1px solid var(--accent-color);
 }
 
-.account-container a {
-  color: var(--text-color)
-}
-
-.account-container a:hover {
-  color: var(--link-color);
-}
-
 .logout {
   margin-top: 100px;
 }
