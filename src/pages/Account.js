@@ -63,7 +63,7 @@ const Account = ({ checkingUser, user, setUser }) => {
 
               <div>
                 <h4>Calculate your total collection's value</h4>
-                <button className="value-btn white-link" onClick={async () => setCollectionValue(await getCollectionValue(user.collection))}>Calculate Collection Value</button>
+                <button className="value-btn white-link" onClick={async () => setCollectionValue((await getCollectionValue(user.collection)).toFixed(2))}>Calculate Collection Value</button>
                 <p>${collectionValue}</p>
               </div>
 
