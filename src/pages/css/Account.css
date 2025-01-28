@@ -43,7 +43,8 @@
   border-bottom: 1px solid var(--accent-color);
 }
 
-.email-container > p {
+.email-container > p,
+.collection-info > div > h4 {
   font-size: 24px;
   margin-bottom: 10px;
 }
