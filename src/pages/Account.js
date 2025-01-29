@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchAPI } from "../utils/fetchAPI";
 import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
 import { getCollectionValue } from '../utils/getCollectionValue';
+import Loading from '../components/Loading';
 import './css/Account.css';
 
 const Account = ({ checkingUser, user, setUser }) => {
@@ -73,6 +74,7 @@ const Account = ({ checkingUser, user, setUser }) => {
                   </button>
                   : <></>
                 }
+                <Loading />
                 {collectionValue > -1 ? <p>${collectionValue}</p> : <></>}
               </div>
 
