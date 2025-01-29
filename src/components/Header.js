@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Searchbar from './Searchbar';
 import './css/Header.css';
+import Loading from '../components/Loading';
 import userLogo from '../assets/user-solid-24.png';
 
 // import logo from '../assets/Pokecoin.png';
