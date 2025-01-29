@@ -74,7 +74,7 @@ const Account = ({ checkingUser, user, setUser }) => {
                   </button>
                   : <></>
                 }
-                <Loading />
+                <Loading size={'small'}/>
                 {collectionValue > -1 ? <p>${collectionValue}</p> : <></>}
               </div>
 
