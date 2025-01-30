@@ -9,6 +9,7 @@ import './css/Account.css';
 const Account = ({ checkingUser, user, setUser }) => {
   const navigate = useNavigate();
   const [collectionValue, setCollectionValue] = useState(-1)
+  const [calculating, setCalculating] = useState(false)
 
   // On load, check if logged in
   useEffect(() => {
@@ -65,17 +66,23 @@ const Account = ({ checkingUser, user, setUser }) => {
               {/* Collection Value */}
               <div>
                 <h4>Calculate your total collection's value</h4>
-                {collectionValue < 0 ?
-                  <button 
-                    className="value-btn white-link" 
-                    onClick={async () => setCollectionValue((await getCollectionValue(user.collection)).toFixed(2))}
-                  >
-                    Calculate Collection Value
-                  </button>
-                  : <></>
-                }
-                <Loading size={'small'}/>
-                {collectionValue > -1 ? <p>${collectionValue}</p> : <></>}
+                <div className='collection-value'>
+                  {collectionValue < 0 && !calculating ?
+                    <button 
+                      className="value-btn white-link" 
+                      onClick={async () => {
+                        setCalculating(true);
+                        setCollectionValue((await getCollectionValue(user.collection)).toFixed(2));
+                        setCalculating(false);
+                      }}
+                    >
+                      Calculate Collection Value
+                    </button>
+                    : <></>
+                  }
+                  {calculating ? <Loading size={'small'}/> : <></>}
+                  {collectionValue > -1 ? <p>${collectionValue}</p> : <></>}
+                </div>
               </div>
 
             </div>
