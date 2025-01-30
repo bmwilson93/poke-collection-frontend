@@ -8,15 +8,22 @@ Uses the [pokemontcg.io](https://docs.pokemontcg.io/) API for all card and price
 
 This project is built upon on my TCG Dex project, which displays card info and prices. This project includes an Express backend and Postgresql database to allow users to create accounts to track their card collection. 
 
+Backend code: [https://github.com/bmwilson93/poke-collection-backend](poke-collection-backend)
+
 ## App Features
+- Create and log into an account
+- Add cards to a collection, and track which cards have been collected
+- Search by card name, or by a list of sets
+- Filter cards by collected or not collected
+- Sort cards by set number, or value
+- Calculate and display the current collection total value
 
-Create and log into an account
+## Planned Features and Updates
+- Update the Account page
+- Change password and email
+- Reset password functionality
+- Dynamic routes will load the data base on the url
+- Add cardmarket prices if tcgplayer info is missing on card page
 
-Add cards to a collection, and track which cards have been collected
-
-Search by card name, or by a list of sets.
-
-Filter the collection
- 
 
 **This website is not produced, endorsed, supported, or affiliated with Nintendo or the Pokémon Company.**
