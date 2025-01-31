@@ -66,19 +66,22 @@ const Account = ({ checkingUser, user, setUser }) => {
               {/* Collection Value */}
               <div>
                 <h4>Calculate your total collection's value</h4>
-                <p>*Please note that this may take up to several minutes*</p>
                 <div className='collection-value'>
                   {collectionValue < 0 && !calculating ?
-                    <button 
-                      className="value-btn white-link" 
-                      onClick={async () => {
-                        setCalculating(true);
-                        setCollectionValue((await getCollectionValue(user.collection)).toFixed(2));
-                        setCalculating(false);
-                      }}
-                    >
-                      Calculate Collection Value
-                    </button>
+                    <>
+                      <button 
+                        className="value-btn white-link" 
+                        onClick={async () => {
+                          setCalculating(true);
+                          setCollectionValue((await getCollectionValue(user.collection)).toFixed(2));
+                          setCalculating(false);
+                        }}
+                      >
+                        Calculate Collection Value
+                      </button>
+                      <small>*Please note that this may take up to several minutes*</small>
+                    </>
+
                     : <></>
                   }
                   {calculating ? <Loading size={'small'}/> : <></>}
