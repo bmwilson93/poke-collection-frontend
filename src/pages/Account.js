@@ -66,6 +66,7 @@ const Account = ({ checkingUser, user, setUser }) => {
               {/* Collection Value */}
               <div>
                 <h4>Calculate your total collection's value</h4>
+                <p>*Please note that this may take up to several minutes*</p>
                 <div className='collection-value'>
                   {collectionValue < 0 && !calculating ?
                     <button 
