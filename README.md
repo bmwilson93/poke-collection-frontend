@@ -22,6 +22,8 @@ Backend code: [https://github.com/bmwilson93/poke-collection-backend](poke-colle
 
 ## Planned Features and Updates
 - Update the Account page
+- Display the number of cards in the set on the sets page
+- Add option to show # of cards collected in each set on sets page
 - Change password and email
 - Reset password functionality
 - Dynamic routes will load the data base on the url
