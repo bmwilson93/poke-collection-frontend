@@ -53,13 +53,13 @@ const Account = ({ checkingUser, user, setUser }) => {
 
               <div>
                 <h4>Total Cards:</h4>
-                <p>{getTotalCards(user.collection.sets)}</p>
+                <p className='num-display'>{getTotalCards(user.collection.sets)}</p>
               </div>
 
 
               <div>
                 <h4>Total Unique Cards:</h4>
-                <p>{getTotalUniqueCards(user.collection.sets)}</p>
+                <p className='num-display'>{getTotalUniqueCards(user.collection.sets)}</p>
               </div>
 
 
@@ -85,7 +85,7 @@ const Account = ({ checkingUser, user, setUser }) => {
                     : <></>
                   }
                   {calculating ? <Loading size={'small'}/> : <></>}
-                  {collectionValue > -1 ? <p>${collectionValue}</p> : <></>}
+                  {collectionValue > -1 ? <p className='num-display'>${collectionValue}</p> : <></>}
                 </div>
               </div>
 
