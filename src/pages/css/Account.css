@@ -57,8 +57,15 @@
 .collection-value {
   height: 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+small {
+  color: var(--text-color);
+  opacity: 0.5;
+  font-size: 14px;
 }
 
 .logout {
