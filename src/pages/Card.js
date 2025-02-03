@@ -128,6 +128,36 @@ const Card = ({ user, setUser, applyCollection }) => {
   }) : null
   )
 
+  // Format and Map the Add to Collection Variant Buttons
+  const formatLabel = (key) => {
+    return key
+      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+      .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
+  };
+  
+  const variantList = Object.keys(card.tcgplayer?.prices || {}).map(key => (
+    <li key={key} className='section-title'>
+      <span className='variant'>{formatLabel(key)}</span>
+      <div>
+        <button
+          className='collection-btn'
+          onClick={() => handleCollectionClick('remove', key)}
+        >
+          -
+        </button>
+        <span className='variant variant-total'>
+          {displayQuantities(key)}
+        </span>
+        <button
+          className='collection-btn'
+          onClick={() => handleCollectionClick('add', key)}
+        >
+          +
+        </button>
+      </div>
+    </li>
+  ));
+
 
   return (
     <div className="card-container">
@@ -178,93 +208,7 @@ const Card = ({ user, setUser, applyCollection }) => {
           {/* If card has tcgplayer prices, use them to display card variants */}
             {card.tcgplayer
             ? <ul>
-                {[<li key='normal' className='section-title'>
-                    <span className='variant'>Normal</span>
-                    <div>
-                      <button 
-                        className='collection-btn' 
-                        onClick={() => handleCollectionClick('remove', 'normal')}
-                      >-</button>
-                      <span className='variant variant-total'>
-                        {displayQuantities('normal')} {/* Quantity */}
-                      </span>
-                      <button 
-                        className='collection-btn' 
-                        onClick={() => handleCollectionClick('add', 'normal')}
-                      >+</button>
-                    </div>
-                  </li>, 
-
-                  <li key='reverseHolofoil' className='section-title'>
-                  <span className='variant'>Reverse Holofoil</span>
-                  <div>
-                    <button 
-                      className='collection-btn' 
-                      onClick={() => handleCollectionClick('remove', 'reverseHolofoil')}
-                    >-</button>
-                    <span className='variant variant-total'>
-                      {displayQuantities('reverseHolofoil')}
-                    </span>
-                    <button 
-                      className='collection-btn' 
-                      onClick={() => handleCollectionClick('add', 'reverseHolofoil')}
-                    >+</button>
-                  </div>
-                </li>, 
-
-                <li key='holofoil' className='section-title'>
-                <span className='variant'>Holofoil</span>
-                <div>
-                  <button 
-                    className='collection-btn' 
-                    onClick={() => handleCollectionClick('remove', 'holofoil')}
-                  >-</button>
-                  <span className='variant variant-total'>
-                    {displayQuantities('holofoil')}
-                  </span>
-                  <button 
-                    className='collection-btn' 
-                    onClick={() => handleCollectionClick('add', 'holofoil')}
-                  >+</button>
-                </div>
-              </li>, 
-
-              <li key='1stEditionHolofoil' className='section-title'>
-              <span className='variant'>1st Edition Holofoil</span>
-              <div>
-                <button 
-                  className='collection-btn' 
-                  onClick={() => handleCollectionClick('remove', '1stEditionHolofoil')}
-                >-</button>
-                <span className='variant variant-total'>
-                  {displayQuantities('1stEditionHolofoil')}
-                </span>
-                <button 
-                  className='collection-btn' 
-                  onClick={() => handleCollectionClick('add', '1stEditionHolofoil')}
-                >+</button>
-              </div>
-            </li>, 
-
-            <li key='1stEditionNormal' className='section-title'>
-            <span className='variant'>1st Edition Normal</span>
-            <div>
-              <button 
-                className='collection-btn' 
-                onClick={() => handleCollectionClick('remove', '1stEditionNormal')}
-              >-</button>
-              <span className='variant variant-total'>
-                {displayQuantities('1stEditionNormal')}
-              </span>
-              <button 
-                className='collection-btn' 
-                onClick={() => handleCollectionClick('add', '1stEditionNormal')}
-              >+</button>
-            </div>
-          </li>, 
-                ].filter(li => {
-                  if (card.tcgplayer?.prices.hasOwnProperty(li.key)) return true;
-                })}
+                {variantList}
               </ul>
             : <ul>
                 <li>Normal</li>
