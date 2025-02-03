@@ -210,11 +210,7 @@ const Card = ({ user, setUser, applyCollection }) => {
             ? <ul>
                 {variantList}
               </ul>
-            : <ul>
-                <li>Normal</li>
-                <li>Reverse Holofoil</li>
-                <li>Holofoil</li>
-              </ul>
+            : <></>
             }
           </div>
         : <></>
