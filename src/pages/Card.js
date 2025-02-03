@@ -232,94 +232,35 @@ const Card = ({ user, setUser, applyCollection }) => {
           {card.tcgplayer?.prices 
             ?<div className="pricing-container">
             {/* Renders the prices for each card price type found */}
-            
-            {card.tcgplayer?.prices?.normal 
-            ? <div className="normal-price-container prices-container">
-                <div>
-                  <p className="price-title">Normal Market</p>
-                  <p className="price price-market">
-                    ${card.tcgplayer?.prices?.normal?.market?.toFixed(2)}
-                  </p>
+            {Object.keys(card.tcgplayer?.prices || {}).map(key => (
+                <div className={`${key}-price-container prices-container`}>
+                  <div>
+                    <p className="price-title">{formatLabel(key)} Market</p>
+                    <p className="price price-market">
+                      ${card.tcgplayer?.prices[key].market?.toFixed(2)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="price-title">{formatLabel(key)} Low</p>
+                    <p className="price price-low">
+                    ${card.tcgplayer?.prices[key].low?.toFixed(2)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="price-title">{formatLabel(key)} Mid</p>
+                    <p className="price price-mid">
+                    ${card.tcgplayer?.prices[key].mid?.toFixed(2)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="price-title">{formatLabel(key)} High</p>
+                    <p className="price price-high">
+                    ${card.tcgplayer?.prices[key].high?.toFixed(2)}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="price-title">Normal Low</p>
-                  <p className="price price-low">
-                    ${card.tcgplayer?.prices?.normal?.low?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Normal Mid</p>
-                  <p className="price price-mid">
-                    ${card.tcgplayer?.prices?.normal?.mid?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Normal High</p>
-                  <p className="price price-high">
-                    ${card.tcgplayer?.prices?.normal?.high?.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            : null}
-            
-            {card.tcgplayer?.prices?.holofoil 
-            ? <div className="holofoil-price-container prices-container">
-                <div>
-                  <p className="price-title">Holofoil Market</p>
-                  <p className="price price-market">
-                    ${card.tcgplayer?.prices?.holofoil?.market?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Holofoil Low</p>
-                  <p className="price price-low">
-                    ${card.tcgplayer?.prices?.holofoil?.low?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Holofoil Mid</p>
-                  <p className="price price-mid">
-                    ${card.tcgplayer?.prices?.holofoil?.mid?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Holofoil High</p>
-                  <p className="price price-high">
-                    ${card.tcgplayer?.prices?.holofoil?.high?.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            : null}
-            
-            {card.tcgplayer?.prices?.reverseHolofoil 
-            ? <div className="reverse-holofoil-price-container prices-container">
-                <div>
-                  <p className="price-title">Reverse Holofoil Market</p>
-                  <p className="price price-market">
-                    ${card.tcgplayer?.prices?.reverseHolofoil?.market?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Reverse Holofoil Low</p>
-                  <p className="price price-low">
-                    ${card.tcgplayer?.prices?.reverseHolofoil?.low?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Reverse Holofoil Mid</p>
-                  <p className="price price-mid">
-                    ${card.tcgplayer?.prices?.reverseHolofoil?.mid?.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="price-title">Reverse Holofoil High</p>
-                  <p className="price price-high">
-                    ${card.tcgplayer?.prices?.reverseHolofoil?.high?.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            : null}
-            
+              ))
+            }      
             </div>
             : <span class="no-prices">No Prices Found</span>
           }
