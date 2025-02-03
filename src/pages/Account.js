@@ -49,23 +49,23 @@ const Account = ({ checkingUser, user, setUser }) => {
             
 
             <div className='collection-info'>
-              <h3>Your Collection:</h3>
+              <h3>Your Collection</h3>
 
-              <div>
+              <div className='collection-item bottom-border'>
                 <h4>Total Cards:</h4>
-                <p className='num-display'>{getTotalCards(user.collection.sets)}</p>
+                <span className='num-display'>{getTotalCards(user.collection.sets)}</span>
               </div>
 
 
-              <div>
-                <h4>Total Unique Cards:</h4>
-                <p className='num-display'>{getTotalUniqueCards(user.collection.sets)}</p>
+              <div className='collection-item bottom-border'>
+                <h4>Unique Cards:</h4>
+                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
               </div>
 
 
               {/* Collection Value */}
-              <div>
-                <h4>Calculate your total collection's value</h4>
+              <div className='collection-item'>
+                <h4>Collection value</h4>
                 <div className='collection-value'>
                   {collectionValue < 0 && !calculating ?
                     <>
@@ -79,7 +79,7 @@ const Account = ({ checkingUser, user, setUser }) => {
                       >
                         Calculate Collection Value
                       </button>
-                      <small>*Please note that this may take up to several minutes*</small>
+                      <small>*This may take several minutes*</small>
                     </>
 
                     : <></>

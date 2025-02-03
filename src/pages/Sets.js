@@ -102,7 +102,6 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
                 <option value='oldest'>Oldest</option>
               </select>
             </div>
-            
             <ul className="sets-list">{mappedSets}</ul> 
           </>
         : <Loading />}
