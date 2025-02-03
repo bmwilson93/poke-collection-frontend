@@ -168,7 +168,7 @@ const Card = ({ user, setUser, applyCollection }) => {
 
         {/* Checkmark for collected card */}
         {card.collected 
-        ? <img src={checkmark} className='checkmark-card'/>
+        ? <img src={checkmark} alt={''} className='checkmark-card'/>
         : <></>}
       </div>
 
