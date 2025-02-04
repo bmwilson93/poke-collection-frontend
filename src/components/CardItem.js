@@ -3,17 +3,17 @@ import './css/CardItem.css';
 
 const CardItem = ({ name, setName, avgSellPrice, tcgPrices, imgSrc}) => {
   const displayAveragePrice = () => {
-    if (avgSellPrice) {
-      return avgSellPrice.toFixed(2);
-    } else { // No cardMarkent Avg price, check for tcgplayer prices instead
-      if (tcgPrices?.normal) {
-        return tcgPrices.normal.market.toFixed(2);
-      } else if (tcgPrices?.holofoil) {
-        return tcgPrices.holofoil.market.toFixed(2);
-      } else if (tcgPrices?.reverseHolofoil) {
-        return tcgPrices.reverseHolofoil.market.toFixed(2);
+    if (tcgPrices?.normal) {
+      return tcgPrices.normal.market.toFixed(2);
+    } else if (tcgPrices?.holofoil) {
+      return tcgPrices.holofoil.market.toFixed(2);
+    } else if (tcgPrices?.reverseHolofoil) {
+      return tcgPrices.reverseHolofoil.market.toFixed(2);
+    } else {
+      if (avgSellPrice) {
+        return avgSellPrice.toFixed(2);
       } else {
-        return 'NA'
+        return 'NA';
       }
     }
   }
