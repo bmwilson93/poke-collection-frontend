@@ -4,11 +4,11 @@ import './css/CardItem.css';
 const CardItem = ({ name, setName, avgSellPrice, tcgPrices, imgSrc}) => {
   const displayAveragePrice = () => {
     if (tcgPrices?.normal) {
-      return tcgPrices.normal.market.toFixed(2);
+      return tcgPrices?.normal?.market?.toFixed(2);
     } else if (tcgPrices?.holofoil) {
-      return tcgPrices.holofoil.market.toFixed(2);
+      return tcgPrices?.holofoil?.market?.toFixed(2);
     } else if (tcgPrices?.reverseHolofoil) {
-      return tcgPrices.reverseHolofoil.market.toFixed(2);
+      return tcgPrices?.reverseHolofoil?.market?.toFixed(2);
     } else {
       if (avgSellPrice) {
         return avgSellPrice.toFixed(2);
