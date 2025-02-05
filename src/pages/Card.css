@@ -21,6 +21,9 @@
   margin-right: 50px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 80%;
+  position: relative;
 }
 
 .card-image {
@@ -413,9 +416,4 @@
   top: -28px;
   /* border: 4px solid black; */
   /* border-radius: 50px; */
-}
-
-.image-container {
-  border: 1px solid orange;
-  position: relative;
 }
