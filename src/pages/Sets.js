@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
 import SetItem from '../components/SetItem';
 import './css/Sets.css'
@@ -8,7 +7,6 @@ import './css/Sets.css'
 import { fetchData } from '../utils/fetchData';
 
 const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
-  const navigate = useNavigate();
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   // const [selectedSort, setSelectedSort] = useState('newest');
 
