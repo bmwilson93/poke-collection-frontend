@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
+import SetItem from '../components/SetItem';
 import './css/Sets.css'
 
 import { fetchData } from '../utils/fetchData';
@@ -46,30 +47,7 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
   const mapSets = (allSets) => {
     return allSets.map((item) => {
       return (
-        <li 
-          className="set-li hover-grow" 
-          key={item.id} 
-          onClick={() => {
-            setCurrentSet(item.id); 
-            setSetsScrollValue(window.scrollY);
-            navigate(`/set/${item.id}`, {state:{set: item}});
-          }}
-        >
-          <div className="set-image-container">
-            <img className="set-img" src={item.images.logo} alt={item.name} width="100px"/>
-          </div>
-          <div className='info-container'>
-            <div className="name-container">
-              <div>
-                <img className='set-icon' src={item.images.symbol} alt=""/>
-              </div>
-              <div className="set-name">
-                <p>{item.name}</p>
-              </div>
-            </div>
-            <span className="release-date">Released {item.releaseDate}</span>
-          </div>
-        </li>
+        <SetItem set={item} setCurrentSet={setCurrentSet} setSetsScrollValue={setSetsScrollValue} />
       )
     });
   }
