@@ -35,6 +35,7 @@ function App() {
   const [recentSearch, setRecentSearch] = useState("");
   const [filterState, setFilterState] = useState('all');
   const [cardSort, setCardSort] = useState('number');
+  const [selectedSort, setSelectedSort] = useState('newest'); // Sort for sets
 
   const [search, setSearch] = useState("");
 
@@ -159,6 +160,8 @@ function App() {
         <Route 
           path="/sets" 
           element={<Sets 
+            selectedSort={selectedSort} 
+            setSelectedSort={setSelectedSort}
             sets={sets} 
             setSets={setSets} 
             setCurrentSet={setCurrentSet}
