@@ -26,6 +26,7 @@ import { setCollected } from './utils/setcollected';
 function App() {
   const location = useLocation();
 
+  // App wide states
   const [cards, setCards] = useState([]);
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
@@ -33,17 +34,14 @@ function App() {
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [recentSearch, setRecentSearch] = useState("");
-  const [filterState, setFilterState] = useState('all');
-  const [cardSort, setCardSort] = useState('number');
+  const [filterState, setFilterState] = useState('all'); // Filters for card list (IE: collected/not collected)
+  const [cardSort, setCardSort] = useState('number'); // Sort options for card list
   const [selectedSort, setSelectedSort] = useState('newest'); // Sort for sets
-
   const [search, setSearch] = useState("");
-
   const [user, setUser] = useState(null);
-  const [checkingUser, setCheckingUser] = useState(true)
-
-  const [scrollValue, setScrollValue] = useState(0)
-  const [setsScrollValue, setSetsScrollValue] = useState(0)
+  const [checkingUser, setCheckingUser] = useState(true);
+  const [scrollValue, setScrollValue] = useState(0);
+  const [setsScrollValue, setSetsScrollValue] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
