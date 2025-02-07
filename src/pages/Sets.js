@@ -8,7 +8,6 @@ import { fetchData } from '../utils/fetchData';
 
 const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
-  // const [selectedSort, setSelectedSort] = useState('newest');
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
