@@ -21,8 +21,7 @@ Backend code: [https://github.com/bmwilson93/poke-collection-backend](poke-colle
 - Calculate and display the current collection total value
 
 ## Planned Features and Updates
-- Update the Account page
-- Display the number of cards in the set on the sets page
+- Add more set sort and filter options
 - Add option to show # of cards collected in each set on sets page
 - Change password and email
 - Reset password functionality
