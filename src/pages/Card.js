@@ -1,6 +1,6 @@
 // Page that displays the detailed information for a specific card
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchAPI } from '../utils/fetchAPI';
 
@@ -11,10 +11,29 @@ import './Card.css';
 
 const Card = ({ user, setUser, applyCollection }) => {
   const location = useLocation();
-
   const [card, setCard] = useState(location.state.card)
-  // const card = location.state.card;
+  
   const navigate = useNavigate();
+  
+  // Get window size for rendering collection section
+  const getWindowSize = () => {
+    const {innerWidth, innerHeight} = window;
+    return {innerWidth, innerHeight};
+  }
+  
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
 
   // Card State - to track quantity chages for display
 
@@ -162,6 +181,22 @@ const Card = ({ user, setUser, applyCollection }) => {
   return (
     <div className="card-container">
 
+      {/* Collection Section - Only shows if screen is smaller than 820px wide */}
+      {user && windowSize.innerWidth <= 820
+        ? <div className="card-collection bottom-border">
+          <h2 className='price-header bold'>Your Collection</h2>
+          {/* If card has tcgplayer prices, use them to display card variants */}
+            {card.tcgplayer
+            ? <ul>
+                {variantList}
+              </ul>
+            : <></>
+            }
+          </div>
+        : <></>
+      }
+      
+
       {/* Card Image */}
       <div className="image-container">
         <img className="card-image" src={card.images.large} alt={card.name}/>
@@ -175,6 +210,8 @@ const Card = ({ user, setUser, applyCollection }) => {
       <div id='back-btn'>
       <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
       </div>
+
+      
 
       {/* Card Info */}
       <div className="card-info-container">
@@ -202,7 +239,7 @@ const Card = ({ user, setUser, applyCollection }) => {
         </div>
 
         {/* Card Collection Section */}
-        {user
+      {user && windowSize.innerWidth > 820
         ? <div className="card-collection bottom-border">
           <h2 className='price-header bold'>Your Collection</h2>
           {/* If card has tcgplayer prices, use them to display card variants */}
@@ -214,7 +251,7 @@ const Card = ({ user, setUser, applyCollection }) => {
             }
           </div>
         : <></>
-        }
+      }
 
         {/* Prices Section */}
         <div className="card-info-prices bottom-border">
