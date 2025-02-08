@@ -7,6 +7,8 @@ import { fetchAPI } from '../utils/fetchAPI';
 import { getTypeImage } from '../utils/getTypeImage';
 import checkmark from '../assets/check-circle-solid-48.png';
 
+import CardCollectionSection from '../components/CardCollectionSection';
+
 import './Card.css';
 
 const Card = ({ user, setUser, applyCollection }) => {
@@ -183,16 +185,7 @@ const Card = ({ user, setUser, applyCollection }) => {
 
       {/* Collection Section - Only shows if screen is smaller than 820px wide */}
       {user && windowSize.innerWidth <= 820
-        ? <div className="card-collection bottom-border">
-          <h2 className='price-header bold'>Your Collection</h2>
-          {/* If card has tcgplayer prices, use them to display card variants */}
-            {card.tcgplayer
-            ? <ul>
-                {variantList}
-              </ul>
-            : <></>
-            }
-          </div>
+        ? <CardCollectionSection />
         : <></>
       }
       
@@ -240,16 +233,7 @@ const Card = ({ user, setUser, applyCollection }) => {
 
         {/* Card Collection Section */}
       {user && windowSize.innerWidth > 820
-        ? <div className="card-collection bottom-border">
-          <h2 className='price-header bold'>Your Collection</h2>
-          {/* If card has tcgplayer prices, use them to display card variants */}
-            {card.tcgplayer
-            ? <ul>
-                {variantList}
-              </ul>
-            : <></>
-            }
-          </div>
+        ? <CardCollectionSection />
         : <></>
       }
 
