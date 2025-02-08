@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 
-
 import { getTypeImage } from '../utils/getTypeImage';
+import { formatLabel } from '../utils/formatLabel';
 import checkmark from '../assets/check-circle-solid-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
@@ -36,14 +36,6 @@ const Card = ({ user, setUser }) => {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
-
-
-  // Format the Variant names for display to user
-  const formatLabel = (key) => {
-    return key
-      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
-      .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
-  };
 
   
   // Map each of the card details (attacks, abilities, rules, etc...)
@@ -107,7 +99,6 @@ const Card = ({ user, setUser }) => {
       {user && windowSize.innerWidth <= 820
         ? <CardCollectionSection 
             card={card} 
-            formatLabel={formatLabel}
             setUser={setUser}
             setCard={setCard}
           />
@@ -157,7 +148,6 @@ const Card = ({ user, setUser }) => {
         {user && windowSize.innerWidth > 820
         ? <CardCollectionSection 
             card={card} 
-            formatLabel={formatLabel}
             setUser={setUser}
             setCard={setCard}
           />
