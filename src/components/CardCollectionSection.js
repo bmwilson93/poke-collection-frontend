@@ -1,7 +1,8 @@
 import { fetchAPI } from '../utils/fetchAPI';
+import { formatLabel } from '../utils/formatLabel';
 
   
-const CardCollectionSection = ({ card, formatLabel, setUser, setCard }) => {
+const CardCollectionSection = ({ card, setUser, setCard }) => {
 
   // runs the call to the backend to update the collection
   const handleCollectionClick = async (action, variant) => {
