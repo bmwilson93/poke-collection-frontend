@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchAPI } from '../utils/fetchAPI';
+
 
 import { getTypeImage } from '../utils/getTypeImage';
 import checkmark from '../assets/check-circle-solid-48.png';
@@ -11,11 +11,12 @@ import CardCollectionSection from '../components/CardCollectionSection';
 
 import './Card.css';
 
-const Card = ({ user, setUser, applyCollection }) => {
+const Card = ({ user, setUser }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [card, setCard] = useState(location.state.card)
   
-  const navigate = useNavigate();
   
   // Get window size for rendering collection section
   const getWindowSize = () => {
@@ -37,67 +38,14 @@ const Card = ({ user, setUser, applyCollection }) => {
   }, []);
 
 
-  // Card State - to track quantity chages for display
+  // Format the Variant names for display to user
+  const formatLabel = (key) => {
+    return key
+      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+      .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
+  };
 
-  const subtypes = card.subtypes ? card.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
-
-  // runs the call to the backend to update the collection
-  const handleCollectionClick = async (action, variant) => {
-    const body = JSON.stringify({
-      "card_id": card.id,
-      "set_id": card.set.id,
-      "variant": variant
-    })
-    const response = await fetchAPI(`collection/${action}`, 'POST', body)
-    setUser(response);
-
-    //update the card state
-    setCard(prevCard => {
-
-      if (!prevCard.collected) {
-
-        prevCard.collected = true;
-        prevCard.collectedQuantities = [{[variant]: 1}]
-
-      } else {
-
-        let found = false;
-        for (let i = 0; i < prevCard.collectedQuantities.length; i++) {
-          if (Object.hasOwn(prevCard.collectedQuantities[i], variant)) {
-            found = true;
-            if (action === "add" ) {
-              prevCard.collectedQuantities[i][variant]++;
-            } else { // remove
-              prevCard.collectedQuantities[i][variant]--;
-              if (prevCard.collectedQuantities[i][variant] === 0) prevCard.collectedQuantities.splice(i, 1)
-              if (prevCard.collectedQuantities.length < 1) {
-                delete prevCard.collected;
-              }
-            }
-          }
-        }
-
-        if (!found && action === "add") { // variant not found, add it to the collectedQuantities array
-          prevCard.collectedQuantities.push({[variant]: 1})
-        }
-      }
-
-
-      return prevCard;
-    })
-  }  
-
-
-  // Displays the collected qty
-  const displayQuantities = (variant) => {
-    if (card.collectedQuantities) {
-      for (let i = 0; i < card.collectedQuantities.length; i++) {
-        if (Object.hasOwn(card.collectedQuantities[i], variant)) return card.collectedQuantities[i][variant];
-      }
-    }
-    return 0;
-  }
-
+  
   // Map each of the card details (attacks, abilities, rules, etc...)
   const abilities = (card.abilities 
     ? card.abilities.map((ability) => {
@@ -149,47 +97,23 @@ const Card = ({ user, setUser, applyCollection }) => {
   }) : null
   )
 
-  // Format and Map the Add to Collection Variant Buttons
-  const formatLabel = (key) => {
-    return key
-      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
-      .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
-  };
+  const subtypes = card.subtypes ? card.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
+
   
-  const variantList = Object.keys(card.tcgplayer?.prices || {}).map(key => (
-    <li key={key} className='section-title'>
-      <span className='variant'>{formatLabel(key)}</span>
-      <div>
-        <button
-          className='collection-btn'
-          onClick={() => handleCollectionClick('remove', key)}
-        >
-          -
-        </button>
-        <span className='variant variant-total'>
-          {displayQuantities(key)}
-        </span>
-        <button
-          className='collection-btn'
-          onClick={() => handleCollectionClick('add', key)}
-        >
-          +
-        </button>
-      </div>
-    </li>
-  ));
-
-
   return (
     <div className="card-container">
 
       {/* Collection Section - Only shows if screen is smaller than 820px wide */}
       {user && windowSize.innerWidth <= 820
-        ? <CardCollectionSection />
+        ? <CardCollectionSection 
+            card={card} 
+            formatLabel={formatLabel}
+            setUser={setUser}
+            setCard={setCard}
+          />
         : <></>
       }
       
-
       {/* Card Image */}
       <div className="image-container">
         <img className="card-image" src={card.images.large} alt={card.name}/>
@@ -203,8 +127,6 @@ const Card = ({ user, setUser, applyCollection }) => {
       <div id='back-btn'>
       <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
       </div>
-
-      
 
       {/* Card Info */}
       <div className="card-info-container">
@@ -232,8 +154,13 @@ const Card = ({ user, setUser, applyCollection }) => {
         </div>
 
         {/* Card Collection Section */}
-      {user && windowSize.innerWidth > 820
-        ? <CardCollectionSection />
+        {user && windowSize.innerWidth > 820
+        ? <CardCollectionSection 
+            card={card} 
+            formatLabel={formatLabel}
+            setUser={setUser}
+            setCard={setCard}
+          />
         : <></>
       }
 
