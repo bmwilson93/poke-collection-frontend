@@ -104,6 +104,10 @@ const Card = ({ user, setUser }) => {
           />
         : <></>
       }
+
+      <div id='back-btn'>
+        <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
+      </div>
       
       {/* Card Image */}
       <div className="image-container">
@@ -115,9 +119,7 @@ const Card = ({ user, setUser }) => {
         : <></>}
       </div>
 
-      <div id='back-btn'>
-      <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
-      </div>
+      
 
       {/* Card Info */}
       <div className="card-info-container">
