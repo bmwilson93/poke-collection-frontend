@@ -65,7 +65,7 @@ const CardCollectionSection = ({ card, setUser, setCard }) => {
   const variantList = Object.keys(card.tcgplayer?.prices || {})
   .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
   .map(key => (
-    <li key={key} className='section-title'>
+    <li key={key} className='li-variant'>
       <span className='variant'>{formatLabel(key)}</span>
       <div>
         <button
