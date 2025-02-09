@@ -1,6 +1,8 @@
 import { fetchAPI } from '../utils/fetchAPI';
 import { formatLabel } from '../utils/formatLabel';
 
+const variants = ['normal', 'holofoil', 'reverseHolofoil', 'unlimitedNormal', 'unlimitedHolofoil', '1stEditionNormal', '1stEditionHolofoil'];
+
   
 const CardCollectionSection = ({ card, setUser, setCard }) => {
 
@@ -60,7 +62,9 @@ const CardCollectionSection = ({ card, setUser, setCard }) => {
     return 0;
   }
 
-  const variantList = Object.keys(card.tcgplayer?.prices || {}).map(key => (
+  const variantList = Object.keys(card.tcgplayer?.prices || {})
+  .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
+  .map(key => (
     <li key={key} className='section-title'>
       <span className='variant'>{formatLabel(key)}</span>
       <div>
