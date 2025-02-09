@@ -217,6 +217,7 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
+  margin-bottom: 10px;
   align-items: center;
   /* border: 1px solid orange; */
 }
@@ -244,6 +245,15 @@
 
 .variant {
   font-size: 18px;
+}
+
+.card-collection > ul > li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.li-variant:last-child {
+  border: none;
+  padding-bottom: 0;
 }
 
 .checkmark-card {
