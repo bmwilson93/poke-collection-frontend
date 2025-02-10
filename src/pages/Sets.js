@@ -8,6 +8,7 @@ import { fetchData } from '../utils/fetchData';
 
 const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
+  const [series, setSeries] = useState([])
   const [setsFilter, setSetsFilter] = useState('All')
 
   const fetchSets = async () => {
@@ -27,15 +28,15 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
   };
 
   const getSeries = (setList) => {
-    let series = [];
+    let seriesArray = [];
     for (let i = 0; i < setList.length; i++) {
-      if (series.indexOf(setList[i].series) < 0) {
-        series.push(setList[i].series)
+      if (seriesArray.indexOf(setList[i].series) < 0) {
+        seriesArray.push(setList[i].series)
       }
     }
-    series.push("All");
-    series.reverse();
-    console.log(series);
+    seriesArray.push("All");
+    seriesArray.reverse();
+    setSeries(seriesArray);
   }
 
 
