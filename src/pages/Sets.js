@@ -55,6 +55,10 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
     setTimeout(() => {window.scrollTo(0, setsScrollValue)}, 10);
   }, []);
 
+  // Update the mapped Sets when sort or filter is updated
+  useEffect(() => {
+    handleDisplaySets();
+  }, [selectedSort, seriesFilter])
 
   const mapSets = (allSets) => {
     return allSets.map((item) => {
@@ -76,6 +80,11 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
   const handleSeriesFilterChange = (e) => {
     setSeriesFilter(e.target.value)
     // filter the mapped sets by the series
+    setMappedSets()
+  }
+
+  const handleDisplaySets = () => {
+    // do the logic for filtering and sorting here
   }
 
   return (
@@ -91,7 +100,7 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
               <p>Sort by Release Date: </p>
               <select
                 value={selectedSort}
-                onChange={(e) => {handleSortChange(e)}}
+                onChange={(e) => {setSelectedSort(e.target.value)}}
               >
                 <option value='newest'>Newest</option>
                 <option value='oldest'>Oldest</option>
@@ -102,7 +111,7 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
               <p>Filter by Series: </p>
               <select
                 value={seriesFilter}
-                onChange={(e) => {handleSeriesFilterChange(e)}}
+                onChange={(e) => {setSeriesFilter(e.target.value)}}
               >
                 {series.map(serie => (<option value={serie}>{serie}</option>))}
               </select>
