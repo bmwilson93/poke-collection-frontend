@@ -37,6 +37,7 @@ function App() {
   const [filterState, setFilterState] = useState('all'); // Filters for card list (IE: collected/not collected)
   const [cardSort, setCardSort] = useState('number'); // Sort options for card list
   const [selectedSort, setSelectedSort] = useState('newest'); // Sort for sets
+  const [seriesFilter, setSeriesFilter] = useState('All') // Filter for sets by series
   const [search, setSearch] = useState("");
   const [user, setUser] = useState(null);
   const [checkingUser, setCheckingUser] = useState(true);
@@ -158,6 +159,8 @@ function App() {
         <Route 
           path="/sets" 
           element={<Sets 
+            seriesFilter={seriesFilter}
+            setSeriesFilter={setSeriesFilter}
             selectedSort={selectedSort} 
             setSelectedSort={setSelectedSort}
             sets={sets} 

@@ -6,10 +6,9 @@ import './css/Sets.css'
 
 import { fetchData } from '../utils/fetchData';
 
-const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
+const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
-  const [seriesFilter, setSeriesFilter] = useState('All')
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
