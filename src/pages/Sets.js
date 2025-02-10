@@ -84,7 +84,20 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
   }
 
   const handleDisplaySets = () => {
-    // do the logic for filtering and sorting here
+    // filter then sort and map
+    let filteredSets = [];
+
+    if (seriesFilter != "All") {
+      filteredSets = sets.filter(set => set.series === seriesFilter);
+    } else {
+      filteredSets.push(...sets)
+    }
+
+    if (selectedSort === 'oldest') {
+      setMappedSets(mapSets(filteredSets.toReversed()));
+    } else {
+      setMappedSets(mapSets(filteredSets));
+    }
   }
 
   return (
