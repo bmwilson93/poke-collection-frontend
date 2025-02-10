@@ -45,11 +45,8 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
     if (sets.length < 1) {
       fetchSets();
     } else {
-      if (selectedSort == 'oldest') {
-        setMappedSets(mapSets(sets.toReversed()));
-      } else {
-        setMappedSets(mapSets(sets));
-      }
+      getSeries(sets);
+      handleDisplaySets();
     }
     
     setTimeout(() => {window.scrollTo(0, setsScrollValue)}, 10);
@@ -68,20 +65,6 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
     });
   }
   
-  const handleSortChange = (e) => {
-    setSelectedSort(e.target.value)
-    if (e.target.value === "oldest") {
-      setMappedSets(mapSets(sets.toReversed()));
-    } else {
-      setMappedSets(mapSets(sets));
-    }
-  }
-
-  const handleSeriesFilterChange = (e) => {
-    setSeriesFilter(e.target.value)
-    // filter the mapped sets by the series
-    setMappedSets()
-  }
 
   const handleDisplaySets = () => {
     // filter then sort and map
