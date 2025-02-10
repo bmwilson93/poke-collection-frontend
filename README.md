@@ -28,6 +28,6 @@ Backend code: [https://github.com/bmwilson93/poke-collection-backend](poke-colle
 - Dynamic routes will load the data base on the url
 - Add cardmarket prices if tcgplayer info is missing on card page
 - Add wanted cards tracking and functionality
-
+- Share collections between accounts
 
 **This website is not produced, endorsed, supported, or affiliated with Nintendo or the Pokémon Company.**
