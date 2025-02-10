@@ -1,22 +1,23 @@
-import React from 'react'
+import { formatLabel } from '../utils/formatLabel';
 
-const CollectionVariant = ({ key }) => {
+const CollectionVariant = ({ variant, handleCollectionClick, displayQuantities }) => {
+
   return (
-    <li key={key} className='li-variant'>
-      <span className='variant'>{formatLabel(key)}</span>
+    <li key={variant} className='li-variant'>
+      <span className='variant'>{formatLabel(variant)}</span>
       <div>
         <button
           className='collection-btn'
-          onClick={() => handleCollectionClick('remove', key)}
+          onClick={() => handleCollectionClick('remove', variant)}
         >
           -
         </button>
         <span className='variant variant-total'>
-          {displayQuantities(key)}
+          {displayQuantities(variant)}
         </span>
         <button
           className='collection-btn'
-          onClick={() => handleCollectionClick('add', key)}
+          onClick={() => handleCollectionClick('add', variant)}
         >
           +
         </button>
