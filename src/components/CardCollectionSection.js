@@ -80,7 +80,14 @@ const CardCollectionSection = ({ card, setUser, setCard }) => {
         ? <ul>
             {variantList}
           </ul>
-        : <></>
+        : <ul>
+            {Object.keys({'normal':"", 'holofoil':"", 'reverseHolofoil':""})
+            .map(key => (<CollectionVariant 
+                variant={key} 
+                handleCollectionClick={handleCollectionClick}
+                displayQuantities={displayQuantities} 
+              />))}
+          </ul>
         }
     </div>
   )
