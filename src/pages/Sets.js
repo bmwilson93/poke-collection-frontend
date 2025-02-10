@@ -8,6 +8,7 @@ import { fetchData } from '../utils/fetchData';
 
 const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
+  const [setsFilter, setSetsFilter] = useState('All')
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
@@ -17,12 +18,25 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
     if ('error' in responseData) {
       console.log("found an error");
     } else {
+      getSeries(responseData.data);
       const orderedData = responseData.data;
       orderedData.reverse(); // sets are giving by release date, reversing puts the newest sets first
       setSets(orderedData);
       setMappedSets(mapSets(orderedData));
     }
   };
+
+  const getSeries = (setList) => {
+    let series = [];
+    for (let i = 0; i < setList.length; i++) {
+      if (series.indexOf(setList[i].series) < 0) {
+        series.push(setList[i].series)
+      }
+    }
+    series.push("All");
+    series.reverse();
+    console.log(series);
+  }
 
 
   // Fetch all sets on load if not already fetched
@@ -77,6 +91,7 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
                 <option value='oldest'>Oldest</option>
               </select>
             </div>
+
             <ul className="sets-list">{mappedSets}</ul> 
           </>
         : <Loading />}
