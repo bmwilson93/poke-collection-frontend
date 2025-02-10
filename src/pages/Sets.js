@@ -9,7 +9,7 @@ import { fetchData } from '../utils/fetchData';
 const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
-  const [setsFilter, setSetsFilter] = useState('All')
+  const [seriesFilter, setSeriesFilter] = useState('All')
 
   const fetchSets = async () => {
     const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
@@ -73,6 +73,11 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
     }
   }
 
+  const handleSeriesFilterChange = (e) => {
+    setSeriesFilter(e.target.value)
+    // filter the mapped sets by the series
+  }
+
   return (
     <div className='sets-container full-height'>
 
@@ -83,13 +88,23 @@ const Sets = ({ selectedSort, setSelectedSort, sets, setSets, setCurrentSet, set
         {sets.length > 0 
         ? <>
             <div className='sort-container'>
-              <p>Sort by Release Date: {}</p>
+              <p>Sort by Release Date: </p>
               <select
                 value={selectedSort}
                 onChange={(e) => {handleSortChange(e)}}
               >
                 <option value='newest'>Newest</option>
                 <option value='oldest'>Oldest</option>
+              </select>
+            </div>
+
+            <div className='sort-container series-filter-container'>
+              <p>Filter by Series: </p>
+              <select
+                value={seriesFilter}
+                onChange={(e) => {handleSeriesFilterChange(e)}}
+              >
+                {series.map(serie => (<option value={serie}>{serie}</option>))}
               </select>
             </div>
 
