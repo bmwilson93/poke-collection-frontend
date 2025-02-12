@@ -83,6 +83,16 @@
   font-weight: 600;
 }
 
+.sort-container {
+  display: flex;
+  gap: 50px;
+}
+
+.sort-item {
+  display: flex;
+  gap: 10px;
+}
+
 
 /* Media Queries */
 @media (max-width: 1200px) {
@@ -96,9 +106,9 @@
     grid-template-columns: 1fr;
   }
 
-  .sets-container .sort-container {
+  /* .sets-container .sort-container {
     justify-content: center;
-  }
+  } */
 }
 
 @media (max-width: 480px) {
