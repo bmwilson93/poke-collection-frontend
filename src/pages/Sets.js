@@ -44,7 +44,7 @@ const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, se
     if (sets.length < 1) {
       fetchSets();
     } else {
-      getSeries(sets);
+      getSeries(sets.toReversed());
       handleDisplaySets();
     }
     
