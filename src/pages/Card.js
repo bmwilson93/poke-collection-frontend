@@ -1,10 +1,11 @@
 // Page that displays the detailed information for a specific card
 
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import { getTypeImage } from '../utils/getTypeImage';
 import { formatLabel } from '../utils/formatLabel';
+import { fetchData } from '../utils/fetchData';
 import checkmark from '../assets/check-circle-solid-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
@@ -14,8 +15,26 @@ import './Card.css';
 const Card = ({ user, setUser }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const [card, setCard] = useState(location.state.card)
+  const getTheCard = async () => {
+    console.log("get the card")
+    const url = 'https://api.pokemontcg.io/v2/cards/' + id;
+    const response = await fetchData(url);
+    console.log(response);
+    if ('error' in response) {
+      console.log("found an error");
+    } else {
+      console.log('need to navigate')
+        // setCard(response);
+        // return response;
+      navigate(`/card/${response.data.id}`, {state:{card: response.data}})
+      navigate(0);
+    }
+
+  }
+
+  const [card, setCard] = useState(location?.state?.card || {})
   
   
   // Get window size for rendering collection section
@@ -37,10 +56,18 @@ const Card = ({ user, setUser }) => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("fresh load")
+
+    if (!card.id) {
+      getTheCard();
+    }
+  },[])
+
   
   // Map each of the card details (attacks, abilities, rules, etc...)
-  const abilities = (card.abilities 
-    ? card.abilities.map((ability) => {
+  const abilities = (card?.abilities 
+    ? card?.abilities.map((ability) => {
       return (
         <li>
           <div className="ability-container">
@@ -52,8 +79,8 @@ const Card = ({ user, setUser }) => {
     }) 
     : null)
 
-  const attacks = (card.attacks 
-    ? card.attacks.map((attack) => {
+  const attacks = (card?.attacks 
+    ? card?.attacks.map((attack) => {
       return (
         <li>
           <div className="attack-container">
@@ -82,14 +109,14 @@ const Card = ({ user, setUser }) => {
     }) : null
   )
 
-  const rules = (card.rules ? card.rules.map((rule) => {
+  const rules = (card?.rules ? card?.rules.map((rule) => {
     return (
       <li className="info-item">{rule}</li>
     )
   }) : null
   )
 
-  const subtypes = card.subtypes ? card.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
+  const subtypes = card?.subtypes ? card?.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
 
   
   return (
@@ -106,15 +133,15 @@ const Card = ({ user, setUser }) => {
       }
 
       <div id='back-btn'>
-        <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
+        <button onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}>&lt; Back to Cards</button>
       </div>
       
       {/* Card Image */}
       <div className="image-container">
-        <img className="card-image" src={card.images.large} alt={card.name}/>
+        <img className="card-image" src={card?.images?.large} alt={card?.name}/>
 
         {/* Checkmark for collected card */}
-        {card.collected 
+        {card?.collected 
         ? <img src={checkmark} alt={''} className='checkmark-card'/>
         : <></>}
       </div>
@@ -130,17 +157,17 @@ const Card = ({ user, setUser }) => {
             <h1 className="card-name">{card.name}</h1>
             
             <span className="card-type">
-              {card.supertype} {card.subtypes ?  <> - {subtypes}</> : ""}
+              {card?.supertype} {card?.subtypes ?  <> - {subtypes}</> : ""}
             </span>
           
           </div>
           <div className="card-hp-container">
-            {card.hp 
-              ? <span className="card-hp">HP {card.hp}</span>
+            {card?.hp 
+              ? <span className="card-hp">HP {card?.hp}</span>
               : null
             }
-            {card.types 
-              ? <img className="type-image"src={getTypeImage(card.types[0])} alt=""/>
+            {card?.types 
+              ? <img className="type-image"src={getTypeImage(card?.types[0])} alt=""/>
               : null
             }
           </div>
@@ -159,39 +186,39 @@ const Card = ({ user, setUser }) => {
         {/* Prices Section */}
         <div className="card-info-prices bottom-border">
           <h2 className="price-header bold">Prices</h2>
-          {card.tcgplayer
-            ? <a href={card.tcgplayer?.url} className='bold' target='_blank' rel="noreferrer">Buy Now From TCGPlayer</a>
+          {card?.tcgplayer
+            ? <a href={card?.tcgplayer?.url} className='bold' target='_blank' rel="noreferrer">Buy Now From TCGPlayer</a>
             : <></>}
-          <p className="update-date">Last Updated {card.tcgplayer?.updatedAt}</p>
+          <p className="update-date">Last Updated {card?.tcgplayer?.updatedAt}</p>
 
           {/* Check if card has TCGplayer section */}
-          {card.tcgplayer?.prices 
+          {card?.tcgplayer?.prices 
             ?<div className="pricing-container">
             {/* Renders the prices for each card price type found */}
-            {Object.keys(card.tcgplayer?.prices || {}).map(key => (
+            {Object.keys(card?.tcgplayer?.prices || {}).map(key => (
                 <div className={`${key}-price-container prices-container`}>
                   <div>
                     <p className="price-title">{formatLabel(key)} Market</p>
                     <p className="price price-market">
-                      ${card.tcgplayer?.prices[key].market?.toFixed(2)}
+                      ${card?.tcgplayer?.prices[key].market?.toFixed(2)}
                     </p>
                   </div>
                   <div>
                     <p className="price-title">{formatLabel(key)} Low</p>
                     <p className="price price-low">
-                    ${card.tcgplayer?.prices[key].low?.toFixed(2)}
+                    ${card?.tcgplayer?.prices[key].low?.toFixed(2)}
                     </p>
                   </div>
                   <div>
                     <p className="price-title">{formatLabel(key)} Mid</p>
                     <p className="price price-mid">
-                    ${card.tcgplayer?.prices[key].mid?.toFixed(2)}
+                    ${card?.tcgplayer?.prices[key].mid?.toFixed(2)}
                     </p>
                   </div>
                   <div>
                     <p className="price-title">{formatLabel(key)} High</p>
                     <p className="price price-high">
-                    ${card.tcgplayer?.prices[key].high?.toFixed(2)}
+                    ${card?.tcgplayer?.prices[key].high?.toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -205,7 +232,7 @@ const Card = ({ user, setUser }) => {
 
         {/* Card Details Section */}
         <div className="card-info-details">
-          {card.abilities
+          {card?.abilities
           ? <div className="card-abilities info-section">
               <p className="section-title">Abilities</p>
               <ul className="card-info-list">
@@ -215,7 +242,7 @@ const Card = ({ user, setUser }) => {
           : <></>
           }
 
-          {card.attacks
+          {card?.attacks
           ? <div className="card-attacks info-section">
               <p className="section-title">Attacks</p>
               <ul className="card-info-list">
@@ -225,7 +252,7 @@ const Card = ({ user, setUser }) => {
           : <></>
           }
 
-          {card.rules
+          {card?.rules
           ? <div className="card-rules info-section">
               <p className="section-title">Rules</p>
               <ul className="card-info-list">{rules}</ul>
@@ -239,24 +266,24 @@ const Card = ({ user, setUser }) => {
             <div className="info-line1 info-line section-title">
               <div className="weakness-container">
                 <p>Weakness</p>
-                {card.weaknesses 
-                  ? <ul>{card.weaknesses.map((item) => <li><img className="type-image" src={getTypeImage(item.type)} alt={item.type}/><span className="type-value">{item.value}</span></li>)}</ul> 
+                {card?.weaknesses 
+                  ? <ul>{card?.weaknesses.map((item) => <li><img className="type-image" src={getTypeImage(item.type)} alt={item.type}/><span className="type-value">{item.value}</span></li>)}</ul> 
                   : <p>N/A</p>
                 }
               </div>
 
               <div className="resistance-container">
                 <p>Resistance</p>
-                {card.resistances 
-                  ? <ul id="resistance-list">{card.resistances.map((item) => <li><img className="type-image" src={getTypeImage(item.type)} alt={item.type}/><span className="type-value">{item.value}</span></li>)}</ul> 
+                {card?.resistances 
+                  ? <ul id="resistance-list">{card?.resistances.map((item) => <li><img className="type-image" src={getTypeImage(item.type)} alt={item.type}/><span className="type-value">{item.value}</span></li>)}</ul> 
                   : <p>N/A</p>
                 }
               </div>
 
               <div className="retreat-cost-container">
                 <p>Retreat Cost</p>
-                {card.retreatCost 
-                  ? <ul>{card.retreatCost.map((item) => <li><img className="type-image" src={getTypeImage(item)} alt={item}/></li>)}</ul> 
+                {card?.retreatCost 
+                  ? <ul>{card?.retreatCost.map((item) => <li><img className="type-image" src={getTypeImage(item)} alt={item}/></li>)}</ul> 
                   : <p>N/A</p>
                 }
               </div>
@@ -265,19 +292,19 @@ const Card = ({ user, setUser }) => {
             <div className="info-line2 info-line">
               <div className="center-text">
                 <p>Artist</p>
-                {card.artist ? card.artist : "N/A"}
+                {card?.artist ? card?.artist : "N/A"}
               </div>
               <div className="center-text">
                 <p>Rarity</p>
-                {card.rarity}
+                {card?.rarity}
               </div>
               <div className="center-text">
                 <p>Set</p>
                 <div className="card-set-container link"
-                  onClick={() => navigate(`/set/${card.set.id}`, {state:{set: card.set}})}
+                  onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}
                 >
-                  <span>{card.set.name}</span>
-                  <img src={card.set.images.symbol} alt="" width="30px"/>
+                  <span>{card?.set?.name}</span>
+                  <img src={card?.set?.images?.symbol} alt="" width="30px"/>
                 </div>
               </div>
             </div>
@@ -285,7 +312,7 @@ const Card = ({ user, setUser }) => {
             <div>
               <div className="card-number-container center-text">
                 <p>Number</p>
-                <p>{card.number} / {card.set.printedTotal}</p>
+                <p>{card?.number} / {card?.set?.printedTotal}</p>
               </div>
             </div>
           </div>
