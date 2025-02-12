@@ -91,26 +91,31 @@ const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, se
         {/* If no sets, display Loading component */}
         {sets.length > 0 
         ? <>
-            <div className='sort-container'>
-              <p>Sort by Release Date: </p>
-              <select
-                value={selectedSort}
-                onChange={(e) => {setSelectedSort(e.target.value)}}
-              >
-                <option value='newest'>Newest</option>
-                <option value='oldest'>Oldest</option>
-              </select>
-            </div>
+          <div className="sort-container">
 
-            <div className='sort-container series-filter-container'>
-              <p>Filter by Series: </p>
-              <select
-                value={seriesFilter}
-                onChange={(e) => {setSeriesFilter(e.target.value)}}
-              >
-                {series.map(serie => (<option value={serie}>{serie}</option>))}
-              </select>
-            </div>
+            <div className='sort-item'>
+                <p>Sort by Release Date: </p>
+                <select
+                  value={selectedSort}
+                  onChange={(e) => {setSelectedSort(e.target.value)}}
+                >
+                  <option value='newest'>Newest</option>
+                  <option value='oldest'>Oldest</option>
+                </select>
+              </div>
+
+              <div className='sort-item series-filter-container'>
+                <p>Filter by Series: </p>
+                <select
+                  value={seriesFilter}
+                  onChange={(e) => {setSeriesFilter(e.target.value)}}
+                >
+                  {series.map(serie => (<option value={serie}>{serie}</option>))}
+                </select>
+              </div>
+
+          </div>
+            
 
             <ul className="sets-list">{mappedSets}</ul> 
           </>
