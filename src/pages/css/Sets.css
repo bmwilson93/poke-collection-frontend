@@ -106,9 +106,10 @@
     grid-template-columns: 1fr;
   }
 
-  /* .sets-container .sort-container {
-    justify-content: center;
-  } */
+  .sort-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (max-width: 480px) {
