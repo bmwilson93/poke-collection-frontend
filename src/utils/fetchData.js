@@ -4,9 +4,19 @@ const options = {
   }
 }
 
-export const fetchData = async (url) => {
+const fetchData = async (url) => {
   const response = await fetch(url, options);
   const data = await response.json();
 
   return data;
 }
+
+const getCards = async (search) => {
+
+}
+
+const getSets = async () => {
+
+}
+
+export {getCards, getSets}
