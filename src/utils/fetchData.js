@@ -21,10 +21,7 @@ const getCardsBySet = async () => {
 const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
   let searchUrl = url + 'cards?q=name:*' + search + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate';
   let cards = await fetchData(searchUrl);
-  if ('error' in cards) {
-    return [];
-  }
-  return cards.data;
+  return cards;
 }
 
 const getSets = async () => {
