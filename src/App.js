@@ -86,8 +86,6 @@ function App() {
 
   useEffect(() => applyCollection(), [user]);
 
-  const url = "https://api.pokemontcg.io/v2/";
-
 
   // Call API to get results for search (search from Searchbar.js)
   const getCards = async (search, page=1) => {
@@ -95,7 +93,7 @@ function App() {
     setCardCount(-1);
 
     let result = await getCardsBySearch(search.replace(/ /g, '.'), page);
-    
+
     if ('error' in result) {
       console.log("Error with searching cards.");
     } else {
