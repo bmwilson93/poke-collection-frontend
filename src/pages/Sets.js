@@ -4,23 +4,21 @@ import Loading from '../components/Loading';
 import SetItem from '../components/SetItem';
 import './css/Sets.css'
 
-import { fetchData } from '../utils/fetchData';
+import { getSets } from '../utils/fetchData';
 
 const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
 
   const fetchSets = async () => {
-    const url = "https://api.pokemontcg.io/v2/sets?orderBy=releaseDate";
+    let response = await getSets();
 
-    let responseData = await fetchData(url);
-
-    if ('error' in responseData) {
-      console.log("found an error");
+    if ('error' in response) {
+      console.log("Error getting the sets");
     } else {
-      getSeries(responseData.data);
-      const orderedData = responseData.data;
-      orderedData.reverse(); // sets are giving by release date, reversing puts the newest sets first
+      getSeries(response.data);
+      let orderedData = response.data;
+      orderedData.reverse();
       setSets(orderedData);
       setMappedSets(mapSets(orderedData));
     }
