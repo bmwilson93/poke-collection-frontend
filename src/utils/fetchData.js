@@ -24,7 +24,8 @@ const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
 }
 
 const getSets = async () => {
-
+  let setUrl = url + 'sets?orderBy=releaseDate';
+  return await fetchData(setUrl);
 }
 
 export {getCardsBySearch, getCardsBySet, getSets, fetchData}
