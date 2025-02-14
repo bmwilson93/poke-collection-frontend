@@ -92,7 +92,7 @@ function App() {
     setCards([]);
     setCardCount(-1);
 
-    let result = await getCardsBySearch(search.replace(/ /g, '.'), page);
+    let result = await getCardsBySearch(search, page);
 
     if ('error' in result) {
       console.log("Error with searching cards.");
