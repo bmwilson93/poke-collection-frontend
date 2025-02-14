@@ -1,3 +1,5 @@
+const url = "https://api.pokemontcg.io/v2/";
+
 const options = {
   headers: {
     'X-Api-Key': process.env.REACT_APP_API_KEY,
