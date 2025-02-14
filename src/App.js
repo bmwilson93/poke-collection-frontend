@@ -18,7 +18,7 @@ import SIgnup from './pages/SIgnup';
 import Account from './pages/Account';
 import NoPage from './pages/NoPage';
 
-import { fetchData } from './utils/fetchData';
+import { getCardsBySearch } from './utils/fetchData';
 import { setCollected } from './utils/setcollected';
 
 
@@ -93,26 +93,16 @@ function App() {
   const getCards = async (search, page=1) => {
     setCards([]);
     setCardCount(-1);
+
+    let result = await getCardsBySearch(search.replace(/ /g, '.'), page);
     
-    //build the url with search query
-    let fixedSearch = search.replace(/ /g, '.')
-    let searchTerm = "cards?q=name:*" + fixedSearch + "*" + "&page=" + page + "&pageSize=25" + "&orderBy=set.releaseDate"
-    let query = url + searchTerm
-
-    let result = await fetchData(query);
-
-    // set the card list and total results found
-    if('error' in result) {
-      console.log("found an error");
-    } else { // No errors, set the data in states
-
-      // setCards(result.data,);
-      applyCollection(result.data);
-
+    if ('error' in result) {
+      console.log("Error with searching cards.");
+    } else {
       setCardCount(result.totalCount);
       setPages(Math.ceil(result.totalCount / result.pageSize));
       setCurrentPage(result.page);
-      
+      applyCollection(result.data);
     }
   } 
 
