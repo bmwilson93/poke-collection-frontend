@@ -5,7 +5,7 @@ import CardList from '../components/CardList';
 import Loading from '../components/Loading';
 import './css/Set.css';
 
-import { fetchData } from '../utils/fetchData';
+import { getCardsBySet } from '../utils/fetchData';
 
 
 
@@ -17,22 +17,27 @@ const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, 
     setCards([]);
     let allCards = [];
 
-    const url = "https://api.pokemontcg.io/v2/cards?q=set.id:" + dataOfSet.id  + "&orderBy=number"
+    let page = 1;
+    let endOfSet = false;
 
-    let responseData = await fetchData(url);
-
-    if ('error' in responseData) {
-      console.log("found an error");
-    } else {
-        allCards.push(...responseData.data);
-        if (responseData.totalCount > responseData.pageSize) {
-          responseData = await fetchData(url + "&page=2");
-          allCards.push(...responseData.data);
+    // Loop until all cards in set are fetched
+    do {
+      let response = await getCardsBySet(dataOfSet.id, page);
+  
+      if ('error' in response) {
+        console.log("Error with getting cards");
+        break;
+      } else {
+        allCards.push(...response.data);
+        if (response.totalCount <= response.pageSize * page) {
+          endOfSet = true;
+        } else {
+          page ++;
         }
-      // setCards(allCards);
-      // console.log(allCards.length);
-      applyCollection(allCards);
-    }
+      }
+    } while (!endOfSet);   
+
+    applyCollection(allCards);
   };
 
   useEffect(() => {
