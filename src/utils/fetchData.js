@@ -9,23 +9,22 @@ const options = {
 const fetchData = async (url) => {
   const response = await fetch(url, options);
   const data = await response.json();
-
   return data;
 }
 
-const getCardsBySet = async () => {
-  
+const getCardsBySet = async (setId, page = 1) => {
+  let searchUrl = url + 'cards?q=set.id:' + setId + '&orderBy=number&page=' + page;
+  return await fetchData(searchUrl);
 }
 
 // getCards takes a search or query, and returns a list of cards
 const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
   let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate';
-  let cards = await fetchData(searchUrl);
-  return cards;
+  return await fetchData(searchUrl);
 }
 
 const getSets = async () => {
 
 }
 
-export {getCardsBySearch, getSets, fetchData}
+export {getCardsBySearch, getCardsBySet, getSets, fetchData}
