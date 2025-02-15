@@ -38,7 +38,7 @@ const Account = ({ checkingUser, user, setUser }) => {
           <div className='account-info'>
 
             
-            <AccountUser user={user} />
+            <AccountUser user={user} setUser={setUser} />
             
 
             <div className='collection-info'>
