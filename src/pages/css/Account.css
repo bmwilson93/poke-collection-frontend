@@ -32,6 +32,12 @@
   border-right: 1px solid var(--accent-color);
 }
 
+.user-display {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 .collection-info {
   /* border: 1px solid red; */
   display: flex;
@@ -92,7 +98,7 @@ small {
 }
 
 .logout > button,
-.account-user-container > div > button,
+.account-user-container button,
 .value-btn {
   padding: 8px 16px;
   font-size: 20px;
