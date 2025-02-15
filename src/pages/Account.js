@@ -10,6 +10,7 @@ const Account = ({ checkingUser, user, setUser }) => {
   const navigate = useNavigate();
   const [collectionValue, setCollectionValue] = useState(-1)
   const [calculating, setCalculating] = useState(false)
+  
 
   // On load, check if logged in
   useEffect(() => {
@@ -32,18 +33,7 @@ const Account = ({ checkingUser, user, setUser }) => {
 
           <div className='account-info'>
 
-            <div className='account-info-container'>
-              <h2>{user.username}</h2>
-
-              <div className="email-container">
-                <p>{user.email}</p>
-                <button className="white-link">Update Email</button>
-              </div>
-
-              <div className="password-container">
-                <button className="white-link">Change Password</button>
-              </div>
-            </div>
+            
 
             
             
