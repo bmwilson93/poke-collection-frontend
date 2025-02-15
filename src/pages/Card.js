@@ -5,7 +5,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import { getTypeImage } from '../utils/getTypeImage';
 import { formatLabel } from '../utils/formatLabel';
-import { fetchData } from '../utils/fetchData';
+import { getCard } from '../utils/fetchData';
 import checkmark from '../assets/check-circle-solid-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
@@ -19,15 +19,11 @@ const Card = ({ user, setUser }) => {
 
   const getTheCard = async () => {
     console.log("get the card")
-    const url = 'https://api.pokemontcg.io/v2/cards/' + id;
-    const response = await fetchData(url);
+    const response = await getCard(id);
     console.log(response);
     if ('error' in response) {
       console.log("found an error");
     } else {
-      console.log('need to navigate')
-        // setCard(response);
-        // return response;
       navigate(`/card/${response.data.id}`, {state:{card: response.data}})
       navigate(0);
     }
