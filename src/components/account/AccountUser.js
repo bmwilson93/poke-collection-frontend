@@ -2,7 +2,7 @@ import React from 'react'
 
 const AccountUser = ({ user }) => {
   return (
-    <div className='account-info-container'>
+    <div className='account-user-container'>
       <h2>{user.username}</h2>
 
 

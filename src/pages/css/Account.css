@@ -23,7 +23,7 @@
   gap: 20px;
 }
 
-.account-info-container {
+.account-user-container {
   /* border: 1px solid blue; */
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ small {
 }
 
 .logout > button,
-.account-info-container > div > button,
+.account-user-container > div > button,
 .value-btn {
   padding: 8px 16px;
   font-size: 20px;
@@ -128,7 +128,7 @@ small {
     gap: 20px;
   }
 
-  .account-info-container {
+  .account-user-container {
     display: flex;
     flex-direction: column;
     padding: 0 0 50px 0;
