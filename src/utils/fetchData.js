@@ -23,9 +23,13 @@ const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
   return await fetchData(searchUrl);
 }
 
+const getCard = async (id) => {
+  return await fetchData(`${url}cards/${id}`)
+}
+
 const getSets = async () => {
   let setUrl = url + 'sets?orderBy=releaseDate';
   return await fetchData(setUrl);
 }
 
-export {getCardsBySearch, getCardsBySet, getSets, fetchData}
+export {getCardsBySearch, getCardsBySet, getSets, getCard}
