@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+
 import { fetchAPI } from "../utils/fetchAPI";
 import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
 import { getCollectionValue } from '../utils/getCollectionValue';
+
+import AccountUser from '../components/account/AccountUser';
 import Loading from '../components/Loading';
+
 import './css/Account.css';
 
 const Account = ({ checkingUser, user, setUser }) => {
@@ -34,8 +38,7 @@ const Account = ({ checkingUser, user, setUser }) => {
           <div className='account-info'>
 
             
-
-            
+            <AccountUser user={user} />
             
 
             <div className='collection-info'>
