@@ -14,7 +14,7 @@
 //
 // return the total
 
-import { fetchData } from "./fetchData";
+import { getCardsBySet } from "./fetchData";
 
 const getCollectionValue = async (collection) => {
   let collectionValue = 0;
@@ -23,16 +23,27 @@ const getCollectionValue = async (collection) => {
   for (let set = 0; set < collection.sets.length; set++) {
     console.log("starting the collection sets loop");
     let fetchedCards = [];
-    let url = "https://api.pokemontcg.io/v2/cards?q=set.id:" + collection.sets[set].set_id + "&orderBy=number";
-    let result = await fetchData(url);
-    // console.log(result);
-    if('error' in result) {
-      console.log("found an error");
-    } else {
-      fetchedCards.push(result.data);
-    }
-    console.log(fetchedCards);
-    console.log(collection.sets[set].cards.length);
+
+    let page = 1;
+    let endOfSet = false;
+
+    do {
+      let response = await getCardsBySet(collection.sets[set].set_id, page);
+
+      if ('error' in response) {
+        console.log("Error with getting cards");
+        endOfSet = true;
+        // break;
+      } else {
+        fetchedCards.push(...response.data);
+        console.log(fetchedCards);
+        if (response.totalCount <= response.pageSize * page) {
+          endOfSet = true;
+        } else {
+          page ++;
+        }
+      }
+    } while (!endOfSet);
 
     // loop through the cards in the collected set
     for (let card = 0; card < collection.sets[set].cards.length; card++) {
@@ -41,10 +52,10 @@ const getCollectionValue = async (collection) => {
       console.log(fetchedCards.length);
 
       // loop through the fetched cards to find the cards that are collected
-      for (let i = 0; i < fetchedCards[0].length; i++) {
+      for (let i = 0; i < fetchedCards.length; i++) {
         console.log("starting the fetchedCards loop");
 
-        if (fetchedCards[0][i].id === collection.sets[set].cards[card].card_id) {
+        if (fetchedCards[i].id === collection.sets[set].cards[card].card_id) {
           console.log("found the collected card");
           
           // loop through the card variant quantites
@@ -56,16 +67,16 @@ const getCollectionValue = async (collection) => {
             console.log(`Card variant: ${cardVariant}`)
 
             // check if the card has tcgplayer prices
-            if (fetchedCards[0][i].tcgplayer?.prices && fetchedCards[0][i].tcgplayer.prices[cardVariant]) {
+            if (fetchedCards[i].tcgplayer?.prices && fetchedCards[i].tcgplayer.prices[cardVariant]) {
               console.log("Using TCGPLAYER prices")
-              collectionValue += fetchedCards[0][i].tcgplayer.prices[cardVariant].market * collection.sets[set].cards[card].quantities[variant][cardVariant]
-              console.log(fetchedCards[0][i].tcgplayer.prices[cardVariant].market)
+              collectionValue += fetchedCards[i].tcgplayer.prices[cardVariant].market * collection.sets[set].cards[card].quantities[variant][cardVariant]
+              console.log(fetchedCards[i].tcgplayer.prices[cardVariant].market)
               console.log(collection.sets[set].cards[card].quantities[variant][cardVariant])
 
-            } else if (fetchedCards[0][i].cardmarket?.prices?.averageSellPrice) { // check if the card has cardmarket instead
+            } else if (fetchedCards[i].cardmarket?.prices?.averageSellPrice) { // check if the card has cardmarket instead
               console.log("useing Cardmarket prices")
-              collectionValue += fetchedCards[0][i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant]
-              console.log(fetchedCards[0][i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant])
+              collectionValue += fetchedCards[i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant]
+              console.log(fetchedCards[i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant])
 
             }
           }
