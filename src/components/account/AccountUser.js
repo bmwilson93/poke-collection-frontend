@@ -5,7 +5,10 @@ const UserDisplay = ({ user, setUpdateEmailStage }) => {
     <div className="user-display">
     <div className="email-container">
       <p>{user.email}</p>
-      <button className="white-link">Update Email</button>
+      <button 
+        className="white-link"
+        onClick={() => {setUpdateEmailStage('updating')}}  
+      >Update Email</button>
     </div>
 
     <div className="password-container">
@@ -16,10 +19,21 @@ const UserDisplay = ({ user, setUpdateEmailStage }) => {
 }
 
 const UpdateEmailDisplay = () => {
+  const [newEmail, setNewEmail] = useState('')
+  const handleNewEmailChange = e => setNewEmail(e.target.value);
+  const handleSubmit = async e => {
+    // TODO Make call to API, and update the email stage accordingly
+  }
+
   return(
-    <div>
+    <div className="update-email-display">
     <form>
-      <input type='text' />
+      <input 
+        type='text' 
+        value={newEmail}  
+        onChange={handleNewEmailChange}
+        placeholder='New Email'
+      />
     </form>
   </div>
   )
@@ -27,7 +41,7 @@ const UpdateEmailDisplay = () => {
 
 const UpdateResultDisplay = () => {
   return (
-    <div>
+    <div className="update-result-display">
       <p>result</p>
     </div>
   )
