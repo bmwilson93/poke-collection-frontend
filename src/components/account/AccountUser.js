@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const UserDisplay = ({ user }) => {
+const UserDisplay = ({ user, setUpdateEmailStage }) => {
   return (
     <div className="user-display">
     <div className="email-container">
@@ -41,7 +41,7 @@ const AccountUser = ({ user, setUser }) => {
       <h2>{user.username}</h2>
 
       {updateEmailStage == 'none'
-        ? <UserDisplay user={user} />
+        ? <UserDisplay user={user} setUpdateEmailStage={setUpdateEmailStage} />
         : 
        updateEmailStage == 'updating' 
         ? <UpdateEmailDisplay />
