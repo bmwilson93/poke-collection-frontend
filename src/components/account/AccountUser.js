@@ -1,23 +1,55 @@
-import React from 'react'
+import { useState } from 'react'
 
-const AccountUser = ({ user }) => {
+const UserDisplay = ({ user }) => {
+  return (
+    <div className="user-display">
+    <div className="email-container">
+      <p>{user.email}</p>
+      <button className="white-link">Update Email</button>
+    </div>
+
+    <div className="password-container">
+      <button className="white-link">Change Password</button>
+    </div>
+  </div>
+  )
+}
+
+const UpdateEmailDisplay = () => {
+  return(
+    <div>
+    <form>
+      <input type='text' />
+    </form>
+  </div>
+  )
+}
+
+const UpdateResultDisplay = () => {
+  return (
+    <div>
+      <p>result</p>
+    </div>
+  )
+}
+
+const AccountUser = ({ user, setUser }) => {
+  const [updateEmailStage, setUpdateEmailStage] = useState("none")
+
   return (
     <div className='account-user-container'>
       <h2>{user.username}</h2>
 
-
-
-      <div className="email-container">
-        <p>{user.email}</p>
-        <button className="white-link">Update Email</button>
-      </div>
-
-      <div className="password-container">
-        <button className="white-link">Change Password</button>
-      </div>
-
-
-
+      {updateEmailStage == 'none'
+        ? <UserDisplay user={user} />
+        : 
+       updateEmailStage == 'updating' 
+        ? <UpdateEmailDisplay />
+        : 
+       updateEmailStage == 'result'
+        ? <UpdateResultDisplay></UpdateResultDisplay>
+        : <></>
+      }
     </div>
   )
 }
