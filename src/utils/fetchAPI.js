@@ -22,4 +22,22 @@ const fetchAPI = async (route, method, body) => {
   }
 }
 
-module.exports = {fetchAPI}
+const fetchAPIRaw = async (route, method, body) => {
+  console.log('fetchAPIRaw')
+  try {
+    const result = await fetch(`${process.env.REACT_APP_API_PATH}/${route}`, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+      credentials: "include"
+    });
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null
+  }
+}
+
+module.exports = {fetchAPI, fetchAPIRaw}
