@@ -18,23 +18,36 @@ const UserDisplay = ({ user, setUpdateEmailStage }) => {
   )
 }
 
-const UpdateEmailDisplay = () => {
+const UpdateEmailDisplay = ({ user, setUpdateEmailStage }) => {
   const [newEmail, setNewEmail] = useState('')
   const handleNewEmailChange = e => setNewEmail(e.target.value);
+  const [password, setPassword] = useState('')
+  const handlePasswordChange = e => setPassword(e.target.value);
   const handleSubmit = async e => {
     // TODO Make call to API, and update the email stage accordingly
   }
 
   return(
     <div className="update-email-display">
-    <form>
+      <p>{user.email}</p>
+    <form className='update-email-form'>
       <input 
         type='text' 
         value={newEmail}  
         onChange={handleNewEmailChange}
         placeholder='New Email'
+        autoComplete='off'
       />
+      <input 
+        type='password' 
+        value={password}  
+        onChange={handlePasswordChange}
+        placeholder='Password'
+        autoComplete='new-password'
+      />
+      <button className='white-link'>Update</button>
     </form>
+    <button className='white-link' onClick={() => setUpdateEmailStage('none')}>Cancel</button>
   </div>
   )
 }
@@ -58,10 +71,10 @@ const AccountUser = ({ user, setUser }) => {
         ? <UserDisplay user={user} setUpdateEmailStage={setUpdateEmailStage} />
         : 
        updateEmailStage == 'updating' 
-        ? <UpdateEmailDisplay />
+        ? <UpdateEmailDisplay user={user} setUpdateEmailStage={setUpdateEmailStage} />
         : 
        updateEmailStage == 'result'
-        ? <UpdateResultDisplay></UpdateResultDisplay>
+        ? <UpdateResultDisplay setUpdateEmailStage={setUpdateEmailStage}></UpdateResultDisplay>
         : <></>
       }
     </div>
