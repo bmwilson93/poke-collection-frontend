@@ -20,6 +20,6 @@ input:focus {
   outline: none;
 }
 
-.make-small {
+.searchbar-container > form > .make-small {
   width: 280px;
 }
