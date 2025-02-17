@@ -49,6 +49,15 @@ ul {
   align-items: center;
 }
 
+input {
+  color: #6c7aa3;
+  background-color: var(--fore-color);
+  border-radius: 2px;
+  border: 1px solid #4b5572;
+  height: 40px;
+  font-size: 18px;
+}
+
 
 /* Hover Effect */
 .hover-grow {
