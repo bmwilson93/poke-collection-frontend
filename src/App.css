@@ -49,7 +49,7 @@ ul {
   align-items: center;
 }
 
-input {
+input, .old-email {
   color: #6c7aa3;
   background-color: var(--fore-color);
   border-radius: 2px;
