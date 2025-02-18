@@ -98,7 +98,10 @@ const UpdateResultDisplay = ({ updateResult, setUpdateEmailStage }) => {
   return (
     <div className="update-result-display">
       <p>{updateResult}</p>
-      <button onClick={() => {setUpdateEmailStage('none')}}>Okay</button>
+      <button 
+        onClick={() => {setUpdateEmailStage('none')}}
+        className="white-link"
+      >Okay</button>
     </div>
   )
 }
