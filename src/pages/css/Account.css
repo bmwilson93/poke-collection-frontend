@@ -108,6 +108,11 @@ small {
   cursor: pointer;
 }
 
+.account-user-container {
+  /* border: 1px solid red; */
+  width: 450px;
+}
+
 
 /* Update Emails */
 
@@ -128,6 +133,10 @@ small {
   color: var(--text-color);
   background-color: var(--back-color);
   padding: 5px;
+}
+
+.update-result-display > p{
+  margin-bottom: 20px;
 }
 
 
