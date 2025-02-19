@@ -19,13 +19,12 @@ Backend code: [https://github.com/bmwilson93/poke-collection-backend](poke-colle
 - Filter cards by collected or not collected
 - Sort cards by set number, or value
 - Calculate and display the current collection total value
+- Update Email 
 
 ## Planned Features and Updates
-- Add more set sort and filter options
 - Add option to show # of cards collected in each set on sets page
-- Change password and email
+- Change password
 - Reset password functionality
-- Dynamic routes will load the data base on the url
 - Add cardmarket prices if tcgplayer info is missing on card page
 - Add wanted cards tracking and functionality
 - Add Incoming cards, to track which cards have been purchased and are awaiting delivery
