@@ -19,7 +19,7 @@
   flex-direction: row;
   align-items: space-between;
   justify-content: space-evenly;
-  padding-left: 50px;
+  /* padding-left: 50px; */
   gap: 20px;
 }
 
@@ -173,6 +173,7 @@ small {
     margin-bottom: 20px;
     border-right: none;
     border-bottom: 1px solid var(--accent-color);
+    width: auto;
   }
 
   .collection-info {
