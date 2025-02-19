@@ -40,7 +40,7 @@ nav {
     flex-direction: column;
     gap: 10px;
     height: 110px;
-    margin-bottom: 80px;
+    /* margin-bottom: 80px; */
   }
 
   nav {
