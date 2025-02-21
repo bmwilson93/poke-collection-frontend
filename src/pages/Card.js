@@ -221,6 +221,12 @@ const Card = ({ user, setUser }) => {
               ))
             }      
             </div>
+            : 
+            card?.cardmarket?.prices
+            ? <div>
+              <p className='price-title'>Average Sell Price</p>
+              <p className='price price-market'>${card?.cardmarket?.prices?.averageSellPrice.toFixed(2)}</p>
+            </div>
             : <span class="no-prices">No Prices Found</span>
           }
           
