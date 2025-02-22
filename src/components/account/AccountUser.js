@@ -2,14 +2,14 @@ import { useState } from 'react'
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 
-const UserDisplay = ({ user, setUpdateEmailStage }) => {
+const UserDisplay = ({ user, setUpdateStage }) => {
   return (
     <div className="user-display">
     <div className="email-container">
       <p>{user.email}</p>
       <button 
         className="white-link"
-        onClick={() => {setUpdateEmailStage('updating')}}  
+        onClick={() => {setUpdateStage('updating')}}  
       >Update Email</button>
     </div>
 
@@ -20,7 +20,7 @@ const UserDisplay = ({ user, setUpdateEmailStage }) => {
   )
 }
 
-const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateEmailStage }) => {
+const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) => {
   const [newEmail, setNewEmail] = useState('')
   const handleNewEmailChange = e => setNewEmail(e.target.value);
   const [password, setPassword] = useState('')
@@ -58,7 +58,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateEmailStag
           } else { // response is null
             setUpdateResult("There was an error with updating your email. Please try again.")
           }
-          setUpdateEmailStage('result');
+          setUpdateStage('result');
         } else { 
           // Password Error
         }
@@ -89,17 +89,17 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateEmailStag
       />
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
-    <button className='white-link' onClick={() => setUpdateEmailStage('none')}>Cancel</button>
+    <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
   </div>
   )
 }
 
-const UpdateResultDisplay = ({ updateResult, setUpdateEmailStage }) => {
+const UpdateResultDisplay = ({ updateResult, setUpdateStage }) => {
   return (
     <div className="update-result-display">
       <p>{updateResult}</p>
       <button 
-        onClick={() => {setUpdateEmailStage('none')}}
+        onClick={() => {setUpdateStage('none')}}
         className="white-link"
       >Okay</button>
     </div>
@@ -107,21 +107,21 @@ const UpdateResultDisplay = ({ updateResult, setUpdateEmailStage }) => {
 }
 
 const AccountUser = ({ user, setUser }) => {
-  const [updateEmailStage, setUpdateEmailStage] = useState("none");
+  const [updateStage, setUpdateStage] = useState("none");
   const [updateResult, setUpdateResult] = useState('');
 
   return (
     <div className='account-user-container'>
       <h2>{user.username}</h2>
 
-      {updateEmailStage === 'none'
-        ? <UserDisplay user={user} setUpdateEmailStage={setUpdateEmailStage} />
+      {updateStage === 'none'
+        ? <UserDisplay user={user} setUpdateStage={setUpdateStage} />
         : 
-       updateEmailStage === 'updating' 
-        ? <UpdateEmailDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateEmailStage={setUpdateEmailStage} />
+       updateStage === 'updating' 
+        ? <UpdateEmailDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} />
         : 
-       updateEmailStage === 'result'
-        ? <UpdateResultDisplay updateResult={updateResult} setUpdateEmailStage={setUpdateEmailStage}></UpdateResultDisplay>
+       updateStage === 'result'
+        ? <UpdateResultDisplay updateResult={updateResult} setUpdateStage={setUpdateStage}></UpdateResultDisplay>
         : <></>
       }
     </div>
