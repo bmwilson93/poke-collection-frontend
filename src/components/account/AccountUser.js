@@ -9,12 +9,17 @@ const UserDisplay = ({ user, setUpdateStage }) => {
       <p>{user.email}</p>
       <button 
         className="white-link"
-        onClick={() => {setUpdateStage('updating')}}  
+        onClick={() => {setUpdateStage('updatingEmail')}}  
       >Update Email</button>
     </div>
 
     <div className="password-container">
-      <button className="white-link">Change Password</button>
+      <button 
+      className="white-link"
+      onClick={() => {setUpdateStage('updatingPassword')}}
+      >
+        Change Password
+      </button>
     </div>
   </div>
   )
@@ -117,7 +122,7 @@ const AccountUser = ({ user, setUser }) => {
       {updateStage === 'none'
         ? <UserDisplay user={user} setUpdateStage={setUpdateStage} />
         : 
-       updateStage === 'updating' 
+       updateStage === 'updatingEmail' 
         ? <UpdateEmailDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} />
         : 
        updateStage === 'result'
