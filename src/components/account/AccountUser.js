@@ -99,6 +99,71 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) 
   )
 }
 
+const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) => {
+  const [password, setPassword] = useState('')
+  const handlePasswordChange = e => setPassword(e.target.value);
+  const [newPassword, setNewPassword] = useState('')
+  const handleNewPasswordChange = e => setPasswordEmail(e.target.value);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    let tempNewPass = validator.trim(validator.escape(newPassword));
+    let tempPass = validator.trim(validator.escape(password));
+
+    // check the email and password fields are not empty or invalid
+    if (validator.isLength(tempPass, {min: 3, max: 128}) && validator.isLength(tempNewPass, {min: 6, max: 20})) {
+      // make request to fetchAPI
+      let body = JSON.stringify({
+        "email": user.email,
+        "newPassword": tempNewPass,
+        "password": tempPass
+      });
+
+      const response = await fetchAPIRaw('change-password', 'POST', body);
+      if (response) {
+        if (response?.ok) {
+          let newUser = await response.json();
+          setUser(newUser)
+          setUpdateResult("Your password was updated")
+        } else {
+          let updateText = await response?.text();
+          setUpdateResult(updateText)
+        }
+      } else { // response is null
+        setUpdateResult("There was an error with updating your password. Please try again.")
+      }
+      setUpdateStage('result');
+    } else { 
+      // Password Error
+    }
+  }
+
+  return(
+    <div className="update-email-display">
+      <p>Current Email:</p>
+      <p className="old-email">{user.email}</p>
+      <form className='update-email-form'>
+        <input 
+          type='text' 
+          value={newEmail}  
+          onChange={handleNewEmailChange}
+          placeholder='New Email'
+          autoComplete='off'
+        />
+        <input 
+          type='password' 
+          value={password}  
+          onChange={handlePasswordChange}
+          placeholder='Password'
+          autoComplete='new-password'
+      />
+      <button className='white-link' onClick={handleSubmit}>Update</button>
+    </form>
+    <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
+  </div>
+  )
+}
+
 const UpdateResultDisplay = ({ updateResult, setUpdateStage }) => {
   return (
     <div className="update-result-display">
