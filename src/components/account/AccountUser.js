@@ -103,7 +103,7 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage 
   const [password, setPassword] = useState('')
   const handlePasswordChange = e => setPassword(e.target.value);
   const [newPassword, setNewPassword] = useState('')
-  const handleNewPasswordChange = e => setPasswordEmail(e.target.value);
+  const handleNewPasswordChange = e => setNewPassword(e.target.value);
 
   const handleSubmit = async e => {
     e.preventDefault();
