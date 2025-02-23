@@ -140,15 +140,14 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage 
 
   return(
     <div className="update-email-display">
-      <p>Current Email:</p>
-      <p className="old-email">{user.email}</p>
+      <p>Update your Password</p>
       <form className='update-email-form'>
         <input 
-          type='text' 
-          value={newEmail}  
-          onChange={handleNewEmailChange}
-          placeholder='New Email'
-          autoComplete='off'
+          type='password' 
+          value={newPassword}  
+          onChange={handleNewPasswordChange}
+          placeholder='New Password'
+          autoComplete='new-password'
         />
         <input 
           type='password' 
