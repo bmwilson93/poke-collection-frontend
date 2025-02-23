@@ -178,6 +178,7 @@ const UpdateResultDisplay = ({ updateResult, setUpdateStage }) => {
 const AccountUser = ({ user, setUser }) => {
   const [updateStage, setUpdateStage] = useState("none");
   const [updateResult, setUpdateResult] = useState('');
+  const [isResultError, setIsResultError] = useState(false);
 
   return (
     <div className='account-user-container'>
@@ -187,8 +188,11 @@ const AccountUser = ({ user, setUser }) => {
         ? <UserDisplay user={user} setUpdateStage={setUpdateStage} />
         : 
        updateStage === 'updatingEmail' 
-        ? <UpdateEmailDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} />
+        ? <UpdateEmailDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} setIsResultError={setIsResultError} />
         : 
+       updateStage === 'updatingPassword'
+        ? <UpdatePasswordDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} setIsResultError={setIsResultError} />
+        :
        updateStage === 'result'
         ? <UpdateResultDisplay updateResult={updateResult} setUpdateStage={setUpdateStage}></UpdateResultDisplay>
         : <></>
