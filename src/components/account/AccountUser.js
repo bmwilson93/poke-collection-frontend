@@ -25,7 +25,7 @@ const UserDisplay = ({ user, setUpdateStage }) => {
   )
 }
 
-const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) => {
+const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
   const [newEmail, setNewEmail] = useState('')
   const handleNewEmailChange = e => setNewEmail(e.target.value);
   const [password, setPassword] = useState('')
@@ -58,9 +58,11 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) 
               setUpdateResult("Email Updated")
             } else {
               let updateText = await response?.text();
+              setIsResultError(true);
               setUpdateResult(updateText)
             }
           } else { // response is null
+            setIsResultError(true);
             setUpdateResult("There was an error with updating your email. Please try again.")
           }
           setUpdateStage('result');
@@ -99,7 +101,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) 
   )
 }
 
-const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage }) => {
+const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
   const [password, setPassword] = useState('')
   const handlePasswordChange = e => setPassword(e.target.value);
   const [newPassword, setNewPassword] = useState('')
@@ -127,9 +129,11 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage 
           setUpdateResult("Your password was updated")
         } else {
           let updateText = await response?.text();
+          setIsResultError(true);
           setUpdateResult(updateText)
         }
       } else { // response is null
+        setIsResultError(true);
         setUpdateResult("There was an error with updating your password. Please try again.")
       }
       setUpdateStage('result');
@@ -163,12 +167,14 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage 
   )
 }
 
-const UpdateResultDisplay = ({ updateResult, setUpdateStage }) => {
+const UpdateResultDisplay = ({ updateResult, setUpdateStage, isResultError, setIsResultError }) => {
   return (
     <div className="update-result-display">
-      <p>{updateResult}</p>
+      <p className={isResultError ? 'error-msg' : ''}>{updateResult}</p>
       <button 
-        onClick={() => {setUpdateStage('none')}}
+        onClick={() => {
+          setIsResultError(false);
+          setUpdateStage('none');}}
         className="white-link"
       >Okay</button>
     </div>
@@ -194,7 +200,7 @@ const AccountUser = ({ user, setUser }) => {
         ? <UpdatePasswordDisplay user={user} setUser={setUser} setUpdateResult={setUpdateResult} setUpdateStage={setUpdateStage} setIsResultError={setIsResultError} />
         :
        updateStage === 'result'
-        ? <UpdateResultDisplay updateResult={updateResult} setUpdateStage={setUpdateStage}></UpdateResultDisplay>
+        ? <UpdateResultDisplay updateResult={updateResult} setUpdateStage={setUpdateStage} isResultError={isResultError} setIsResultError={setIsResultError}></UpdateResultDisplay>
         : <></>
       }
     </div>
