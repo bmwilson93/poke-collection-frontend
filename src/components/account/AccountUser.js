@@ -68,10 +68,14 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           setUpdateStage('result');
         } else { 
           // Password Error
+          setIsResultError(true);
+          setUpdateResult("There was an issue with the password you entered. Please try again.");
         }
 
     } else { 
       // Email Error
+      setIsResultError(true);
+      setUpdateResult("There was an issue with the new email that you entered. Please try again.");
     }
   }
 
@@ -139,6 +143,8 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
       setUpdateStage('result');
     } else { 
       // Password Error
+      setIsResultError(true);
+      setUpdateResult("The password or new password that you entered was too short or too long. Please try again.")
     }
   }
 
