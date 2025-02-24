@@ -139,6 +139,10 @@ small {
   margin-bottom: 20px;
 }
 
+.error-msg {
+  color: #D73558;
+}
+
 
 /* Responsive styles */
 @media (max-width: 1600px) {
