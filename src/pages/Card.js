@@ -9,6 +9,7 @@ import { getCard } from '../utils/fetchData';
 import checkmark from '../assets/check-circle-solid-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
+import CardInfoPrices from '../components/CardInfoPrices';
 import CardInfoDetails from '../components/CardInfoDetails';
 
 import './Card.css';
@@ -129,7 +130,7 @@ const Card = ({ user, setUser }) => {
       }
 
         {/* Prices Section */}
-        
+        <CardInfoPrices />
 
         <CardInfoDetails card={card} />
         
