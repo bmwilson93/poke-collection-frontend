@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import { getTypeImage } from '../utils/getTypeImage';
-import { formatLabel } from '../utils/formatLabel';
 import { getCard } from '../utils/fetchData';
 import checkmark from '../assets/check-circle-solid-48.png';
 

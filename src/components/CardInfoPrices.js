@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatLabel } from '../utils/formatLabel'
 
 const CardInfoPrices = ({ card }) => {
   return (
