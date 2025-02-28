@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardInfoPrices = () => {
+const CardInfoPrices = ({ card }) => {
   return (
     <div className="card-info-prices bottom-border">
           <h2 className="price-header bold">Prices</h2>
