@@ -130,7 +130,7 @@ const Card = ({ user, setUser }) => {
       }
 
         {/* Prices Section */}
-        <CardInfoPrices />
+        <CardInfoPrices card={card}/>
 
         <CardInfoDetails card={card} />
         
