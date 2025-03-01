@@ -91,8 +91,6 @@ const Card = ({ user, setUser }) => {
         : <></>}
       </div>
 
-      
-
       {/* Card Info */}
       <div className="card-info-container">
 
@@ -118,7 +116,7 @@ const Card = ({ user, setUser }) => {
           </div>
         </div>
 
-        {/* Card Collection Section */}
+        {/* ollection Section - Only shows if screen is larger than 820px wide */}
         {user && windowSize.innerWidth > 820
         ? <CardCollectionSection 
             card={card} 
@@ -128,9 +126,7 @@ const Card = ({ user, setUser }) => {
         : <></>
       }
 
-        {/* Prices Section */}
         <CardInfoPrices card={card}/>
-
         <CardInfoDetails card={card} />
         
       </div>
