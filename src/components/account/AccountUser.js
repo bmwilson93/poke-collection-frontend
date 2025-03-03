@@ -14,13 +14,6 @@ const FormInput = ({ type, value, setValue, placeholder, autoComplete }) => {
   const handleBlur = () => setIsTouched(true);
 
   return (
-    <>
-
-    {isTouched && value.trim() === '' 
-      ? (<p className="required error-msg">required</p>)
-      : <></>
-    }
-
     <input 
       className = {isTouched && value.trim() === '' ? 'error-border' : ''}
       type={type} 
@@ -30,7 +23,6 @@ const FormInput = ({ type, value, setValue, placeholder, autoComplete }) => {
       placeholder={placeholder}
       autoComplete={autoComplete}
     />
-    </>
   )
 }
 
@@ -59,12 +51,7 @@ const UserDisplay = ({ user, setUpdateStage }) => {
 
 const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
   const [newEmail, setNewEmail] = useState('')
-  const handleNewEmailChange = e => setNewEmail(e.target.value);
   const [password, setPassword] = useState('')
-  const handlePasswordChange = e => setPassword(e.target.value);
-  // make a new state newEmailError = false
-  // onBlur => check if newEmail is empty, if yes newEmailError = true;
-  // classname in email field gets error-border style
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -109,11 +96,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
 
     } else { 
       // Email Error
-      console.log("Email error")
-      setIsResultError(true);
-      setUpdateResult("There was an issue with the new email that you entered. Please try again.");
     }
-    setUpdateStage('result');
   }
 
   return(
@@ -136,13 +119,20 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           placeholder='New Email'
           autoComplete='off'
         />
-        <input 
+        <FormInput 
+          type='password'
+          value={password}
+          setValue={setPassword}
+          placeholder='Password'
+          autoComplete='new-password'
+        />
+        {/* <input 
           type='password' 
           value={password}  
           onChange={handlePasswordChange}
           placeholder='Password'
           autoComplete='new-password'
-      />
+        /> */}
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
     <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
