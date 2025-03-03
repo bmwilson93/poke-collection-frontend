@@ -143,8 +143,20 @@ small {
   color: #D73558;
 }
 
+
 .error-border {
   border: 1px solid #D73558;
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+form {
+  position: relative;
+}
+
+.required {
+  position: absolute;
+  left: -90px;
+  top: 25px;
 }
 
 
