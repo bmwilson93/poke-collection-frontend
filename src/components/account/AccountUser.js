@@ -8,18 +8,29 @@ const handleFieldBlur = (field, errorState) => {
   }
 }
 
-import React from 'react'
+const FormInput = ({ type, value, setValue, placeholder, autoComplete }) => {
+  const [isTouched, setIsTouched] = useState(false);
 
-const FormInput = ({ type, value, onChange, onBlur, placeholder, autoComplete }) => {
+  const handleBlur = () => setIsTouched(true);
+
   return (
+    <>
+
+    {isTouched && value.trim() === '' 
+      ? (<p className="required error-msg">required</p>)
+      : <></>
+    }
+
     <input 
+      className = {isTouched && value.trim() === '' ? 'error-border' : ''}
       type={type} 
       value={value}
-      onChange={onChange}
-      onBlur={onBlur}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={handleBlur}
       placeholder={placeholder}
       autoComplete={autoComplete}
     />
+    </>
   )
 }
 
@@ -98,9 +109,11 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
 
     } else { 
       // Email Error
+      console.log("Email error")
       setIsResultError(true);
       setUpdateResult("There was an issue with the new email that you entered. Please try again.");
     }
+    setUpdateStage('result');
   }
 
   return(
@@ -108,11 +121,18 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
       <p>Current Email:</p>
       <p className="old-email">{user.email}</p>
       <form className='update-email-form'>
-        <input 
+        {/* <input 
           type='text' 
           value={newEmail}  
           onChange={handleNewEmailChange}
           onBlur={() => handleFieldBlur(newEmail, )}
+          placeholder='New Email'
+          autoComplete='off'
+        /> */}
+        <FormInput 
+          type='text'
+          value={newEmail}
+          setValue={setNewEmail}
           placeholder='New Email'
           autoComplete='off'
         />
