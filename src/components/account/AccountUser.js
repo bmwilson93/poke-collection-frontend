@@ -2,14 +2,14 @@ import { useState } from 'react'
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 
-const FormInput = ({ type, value, setValue, placeholder, autoComplete }) => {
+const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false }) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const handleBlur = () => setIsTouched(true);
 
   return (
     <input 
-      className = {isTouched && value.trim() === '' ? 'error-border' : ''}
+      className = {(isTouched && value.trim() === '') || (showError && value.trim() === '') ? 'error-border' : ''}
       type={type} 
       value={value}
       onChange={(e) => setValue(e.target.value)}
@@ -46,6 +46,7 @@ const UserDisplay = ({ user, setUpdateStage }) => {
 const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
   const [newEmail, setNewEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -81,15 +82,16 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
             setIsResultError(true);
             setUpdateResult("There was an error with updating your email. Please try again.")
           }
+          setSubmissionError(false);
           setUpdateStage('result');
         } else { 
           // Password Error
-          setIsResultError(true);
-          setUpdateResult("There was an issue with the password you entered. Please try again.");
+          setSubmissionError(true);
         }
 
     } else { 
       // Email Error
+      setSubmissionError(true);
     }
   }
 
@@ -104,6 +106,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           setValue={setNewEmail}
           placeholder='New Email'
           autoComplete='off'
+          showError={submissionError}
         />
         <FormInput 
           type='password'
@@ -111,7 +114,9 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           setValue={setPassword}
           placeholder='Password'
           autoComplete='new-password'
+          showError={submissionError}
         />
+        {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
     <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
@@ -121,9 +126,8 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
 
 const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
   const [password, setPassword] = useState('')
-  const handlePasswordChange = e => setPassword(e.target.value);
   const [newPassword, setNewPassword] = useState('')
-  const handleNewPasswordChange = e => setNewPassword(e.target.value);
+  const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -154,11 +158,11 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
         setIsResultError(true);
         setUpdateResult("There was an error with updating your password. Please try again.")
       }
+      setSubmissionError(false);
       setUpdateStage('result');
     } else { 
       // Password Error
-      setIsResultError(true);
-      setUpdateResult("The password or new password that you entered was too short or too long. Please try again.")
+      setSubmissionError(true);
     }
   }
 
@@ -172,6 +176,7 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
           setValue={setNewPassword}
           placeholder='New Password'
           autoComplete='new-password'
+          showError={submissionError}
         />
         <FormInput 
           type='password'
@@ -179,7 +184,9 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
           setValue={setPassword}
           placeholder='Password'
           autoComplete='new-password'
+          showError={submissionError}
         />
+        {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
     <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
