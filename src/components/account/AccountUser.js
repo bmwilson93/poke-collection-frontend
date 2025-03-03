@@ -2,6 +2,27 @@ import { useState } from 'react'
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 
+const handleFieldBlur = (field, errorState) => {
+  if (field.length < 1) {
+    errorState(true);
+  }
+}
+
+import React from 'react'
+
+const FormInput = ({ type, value, onChange, onBlur, placeholder, autoComplete }) => {
+  return (
+    <input 
+      type={type} 
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      placeholder={placeholder}
+      autoComplete={autoComplete}
+    />
+  )
+}
+
 const UserDisplay = ({ user, setUpdateStage }) => {
   return (
     <div className="user-display">
@@ -30,6 +51,9 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
   const handleNewEmailChange = e => setNewEmail(e.target.value);
   const [password, setPassword] = useState('')
   const handlePasswordChange = e => setPassword(e.target.value);
+  // make a new state newEmailError = false
+  // onBlur => check if newEmail is empty, if yes newEmailError = true;
+  // classname in email field gets error-border style
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -88,6 +112,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           type='text' 
           value={newEmail}  
           onChange={handleNewEmailChange}
+          onBlur={() => handleFieldBlur(newEmail, )}
           placeholder='New Email'
           autoComplete='off'
         />
