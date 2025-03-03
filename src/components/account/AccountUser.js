@@ -172,20 +172,20 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
     <div className="update-email-display">
       <p>Update your Password</p>
       <form className='update-email-form'>
-        <input 
-          type='password' 
-          value={newPassword}  
-          onChange={handleNewPasswordChange}
+        <FormInput 
+          type='password'
+          value={newPassword}
+          setValue={setNewPassword}
           placeholder='New Password'
           autoComplete='new-password'
         />
-        <input 
-          type='password' 
-          value={password}  
-          onChange={handlePasswordChange}
+        <FormInput 
+          type='password'
+          value={password}
+          setValue={setPassword}
           placeholder='Password'
           autoComplete='new-password'
-      />
+        />
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
     <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
