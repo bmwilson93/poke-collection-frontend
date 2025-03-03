@@ -104,14 +104,6 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
       <p>Current Email:</p>
       <p className="old-email">{user.email}</p>
       <form className='update-email-form'>
-        {/* <input 
-          type='text' 
-          value={newEmail}  
-          onChange={handleNewEmailChange}
-          onBlur={() => handleFieldBlur(newEmail, )}
-          placeholder='New Email'
-          autoComplete='off'
-        /> */}
         <FormInput 
           type='text'
           value={newEmail}
@@ -126,13 +118,6 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           placeholder='Password'
           autoComplete='new-password'
         />
-        {/* <input 
-          type='password' 
-          value={password}  
-          onChange={handlePasswordChange}
-          placeholder='Password'
-          autoComplete='new-password'
-        /> */}
       <button className='white-link' onClick={handleSubmit}>Update</button>
     </form>
     <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
