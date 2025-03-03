@@ -2,12 +2,6 @@ import { useState } from 'react'
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 
-const handleFieldBlur = (field, errorState) => {
-  if (field.length < 1) {
-    errorState(true);
-  }
-}
-
 const FormInput = ({ type, value, setValue, placeholder, autoComplete }) => {
   const [isTouched, setIsTouched] = useState(false);
 
