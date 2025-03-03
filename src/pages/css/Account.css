@@ -143,6 +143,10 @@ small {
   color: #D73558;
 }
 
+.error-border {
+  border: 1px solid #D73558;
+}
+
 
 /* Responsive styles */
 @media (max-width: 1600px) {
