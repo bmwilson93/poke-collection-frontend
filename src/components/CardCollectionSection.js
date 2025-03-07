@@ -1,7 +1,7 @@
 import { fetchAPI } from '../utils/fetchAPI';
 import CollectionVariant from './CollectionVariant';
 
-const variants = ['normal', 'holofoil', 'reverseHolofoil', 'unlimitedNormal', 'unlimitedHolofoil', '1stEditionNormal', '1stEditionHolofoil'];
+import { variants } from '../utils/variantList';
 
   
 const CardCollectionSection = ({ card, setUser, setCard }) => {

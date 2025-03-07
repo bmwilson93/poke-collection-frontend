@@ -1,6 +1,8 @@
 import React from 'react'
 import { formatLabel } from '../utils/formatLabel'
 
+import { variants } from '../utils/variantList'
+
 const CardInfoPrices = ({ card }) => {
   return (
     <div className="card-info-prices bottom-border">
@@ -14,7 +16,9 @@ const CardInfoPrices = ({ card }) => {
           {card?.tcgplayer?.prices 
             ?<div className="pricing-container">
             {/* Renders the prices for each card price type found */}
-            {Object.keys(card?.tcgplayer?.prices || {}).map(key => (
+            {Object.keys(card?.tcgplayer?.prices || {})
+            .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
+            .map(key => (
                 <div className={`${key}-price-container prices-container`}>
                   <div>
                     <p className="price-title">{formatLabel(key)} Market</p>
