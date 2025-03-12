@@ -2,21 +2,24 @@ import { useState } from 'react'
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 
-const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false }) => {
+const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false, setShowError }) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const handleBlur = () => setIsTouched(true);
 
   return (
     <input 
-      className = {(isTouched && value.trim() === '') || (showError && value.trim() === '') ? 'error-border' : ''}
+      className = {(isTouched && value.trim() === '') || (showError) ? 'error-border' : ''}
       type={type} 
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => {
+        setShowError(false);
+        setValue(e.target.value);
+      }}
       onBlur={handleBlur}
       placeholder={placeholder}
       autoComplete={autoComplete}
-    />
+    /> 
   )
 }
 
@@ -107,6 +110,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           placeholder='New Email'
           autoComplete='off'
           showError={submissionError}
+          setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -115,6 +119,7 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
+          setShowError={setSubmissionError}
         />
         {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
       <button className='white-link' onClick={handleSubmit}>Update</button>
