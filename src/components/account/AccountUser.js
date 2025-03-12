@@ -182,6 +182,7 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
           placeholder='New Password'
           autoComplete='new-password'
           showError={submissionError}
+          setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -190,6 +191,7 @@ const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage,
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
+          setShowError={setSubmissionError}
         />
         {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
       <button className='white-link' onClick={handleSubmit}>Update</button>
