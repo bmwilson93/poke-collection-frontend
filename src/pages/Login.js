@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../utils/fetchAPI";
+import FormInput from "../components/FormInput";
 import validator from 'validator';
 import './css/Login.css';
 // import validator from "validator";
