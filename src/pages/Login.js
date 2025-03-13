@@ -30,7 +30,8 @@ const Login = ({ setUser, applyCollected }) => {
     let tempEmail = validator.trim(validator.escape(email));;
     let tempPass = validator.trim(validator.escape(password));
 
-    if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
+    if (validator.isEmail(tempEmail) 
+      && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempPass, {min: 6, max: 20})) {
         setPasswordError(false);
 
@@ -46,11 +47,13 @@ const Login = ({ setUser, applyCollected }) => {
         }
 
       } else { // Issue with password
-        setPasswordError(true);
+        // setPasswordError(true);
+        setSubmissionError(true);
       }
 
     } else { // Issue with Email
-      setEmailError(true);
+      // setEmailError(true);
+      setSubmissionError(true);
     }
 
   }
@@ -69,9 +72,9 @@ const Login = ({ setUser, applyCollected }) => {
               value={email}
               setValue={setEmail}
               placeholder='Email'
-              autoComplete='off'
-              showError={''}
-              setShowError={''}
+              autoComplete=''
+              showError={submissionError}
+              setShowError={setSubmissionError}
             />
             {/* <input 
               type='email' 
@@ -82,7 +85,15 @@ const Login = ({ setUser, applyCollected }) => {
           </div>
           <div>
             <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
-            
+            <FormInput 
+              type='password'
+              value={password}
+              setValue={setPassword}
+              placeholder='Password'
+              autoComplete=''
+              showError={submissionError}
+              setShowError={setSubmissionError}
+            />
             {/* <input 
               type='password' 
               value={password} 
