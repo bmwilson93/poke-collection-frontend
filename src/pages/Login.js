@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { fetchAPI } from "../utils/fetchAPI";
 import FormInput from "../components/FormInput";
 import validator from 'validator';
@@ -18,8 +18,8 @@ const Login = ({ setUser, applyCollected }) => {
   const [password, setPassword] = useState('');
 
   // Form Input Handlers
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handlePasswordChange = e => setPassword(e.target.value);
+  // const handleEmailChange = e => setEmail(e.target.value);
+  // const handlePasswordChange = e => setPassword(e.target.value);
 
   const handleSubmit = async (e) => {
     setEmailError(false);
@@ -63,21 +63,31 @@ const Login = ({ setUser, applyCollected }) => {
         <form>
           <div>
             <span className={emailError ? 'error' : 'error hidden'}>Email Error</span>
-            <input 
+            <FormInput 
+              type='email'
+              value={email}
+              setValue={setEmail}
+              placeholder='Email'
+              autoComplete='off'
+              showError={''}
+              setShowError={''}
+            />
+            {/* <input 
               type='email' 
               value={email} 
               onChange={handleEmailChange} 
               placeholder='Email'
-            />
+            /> */}
           </div>
           <div>
             <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
-            <input 
+            
+            {/* <input 
               type='password' 
               value={password} 
               onChange={handlePasswordChange} 
               placeholder='Password'
-            />
+            /> */}
           </div>
           <button onClick={handleSubmit}>Log In</button>
         </form>
