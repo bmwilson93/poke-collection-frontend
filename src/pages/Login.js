@@ -12,6 +12,7 @@ const Login = ({ setUser, applyCollected }) => {
   // Form Error States
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
+  const [submissionError, setSubmissionError] = useState(false);
 
   // Form Input States
   const [email, setEmail] = useState('');
