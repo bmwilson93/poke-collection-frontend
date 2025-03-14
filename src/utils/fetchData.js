@@ -1,3 +1,9 @@
+import pokemon from 'pokemontcgsdk';
+
+pokemon.configure({apiKey: process.env.REACT_APP_API_KEY});
+
+
+
 const url = "https://api.pokemontcg.io/v2/";
 
 const options = {
@@ -17,14 +23,30 @@ const getCardsBySet = async (setId, page = 1) => {
   return await fetchData(searchUrl);
 }
 
+const testgetCardsBySet = async (setId) => {
+  return await pokemon.card.all({ q: 'set.id:' + setId})
+  // .then((cards) => {
+  //   return cards
+  // });
+}
+
 // getCards takes a search or query, and returns a list of cards
 const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
   let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate';
   return await fetchData(searchUrl);
 }
 
+
+
 const getCard = async (id) => {
   return await fetchData(`${url}cards/${id}`)
+}
+
+const testgetCard = async (id) => {
+  return await pokemon.card.find(id)
+  // .then(card => {
+  //   return card
+  // });
 }
 
 const getSets = async () => {
@@ -32,4 +54,18 @@ const getSets = async () => {
   return await fetchData(setUrl);
 }
 
-export {getCardsBySearch, getCardsBySet, getSets, getCard}
+const testgetSets = async () => {
+  return await pokemon.set.all()
+  // .then((sets) => {
+  //   return sets
+  // })
+}
+
+export {getCardsBySearch, 
+  getCardsBySet, 
+  getSets, 
+  getCard, 
+  testgetCardsBySet, 
+  testgetCard,
+  testgetSets
+}
