@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false, setShowError }) => {
   const [isTouched, setIsTouched] = useState(false);
