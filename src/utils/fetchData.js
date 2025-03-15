@@ -25,9 +25,6 @@ const getCardsBySet = async (setId, page = 1) => {
 
 const testgetCardsBySet = async (setId) => {
   return await pokemon.card.all({ q: 'set.id:' + setId})
-  // .then((cards) => {
-  //   return cards
-  // });
 }
 
 // getCards takes a search or query, and returns a list of cards
@@ -44,9 +41,6 @@ const getCard = async (id) => {
 
 const testgetCard = async (id) => {
   return await pokemon.card.find(id)
-  // .then(card => {
-  //   return card
-  // });
 }
 
 const getSets = async () => {
@@ -56,9 +50,6 @@ const getSets = async () => {
 
 const testgetSets = async () => {
   return await pokemon.set.all()
-  // .then((sets) => {
-  //   return sets
-  // })
 }
 
 export {getCardsBySearch, 
