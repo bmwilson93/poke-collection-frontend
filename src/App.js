@@ -52,29 +52,6 @@ function App() {
     fetchUser(); // check if the user is logged in on load
   }, [])
   
-  
-  
-  const fetchUser = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_PATH}/isloggedin`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        method: 'GET',
-        credentials: "include",
-        withCredentials: true
-      });
-      console.log(response);
-      if (response.status === 200) {
-        const data = await response.json();
-        setUser(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setCheckingUser(false);
-  }
 
   const applyCollection = (cardArray = cards) => {
     if (user) {
