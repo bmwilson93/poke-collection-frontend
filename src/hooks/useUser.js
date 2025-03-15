@@ -26,5 +26,9 @@ export const useUser = () => {
       }
       setCheckingUser(false);
     }
-  })
-}
+
+    fetchUser();
+  }, []);
+
+  return { user, checkingUser, setUser };
+};
