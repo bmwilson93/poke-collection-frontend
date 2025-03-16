@@ -18,8 +18,8 @@ import SIgnup from './pages/SIgnup';
 import Account from './pages/Account';
 import NoPage from './pages/NoPage';
 
-import { getCardsBySearch } from './utils/fetchData';
-import { setCollected } from './utils/setcollected';
+// import { getCardsBySearch } from './utils/fetchData';
+// import { setCollected } from './utils/setcollected';
 
 
 
@@ -27,12 +27,15 @@ function App() {
   const location = useLocation();
 
   // App wide states
-  const [cards, setCards] = useState([]);
+
+  // !! Moved to userCards custom hook
+  // const [cards, setCards] = useState([]);
+  // const [cardCount, setCardCount] = useState(-1);
+  // const [pages, setPages] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
-  const [cardCount, setCardCount] = useState(-1);
-  const [pages, setPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const [recentSearch, setRecentSearch] = useState("");
   const [filterState, setFilterState] = useState('all'); // Filters for card list (IE: collected/not collected)
   const [cardSort, setCardSort] = useState('number'); // Sort options for card list
@@ -53,33 +56,33 @@ function App() {
   }, [])
   
 
-  const applyCollection = (cardArray = cards) => {
-    if (user) {
-      let collectedCards = setCollected(cardArray, user.collection);
-      setCards(collectedCards);
-    }
-    setCards(cardArray);
-  }
+  // const applyCollection = (cardArray = cards) => {
+  //   if (user) {
+  //     let collectedCards = setCollected(cardArray, user.collection);
+  //     setCards(collectedCards);
+  //   }
+  //   setCards(cardArray);
+  // }
 
   useEffect(() => applyCollection(), [user]);
 
 
   // Call API to get results for search (search from Searchbar.js)
-  const getCards = async (search, page=1) => {
-    setCards([]);
-    setCardCount(-1);
+  // const getCards = async (search, page=1) => {
+  //   setCards([]);
+  //   setCardCount(-1);
 
-    let result = await getCardsBySearch(search, page);
+  //   let result = await getCardsBySearch(search, page);
 
-    if ('error' in result) {
-      console.log("Error with searching cards.");
-    } else {
-      setCardCount(result.totalCount);
-      setPages(Math.ceil(result.totalCount / result.pageSize));
-      setCurrentPage(result.page);
-      applyCollection(result.data);
-    }
-  } 
+  //   if ('error' in result) {
+  //     console.log("Error with searching cards.");
+  //   } else {
+  //     setCardCount(result.totalCount);
+  //     setPages(Math.ceil(result.totalCount / result.pageSize));
+  //     setCurrentPage(result.page);
+  //     applyCollection(result.data);
+  //   }
+  // } 
 
   const [searchbarState, setSearchbarState] = useState(
     <Searchbar 
