@@ -1,6 +1,8 @@
 // Main App Components
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useUser } from './hooks/useUser';
+import { useCards } from './hooks/useCards';
 
 // Component Imports
 import Header from './components/Header';
