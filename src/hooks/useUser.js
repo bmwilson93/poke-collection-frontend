@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
 export const useUser = () => {
-  const [user, setUser] = userState(null);
-  const [checkingUser, setcheckingUser] = useState(true);
+  const [user, setUser] = useState(null);
+  const [checkingUser, setCheckingUser] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,5 +30,5 @@ export const useUser = () => {
     fetchUser();
   }, []);
 
-  return { user, checkingUser, setUser };
+  return { user, setUser, checkingUser, setCheckingUser, setUser };
 };
