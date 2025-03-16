@@ -33,5 +33,5 @@ export const useCards = (user) => {
     }
   };
 
-  return { cards, cardCount, pages, currentPage, getCards, applyCollection };
+  return { cards, setCards, cardCount, pages, currentPage, getCards, applyCollection };
 };
