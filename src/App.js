@@ -30,11 +30,16 @@ function App() {
 
   // App wide states
 
+  const { user, checkingUser, setCheckingUser, setUser } = useUser();
+  const { cards, setCards, cardCount, pages, currentPage, getCards, applyCollection } = useCards(user);
+
   // !! Moved to userCards custom hook
   // const [cards, setCards] = useState([]);
   // const [cardCount, setCardCount] = useState(-1);
   // const [pages, setPages] = useState(1);
   // const [currentPage, setCurrentPage] = useState(1);
+  // const [user, setUser] = useState(null);
+  // const [checkingUser, setCheckingUser] = useState(true);
 
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
@@ -44,8 +49,6 @@ function App() {
   const [selectedSort, setSelectedSort] = useState('newest'); // Sort for sets
   const [seriesFilter, setSeriesFilter] = useState('All') // Filter for sets by series
   const [search, setSearch] = useState("");
-  const [user, setUser] = useState(null);
-  const [checkingUser, setCheckingUser] = useState(true);
   const [scrollValue, setScrollValue] = useState(0);
   const [setsScrollValue, setSetsScrollValue] = useState(0);
 
@@ -53,9 +56,9 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  useEffect(() => {
-    fetchUser(); // check if the user is logged in on load
-  }, [])
+  // useEffect(() => {
+  //   fetchUser(); // check if the user is logged in on load
+  // }, [])
   
 
   // const applyCollection = (cardArray = cards) => {
