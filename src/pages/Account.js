@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 import { fetchAPI } from "../utils/fetchAPI";
 import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
@@ -10,7 +11,9 @@ import Loading from '../components/Loading';
 
 import './css/Account.css';
 
-const Account = ({ checkingUser, user, setUser }) => {
+const Account = () => {
+  const { user, setUser, checkingUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [collectionValue, setCollectionValue] = useState(-1)
   const [calculating, setCalculating] = useState(false)
