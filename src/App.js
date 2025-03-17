@@ -1,8 +1,9 @@
 // Main App Components
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useUser } from './hooks/useUser';
+// import { useUser } from './hooks/useUser';
 import { useCards } from './hooks/useCards';
+import UserContext from './contexts/UserContext';
 
 // Component Imports
 import Header from './components/Header';
@@ -20,26 +21,16 @@ import SIgnup from './pages/SIgnup';
 import Account from './pages/Account';
 import NoPage from './pages/NoPage';
 
-// import { getCardsBySearch } from './utils/fetchData';
-// import { setCollected } from './utils/setcollected';
-
-
 
 function App() {
+  const { user } = useContext(UserContext);
+
   const location = useLocation();
 
   // App wide states
 
-  const { user, checkingUser, setCheckingUser, setUser } = useUser();
+  // const { user, checkingUser, setCheckingUser, setUser } = useUser();
   const { cards, setCards, cardCount, pages, currentPage, getCards, applyCollection } = useCards(user);
-
-  // !! Moved to userCards custom hook
-  // const [cards, setCards] = useState([]);
-  // const [cardCount, setCardCount] = useState(-1);
-  // const [pages, setPages] = useState(1);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [user, setUser] = useState(null);
-  // const [checkingUser, setCheckingUser] = useState(true);
 
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
@@ -56,38 +47,7 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // useEffect(() => {
-  //   fetchUser(); // check if the user is logged in on load
-  // }, [])
-  
-
-  // const applyCollection = (cardArray = cards) => {
-  //   if (user) {
-  //     let collectedCards = setCollected(cardArray, user.collection);
-  //     setCards(collectedCards);
-  //   }
-  //   setCards(cardArray);
-  // }
-
   useEffect(() => applyCollection(), [user]);
-
-
-  // Call API to get results for search (search from Searchbar.js)
-  // const getCards = async (search, page=1) => {
-  //   setCards([]);
-  //   setCardCount(-1);
-
-  //   let result = await getCardsBySearch(search, page);
-
-  //   if ('error' in result) {
-  //     console.log("Error with searching cards.");
-  //   } else {
-  //     setCardCount(result.totalCount);
-  //     setPages(Math.ceil(result.totalCount / result.pageSize));
-  //     setCurrentPage(result.page);
-  //     applyCollection(result.data);
-  //   }
-  // } 
 
   const [searchbarState, setSearchbarState] = useState(
     <Searchbar 
@@ -99,98 +59,101 @@ function App() {
 
   return (
     <div className="App">
-      <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} user={user}/>
-      {/* <TestPage /> */}
-      <Routes>
-        <Route 
-          path="/" 
-          element={<Home 
-          getCards={getCards} 
-          setRecentSearch={setRecentSearch} 
-          recentSearch={recentSearch} 
-          search={search} 
-          setSearch={setSearch}/>} 
-          searchbarState={searchbarState}
-        />
-        <Route 
-          path="/search=/:id" 
-          element={<SearchResult 
-            cardSort={cardSort}
-            setCardSort={setCardSort}
-            filterState={filterState}
-            setFilterState={setFilterState}
-            scrollValue={scrollValue}
-            setScrollValue={setScrollValue}
-            cards={cards} 
-            currentPage={currentPage} 
-            pages={pages} 
+        <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} user={user}/>
+        {/* <TestPage /> */}
+        <Routes>
+          <Route 
+            path="/" 
+            element={<Home 
             getCards={getCards} 
+            setRecentSearch={setRecentSearch} 
             recentSearch={recentSearch} 
-            cardCount={cardCount}
-            user={user}/>} 
-        />
-        <Route 
-          path="/sets" 
-          element={<Sets 
-            seriesFilter={seriesFilter}
-            setSeriesFilter={setSeriesFilter}
-            selectedSort={selectedSort} 
-            setSelectedSort={setSelectedSort}
-            sets={sets} 
-            setSets={setSets} 
-            setCurrentSet={setCurrentSet}
-            setsScrollValue={setsScrollValue}
-            setSetsScrollValue={setSetsScrollValue}
-            />}
-         />
-        <Route 
-          path="/set/:id" 
-          element={<Set 
-            cardSort={cardSort}
-            setCardSort={setCardSort}
-            filterState={filterState}
-            setFilterState={setFilterState}
-            scrollValue={scrollValue}
-            setScrollValue={setScrollValue}
-            currentSet={currentSet} 
-            setCurrentSet={setCurrentSet} 
-            cards={cards} 
-            setCards={setCards} 
-            user={user} 
-            applyCollection={applyCollection}/>} 
-        />
-        <Route 
-          path="/card/:id" 
-          element={<Card 
-            user={user} 
-            setUser={setUser} 
-            applyCollection={applyCollection}/>} 
-        />
-        <Route 
-          path="/login" 
-          element={<Login 
-            setUser={setUser} 
-            applyCollection={applyCollection}/>} 
-        />
-        <Route 
-          path="/signup" 
-          element={<SIgnup 
-            setUser={setUser} />} 
-        />
-        <Route 
-          path="/account/:username" 
-          element={<Account 
-            checkingUser={checkingUser}
-            user={user} 
-            setUser={setUser}/>} 
-        />
-        <Route 
-          path="*" 
-          element={<NoPage />} 
-        />
-      </Routes>
+            search={search} 
+            setSearch={setSearch}/>} 
+            searchbarState={searchbarState}
+          />
+          <Route 
+            path="/search=/:id" 
+            element={<SearchResult 
+              cardSort={cardSort}
+              setCardSort={setCardSort}
+              filterState={filterState}
+              setFilterState={setFilterState}
+              scrollValue={scrollValue}
+              setScrollValue={setScrollValue}
+              cards={cards} 
+              currentPage={currentPage} 
+              pages={pages} 
+              getCards={getCards} 
+              recentSearch={recentSearch} 
+              cardCount={cardCount}
+              // user={user}
+            />} 
+          />
+          <Route 
+            path="/sets" 
+            element={<Sets 
+              seriesFilter={seriesFilter}
+              setSeriesFilter={setSeriesFilter}
+              selectedSort={selectedSort} 
+              setSelectedSort={setSelectedSort}
+              sets={sets} 
+              setSets={setSets} 
+              setCurrentSet={setCurrentSet}
+              setsScrollValue={setsScrollValue}
+              setSetsScrollValue={setSetsScrollValue}
+              />}
+          />
+          <Route 
+            path="/set/:id" 
+            element={<Set 
+              cardSort={cardSort}
+              setCardSort={setCardSort}
+              filterState={filterState}
+              setFilterState={setFilterState}
+              scrollValue={scrollValue}
+              setScrollValue={setScrollValue}
+              currentSet={currentSet} 
+              setCurrentSet={setCurrentSet} 
+              cards={cards} 
+              setCards={setCards} 
+              // user={user} 
+              applyCollection={applyCollection}/>} 
+          />
+          <Route 
+            path="/card/:id" 
+            element={<Card 
+              // user={user} 
+              // setUser={setUser} 
+              applyCollection={applyCollection}/>} 
+          />
+          <Route 
+            path="/login" 
+            element={<Login 
+              // setUser={setUser} 
+              applyCollection={applyCollection}/>} 
+          />
+          <Route 
+            path="/signup" 
+            element={<SIgnup 
+              // setUser={setUser} 
+              />} 
+          />
+          <Route 
+            path="/account/:username" 
+            element={<Account 
+              // checkingUser={checkingUser}
+              // user={user} 
+              // setUser={setUser}
+              />} 
+          />
+          <Route 
+            path="*" 
+            element={<NoPage />} 
+          />
+        </Routes>
 
-      <Footer searchbarState={searchbarState}/>
+        <Footer searchbarState={searchbarState}/>
     </div>
   );
 }
