@@ -18,12 +18,12 @@ const fetchData = async (url) => {
   return data;
 }
 
-const getCardsBySet = async (setId, page = 1) => {
-  let searchUrl = url + 'cards?q=set.id:' + setId + '&orderBy=number&page=' + page;
-  return await fetchData(searchUrl);
-}
+// const getCardsBySet = async (setId, page = 1) => {
+//   let searchUrl = url + 'cards?q=set.id:' + setId + '&orderBy=number&page=' + page;
+//   return await fetchData(searchUrl);
+// }
 
-const testgetCardsBySet = async (setId) => {
+const getCardsBySet = async (setId) => {
   return await pokemon.card.all({ q: 'set.id:' + setId})
 }
 
@@ -56,7 +56,6 @@ export {getCardsBySearch,
   getCardsBySet, 
   getSets, 
   getCard, 
-  testgetCardsBySet, 
   testgetCard,
   testgetSets
 }
