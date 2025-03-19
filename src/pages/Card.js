@@ -1,7 +1,8 @@
 // Page that displays the detailed information for a specific card
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 import { getTypeImage } from '../utils/getTypeImage';
 import { getCard } from '../utils/fetchData';
@@ -13,7 +14,8 @@ import CardInfoDetails from '../components/CardInfoDetails';
 
 import './Card.css';
 
-const Card = ({ user, setUser }) => {
+const Card = () => {
+  const { user } = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -71,7 +73,6 @@ const Card = ({ user, setUser }) => {
       {user && windowSize.innerWidth <= 820
         ? <CardCollectionSection 
             card={card} 
-            setUser={setUser}
             setCard={setCard}
           />
         : <></>
@@ -120,7 +121,6 @@ const Card = ({ user, setUser }) => {
         {user && windowSize.innerWidth > 820
         ? <CardCollectionSection 
             card={card} 
-            setUser={setUser}
             setCard={setCard}
           />
         : <></>
