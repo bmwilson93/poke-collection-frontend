@@ -41,7 +41,7 @@ const Account = () => {
           <div className='account-info'>
 
             
-            <AccountUser user={user} setUser={setUser} />
+            <AccountUser/>
             
 
             <div className='collection-info'>
