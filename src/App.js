@@ -141,11 +141,7 @@ function App() {
           />
           <Route 
             path="/account/:username" 
-            element={<Account 
-              // checkingUser={checkingUser}
-              // user={user} 
-              // setUser={setUser}
-              />} 
+            element={<Account/>} 
           />
           <Route 
             path="*" 
