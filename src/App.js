@@ -129,9 +129,7 @@ function App() {
           />
           <Route 
             path="/login" 
-            element={<Login 
-              // setUser={setUser} 
-              applyCollection={applyCollection}/>} 
+            element={<Login />} 
           />
           <Route 
             path="/signup" 
