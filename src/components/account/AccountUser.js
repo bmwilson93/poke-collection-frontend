@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import UserContext from '../../contexts/UserContext';
 import validator from 'validator';
 import { fetchAPIRaw } from '../../utils/fetchAPI';
 import FormInput from '../FormInput';
 
 
-const UserDisplay = ({ user, setUpdateStage }) => {
+const UserDisplay = ({ setUpdateStage }) => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="user-display">
     <div className="email-container">
@@ -27,7 +30,9 @@ const UserDisplay = ({ user, setUpdateStage }) => {
   )
 }
 
-const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
+const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError }) => {
+  const { user, setUser } = useContext(UserContext);
+  
   const [newEmail, setNewEmail] = useState('')
   const [password, setPassword] = useState('')
   const [submissionError, setSubmissionError] = useState(false)
@@ -110,7 +115,9 @@ const UpdateEmailDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, se
   )
 }
 
-const UpdatePasswordDisplay = ({ user, setUser, setUpdateResult, setUpdateStage, setIsResultError }) => {
+const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError }) => {
+  const { user, setUser } = useContext(UserContext);
+  
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [submissionError, setSubmissionError] = useState(false)
@@ -196,7 +203,9 @@ const UpdateResultDisplay = ({ updateResult, setUpdateStage, isResultError, setI
   )
 }
 
-const AccountUser = ({ user, setUser }) => {
+const AccountUser = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const [updateStage, setUpdateStage] = useState("none");
   const [updateResult, setUpdateResult] = useState('');
   const [isResultError, setIsResultError] = useState(false);
