@@ -122,10 +122,7 @@ function App() {
           />
           <Route 
             path="/card/:id" 
-            element={<Card 
-              // user={user} 
-              // setUser={setUser} 
-              applyCollection={applyCollection}/>} 
+            element={<Card />} 
           />
           <Route 
             path="/login" 
