@@ -1,10 +1,14 @@
+import { useContext } from 'react';
+import UserContext from '../contexts/UserContext';
+
 import { fetchAPI } from '../utils/fetchAPI';
 import CollectionVariant from './CollectionVariant';
 
 import { variants } from '../utils/variantList';
 
   
-const CardCollectionSection = ({ card, setUser, setCard }) => {
+const CardCollectionSection = ({ card, setCard }) => {
+  const { setUser } = useContext(UserContext);
 
   // runs the call to the backend to update the collection
   const handleCollectionClick = async (action, variant) => {
