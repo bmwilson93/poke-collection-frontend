@@ -135,13 +135,11 @@ function App() {
           />
           <Route 
             path="/signup" 
-            element={<SIgnup 
-              // setUser={setUser} 
-              />} 
+            element={<SIgnup />} 
           />
           <Route 
             path="/account/:username" 
-            element={<Account/>} 
+            element={<Account />} 
           />
           <Route 
             path="*" 
