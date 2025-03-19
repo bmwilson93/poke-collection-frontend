@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
+
 import { fetchAPI } from "../utils/fetchAPI";
 import FormInput from "../components/FormInput";
 import validator from 'validator';
 import './css/Login.css';
-// import validator from "validator";
 
-const Login = ({ setUser, applyCollected }) => {
+const Login = () => {
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   // Form Error States
