@@ -30,5 +30,5 @@ export const useUser = () => {
     fetchUser();
   }, []);
 
-  return { user, setUser, checkingUser, setCheckingUser, setUser };
+  return { user, setUser, checkingUser};
 };
