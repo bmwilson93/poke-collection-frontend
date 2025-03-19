@@ -1,6 +1,8 @@
-import React from 'react'
+import { useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
+
 import CardItem from './CardItem'
 import './css/CardList.css';
 
@@ -8,7 +10,8 @@ import { sortByPrice } from '../utils/sortByPrice';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, user, scrollValue, setScrollValue }) => {
+const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, scrollValue, setScrollValue }) => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [mappedCards, setMappedCards] = useState([]);
   // const [cardSort, setCardSort] = useState('number');

@@ -87,7 +87,6 @@ function App() {
               getCards={getCards} 
               recentSearch={recentSearch} 
               cardCount={cardCount}
-              // user={user}
             />} 
           />
           <Route 
@@ -117,7 +116,6 @@ function App() {
               setCurrentSet={setCurrentSet} 
               cards={cards} 
               setCards={setCards} 
-              // user={user} 
               applyCollection={applyCollection}/>} 
           />
           <Route 

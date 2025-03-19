@@ -1,6 +1,8 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
+
 import CardList from '../components/CardList';
 import Loading from '../components/Loading';
 import './css/Set.css';
@@ -9,7 +11,8 @@ import { getCardsBySet } from '../utils/fetchData';
 
 
 
-const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, user, applyCollection }) => {
+const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, applyCollection }) => {
+  const { user } = useContext(UserContext);
   const location = useLocation();
   const dataOfSet = location.state.set;
 
