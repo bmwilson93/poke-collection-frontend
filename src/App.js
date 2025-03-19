@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="App">
-        <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} user={user}/>
+        <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} />
         {/* <TestPage /> */}
         <Routes>
           <Route 

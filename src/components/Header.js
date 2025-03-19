@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
+
 import Searchbar from './Searchbar';
 import './css/Header.css';
 import userLogo from '../assets/user-solid-24.png';
@@ -8,7 +9,8 @@ import userLogo from '../assets/user-solid-24.png';
 // import logo from '../assets/Pokecoin.png';
 import logo from '../assets/logo.png';
 
-const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, search, setSearch, user}) => {
+const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, search, setSearch}) => {
+  const { user } = useContext(UserContext);
   const location = useLocation();
 
   return (
