@@ -1,7 +1,6 @@
 // Main App Components
 import { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-// import { useUser } from './hooks/useUser';
 import { useCards } from './hooks/useCards';
 import UserContext from './contexts/UserContext';
 
@@ -24,13 +23,12 @@ import NoPage from './pages/NoPage';
 
 function App() {
   const { user } = useContext(UserContext);
+  const { cards, setCards, cardCount, pages, currentPage, 
+    getCards, getAllSetCards, applyCollection } = useCards(user);
 
   const location = useLocation();
 
   // App wide states
-
-  // const { user, checkingUser, setCheckingUser, setUser } = useUser();
-  const { cards, setCards, cardCount, pages, currentPage, getCards, applyCollection } = useCards(user);
 
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
@@ -116,6 +114,7 @@ function App() {
               setCurrentSet={setCurrentSet} 
               cards={cards} 
               setCards={setCards} 
+              getAllSetCards={getAllSetCards}
               applyCollection={applyCollection}/>} 
           />
           <Route 
