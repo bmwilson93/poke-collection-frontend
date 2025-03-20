@@ -20,7 +20,7 @@ const CardCollectionSection = ({ card, setCard }) => {
     const response = await fetchAPI(`collection/${action}`, 'POST', body)
     setUser(response);
 
-    //update the card state
+    //update the card state to display the added variant
     setCard(prevCard => {
 
       if (!prevCard.collected) {
