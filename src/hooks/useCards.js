@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCardsBySearch, getCardsBySet  } from '../utils/fetchData';
+import { getCardsBySearch, getCardsBySet } from '../utils/fetchData';
 import { setCollected } from '../utils/setcollected';
 
 export const useCards = (user) => {
@@ -19,11 +19,12 @@ export const useCards = (user) => {
 
   const getAllSetCards = async (setId) => {
     setCards([]);
-    let allCards = await getAllSetCards(setId);
+    let allCards = [];
+    allCards = await getCardsBySet(setId);
     applyCollection(allCards);
   }
 
-  const searchCards = async (search, page = 1) => {
+  const getCards = async (search, page = 1) => {
     setCards([]);
     setCardCount(-1);
 
@@ -39,5 +40,5 @@ export const useCards = (user) => {
     }
   };
 
-  return { cards, setCards, cardCount, pages, currentPage, searchCards, applyCollection };
+  return { cards, setCards, cardCount, pages, currentPage, getCards, getAllSetCards, applyCollection };
 };
