@@ -10,48 +10,20 @@ import './css/Set.css';
 import { getCardsBySet } from '../utils/fetchData';
 
 
-
-const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, applyCollection }) => {
+const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, currentSet, setCurrentSet, cards, setCards, getAllSetCards, applyCollection }) => {
   const { user } = useContext(UserContext);
   const location = useLocation();
   const dataOfSet = location.state.set;
-
-  const fetchAllCards = async () => {
-    setCards([]);
-    let allCards = [];
-
-    let page = 1;
-    let endOfSet = false;
-
-    // Loop until all cards in set are fetched
-    do {
-      let response = await getCardsBySet(dataOfSet.id, page);
-  
-      if ('error' in response) {
-        console.log("Error with getting cards");
-        break;
-      } else {
-        allCards.push(...response.data);
-        if (response.totalCount <= response.pageSize * page) {
-          endOfSet = true;
-        } else {
-          page ++;
-        }
-      }
-    } while (!endOfSet);   
-
-    applyCollection(allCards);
-  };
 
   useEffect(() => {
     if (cards.length > 0) {
       if (cards[0].set.id !== dataOfSet.id) {
         setScrollValue(0);
-        fetchAllCards();
+        getAllSetCards(dataOfSet.id);
       }
     } else {
       setScrollValue(0);
-      fetchAllCards();
+      getAllSetCards(dataOfSet.id);
     }
   }, []);
 
