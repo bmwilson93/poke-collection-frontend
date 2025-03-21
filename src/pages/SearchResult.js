@@ -19,7 +19,7 @@ const SearchResult = ({
           } else {
           return (
             <>
-              <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue} cards={cards} />
+              <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue} />
               <PageNavigation currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch}/>
             </>
           )
