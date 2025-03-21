@@ -9,7 +9,7 @@ import userLogo from '../assets/user-solid-24.png';
 // import logo from '../assets/Pokecoin.png';
 import logo from '../assets/logo.png';
 
-const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, search, setSearch}) => {
+const Header = ({ setRecentSearch, search, setSearch}) => {
   const { user } = useContext(UserContext);
   const location = useLocation();
 
@@ -24,9 +24,7 @@ const Header = ({ getCards, setRecentSearch, recentSearch, searchbarState, searc
           {/* If not on the home page, dispaly the search bar in the header */}
           {location.pathname !== '/' 
           ? <Searchbar 
-              getCards={getCards} 
               setRecentSearch={setRecentSearch} 
-              recentSearch={recentSearch} 
               small={true}
               search={search}
               setSearch={setSearch}
