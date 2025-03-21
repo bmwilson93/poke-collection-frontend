@@ -6,7 +6,7 @@ import Loading from '../components/Loading'
 
 const SearchResult = ({ 
   cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, recentSearch }) => {
-  const { cards, currentPage, pages, getCards, cardCount } = useContext(CardContext);
+  const { cardCount } = useContext(CardContext);
 
   return (
     <div className="search-results-container full-height">
@@ -20,7 +20,7 @@ const SearchResult = ({
           return (
             <>
               <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue} />
-              <PageNavigation currentPage={currentPage} pages={pages} getCards={getCards} recentSearch={recentSearch}/>
+              <PageNavigation recentSearch={recentSearch}/>
             </>
           )
         }
