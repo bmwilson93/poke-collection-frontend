@@ -1,9 +1,13 @@
-import React from 'react'
+import { useContext } from 'react'
+import CardContext from '../contexts/CardContext'
 import CardList from '../components/CardList'
 import PageNavigation from '../components/PageNavigation'
 import Loading from '../components/Loading'
 
-const SearchResult = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, cards, currentPage, pages, getCards, recentSearch, cardCount}) => {
+const SearchResult = ({ 
+  cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, recentSearch }) => {
+  const { cards, currentPage, pages, getCards, cardCount } = useContext(CardContext);
+
   return (
     <div className="search-results-container full-height">
 
