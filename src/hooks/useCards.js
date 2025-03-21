@@ -40,5 +40,7 @@ export const useCards = (user) => {
     }
   };
 
-  return { cards, setCards, cardCount, pages, currentPage, getCards, getAllSetCards, applyCollection };
+  useEffect(() => applyCollection(), [user]);
+
+  return { cards, setCards, cardCount, pages, currentPage, getCards, getAllSetCards };
 };
