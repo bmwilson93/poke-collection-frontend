@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import CardContext from '../contexts/CardContext';
 
 import CardItem from './CardItem'
 import './css/CardList.css';
@@ -10,8 +11,9 @@ import { sortByPrice } from '../utils/sortByPrice';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, scrollValue, setScrollValue }) => {
+const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue }) => {
   const { user } = useContext(UserContext);
+  const { cards } = useContext(CardContext);
   const navigate = useNavigate();
   const [mappedCards, setMappedCards] = useState([]);
   // const [cardSort, setCardSort] = useState('number');
@@ -20,7 +22,7 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, cards, s
   // Set to saved scroll on page load
   useEffect(() => {
     setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
-  }, []);
+  }, [mappedCards]);
 
   // Trying this out,to see if I can get this to run once the filter or sort state updates
   useEffect(() => {
