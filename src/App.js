@@ -1,8 +1,9 @@
 // Main App Components
 import { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useCards } from './hooks/useCards';
+// import { useCards } from './hooks/useCards';
 import UserContext from './contexts/UserContext';
+import { CardProvider } from './contexts/CardContext';
 
 // Component Imports
 import Header from './components/Header';
@@ -23,8 +24,8 @@ import NoPage from './pages/NoPage';
 
 function App() {
   const { user } = useContext(UserContext);
-  const { cards, setCards, cardCount, pages, currentPage, 
-    getCards, getAllSetCards, applyCollection } = useCards(user);
+  // const { cards, setCards, cardCount, pages, currentPage, 
+  //   getCards, getAllSetCards, applyCollection } = useCards(user);
 
   const location = useLocation();
 
@@ -32,12 +33,12 @@ function App() {
 
   const [sets, setSets] = useState([]);
   const [currentSet, setCurrentSet] = useState("");
-  const [recentSearch, setRecentSearch] = useState("");
   const [filterState, setFilterState] = useState('all'); // Filters for card list (IE: collected/not collected)
   const [cardSort, setCardSort] = useState('number'); // Sort options for card list
   const [selectedSort, setSelectedSort] = useState('newest'); // Sort for sets
   const [seriesFilter, setSeriesFilter] = useState('All') // Filter for sets by series
   const [search, setSearch] = useState("");
+  const [recentSearch, setRecentSearch] = useState("");
   const [scrollValue, setScrollValue] = useState(0);
   const [setsScrollValue, setSetsScrollValue] = useState(0);
 
@@ -45,11 +46,8 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  useEffect(() => applyCollection(), [user]);
-
   const [searchbarState, setSearchbarState] = useState(
     <Searchbar 
-      getCards={getCards} 
       setRecentSearch={setRecentSearch} 
       recentSearch={recentSearch}
     />
@@ -57,19 +55,21 @@ function App() {
 
   return (
     <div className="App">
-        <Header getCards={getCards} setRecentSearch={setRecentSearch} recentSearch={recentSearch} searchbarState={searchbarState} search={search} setSearch={setSearch} />
-        {/* <TestPage /> */}
+      <CardProvider user={user}>
+        <Header 
+        setRecentSearch={setRecentSearch} 
+        search={search} 
+        setSearch={setSearch} />
+        
         <Routes>
           <Route 
             path="/" 
             element={<Home 
-            getCards={getCards} 
             setRecentSearch={setRecentSearch} 
-            recentSearch={recentSearch} 
             search={search} 
             setSearch={setSearch}/>} 
-            searchbarState={searchbarState}
           />
+
           <Route 
             path="/search=/:id" 
             element={<SearchResult 
@@ -79,14 +79,15 @@ function App() {
               setFilterState={setFilterState}
               scrollValue={scrollValue}
               setScrollValue={setScrollValue}
-              cards={cards} 
-              currentPage={currentPage} 
-              pages={pages} 
-              getCards={getCards} 
+              // cards={cards} 
+              // getCards={getCards} 
+              // currentPage={currentPage} 
+              // pages={pages} 
               recentSearch={recentSearch} 
-              cardCount={cardCount}
+              // cardCount={cardCount}
             />} 
           />
+
           <Route 
             path="/sets" 
             element={<Sets 
@@ -101,6 +102,7 @@ function App() {
               setSetsScrollValue={setSetsScrollValue}
               />}
           />
+
           <Route 
             path="/set/:id" 
             element={<Set 
@@ -112,11 +114,13 @@ function App() {
               setScrollValue={setScrollValue}
               currentSet={currentSet} 
               setCurrentSet={setCurrentSet} 
-              cards={cards} 
-              setCards={setCards} 
-              getAllSetCards={getAllSetCards}
-              applyCollection={applyCollection}/>} 
+              // cards={cards} 
+              // setCards={setCards} 
+              // getAllSetCards={getAllSetCards}
+              // applyCollection={applyCollection}
+            />} 
           />
+
           <Route 
             path="/card/:id" 
             element={<Card />} 
@@ -140,6 +144,7 @@ function App() {
         </Routes>
 
         <Footer searchbarState={searchbarState}/>
+      </CardProvider>
     </div>
   );
 }
