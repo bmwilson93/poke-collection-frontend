@@ -4,7 +4,7 @@ import CardContext from '../contexts/CardContext';
 
 import './css/Searchbar.css'
 
-const Searchbar = ({ setRecentSearch, recentSearch, small=false, search, setSearch }) => {
+const Searchbar = ({ setRecentSearch, small=false, search, setSearch }) => {
 
   const { getCards } = useContext(CardContext);
   const navigate = useNavigate();
