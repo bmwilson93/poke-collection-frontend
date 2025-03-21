@@ -1,6 +1,8 @@
-import React from 'react'
+import { useContext } from 'react'
+import CardContext from '../contexts/CardContext'
 
-const PageNavigation = ({ currentPage, pages, getCards, recentSearch }) => {
+const PageNavigation = ({ recentSearch }) => {
+  const { pages, currentPage, getCards } = useContext(CardContext);
 
   const handleClick = (nextPage) => {
     getCards(recentSearch, nextPage)
