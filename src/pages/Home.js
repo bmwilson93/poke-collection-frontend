@@ -3,16 +3,14 @@ import Searchbar from '../components/Searchbar';
 
 import './css/Home.css'
 
-const Home = ({ getCards, setRecentSearch, recentSearch, search, setSearch}) => {
+const Home = ({ setRecentSearch, search, setSearch}) => {
   return (
     <div className="home-div full-height">
       <div className="title-container">
         <h1>Pok&eacute;-Collect</h1>
         <h3>The Ultimate Pok&eacute;mon Card Database and Collection App</h3>
         <Searchbar 
-          getCards={getCards} 
           setRecentSearch={setRecentSearch} 
-          recentSearch={recentSearch}
           search={search} 
           setSearch={setSearch}
         />
