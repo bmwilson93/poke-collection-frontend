@@ -1,10 +1,12 @@
-import React from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import CardContext from '../contexts/CardContext';
 
 import './css/Searchbar.css'
 
-const Searchbar = ({ getCards, setRecentSearch, recentSearch, small=false, search, setSearch }) => {
+const Searchbar = ({ setRecentSearch, recentSearch, small=false, search, setSearch }) => {
 
+  const { getCards } = useContext(CardContext);
   const navigate = useNavigate();
 
   const searchCards = () => {
