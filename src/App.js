@@ -24,8 +24,6 @@ import NoPage from './pages/NoPage';
 
 function App() {
   const { user } = useContext(UserContext);
-  // const { cards, setCards, cardCount, pages, currentPage, 
-  //   getCards, getAllSetCards, applyCollection } = useCards(user);
 
   const location = useLocation();
 
@@ -79,12 +77,7 @@ function App() {
               setFilterState={setFilterState}
               scrollValue={scrollValue}
               setScrollValue={setScrollValue}
-              // cards={cards} 
-              // getCards={getCards} 
-              // currentPage={currentPage} 
-              // pages={pages} 
               recentSearch={recentSearch} 
-              // cardCount={cardCount}
             />} 
           />
 
@@ -112,12 +105,6 @@ function App() {
               setFilterState={setFilterState}
               scrollValue={scrollValue}
               setScrollValue={setScrollValue}
-              currentSet={currentSet} 
-              setCurrentSet={setCurrentSet} 
-              // cards={cards} 
-              // setCards={setCards} 
-              // getAllSetCards={getAllSetCards}
-              // applyCollection={applyCollection}
             />} 
           />
 
