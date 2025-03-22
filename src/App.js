@@ -130,7 +130,7 @@ function App() {
           />
         </Routes>
 
-        <Footer searchbarState={searchbarState}/>
+        <Footer />
       </CardProvider>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import './css/Footer.css'
 
-const Footer = ({}) => {
+const Footer = () => {
   return (
     <footer>
         <p>Pok&eacute;-Collect</p>
