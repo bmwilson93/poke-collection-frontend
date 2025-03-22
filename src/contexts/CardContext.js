@@ -6,13 +6,9 @@ const CardContext = React.createContext();
 export const CardProvider = ({ user, children }) => {
   const { 
     cards, 
-    setCards, 
     cardCount, 
-    setCardCount, 
     pages, 
-    setPages, 
     currentPage, 
-    setCurrentPage, 
     getAllSetCards, 
     getCards 
   } = useCards(user);
@@ -20,15 +16,11 @@ export const CardProvider = ({ user, children }) => {
   return (
     <CardContext.Provider value={{ 
       cards, 
-      setCards, 
       cardCount, 
-      setCardCount, 
       pages, 
-      setPages, 
       currentPage, 
-      setCurrentPage, 
-      getAllSetCards, 
-      getCards 
+      getCards,
+      getAllSetCards
     }}>
       {children}
     </CardContext.Provider>
