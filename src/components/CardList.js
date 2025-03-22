@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import CardContext from '../contexts/CardContext';
+import FilterContext from '../contexts/FilterContext';
 
 import CardItem from './CardItem'
 import './css/CardList.css';
@@ -11,12 +12,12 @@ import { sortByPrice } from '../utils/sortByPrice';
 
 import checkmark from '../assets/check-circle-solid-36.png'
 
-const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue }) => {
+const CardList = ({ scrollValue, setScrollValue }) => {
   const { user } = useContext(UserContext);
   const { cards } = useContext(CardContext);
+  const { cardsFilter, setCardsFilter, cardsSort, setCardsSort } = useContext(FilterContext);
   const navigate = useNavigate();
   const [mappedCards, setMappedCards] = useState([]);
-  // const [cardSort, setCardSort] = useState('number');
 
 
   // Set to saved scroll on page load
@@ -27,7 +28,7 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollVa
   // Trying this out,to see if I can get this to run once the filter or sort state updates
   useEffect(() => {
     handleDisplayCardlist();
-  }, [filterState, cardSort])
+  }, [cardsFilter, cardsSort])
 
 
   const mapCards = (cardlist) => {
@@ -53,20 +54,20 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollVa
   const handleDisplayCardlist = () => {
     // check the filter
     let filteredCards = [];
-    if (filterState === "collected") {
+    if (cardsFilter === "collected") {
       filteredCards = cards.filter(card => Object.hasOwn(card, "collected"));
-    } else if (filterState === 'notCollected') {
+    } else if (cardsFilter === 'notCollected') {
       filteredCards = cards.filter(card => !Object.hasOwn(card, "collected"));
     } else { // all cards
       filteredCards.push(...cards);
     }
     // check the sort and map accordingly
-    if (cardSort === 'revNumber') {
+    if (cardsSort === 'revNumber') {
       setMappedCards(mapCards(filteredCards.toReversed()));
       // Simply add else if here to add more sort options
-    } else if (cardSort === 'price h-l') {
+    } else if (cardsSort === 'price h-l') {
       setMappedCards(mapCards(sortByPrice(filteredCards, 'high')));
-    } else if (cardSort === 'price l-h') {
+    } else if (cardsSort === 'price l-h') {
       setMappedCards(mapCards(sortByPrice(filteredCards, 'low')));
     } else {
       setMappedCards(mapCards(filteredCards));
@@ -82,20 +83,20 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollVa
       {user
       ? <div className='filter-container'>
           <button 
-            onClick={() => setFilterState('all')} 
-            className={filterState === 'all' ? 'selected' : ''}
+            onClick={() => setCardsFilter('all')} 
+            className={cardsFilter === 'all' ? 'selected' : ''}
           >
             All Cards
           </button>
           <button 
-            onClick={() => setFilterState('collected')} 
-            className={filterState === 'collected' ? 'selected' : ''}
+            onClick={() => setCardsFilter('collected')} 
+            className={cardsFilter === 'collected' ? 'selected' : ''}
           >
             Collected
           </button>
           <button 
-            onClick={() => setFilterState('notCollected')} 
-            className={filterState === 'notCollected' ? 'selected' : ''}
+            onClick={() => setCardsFilter('notCollected')} 
+            className={cardsFilter === 'notCollected' ? 'selected' : ''}
           >
             Not Collected
           </button>
@@ -106,8 +107,8 @@ const CardList = ({ cardSort, setCardSort, filterState, setFilterState, scrollVa
       <div className='sort-container'>
         <p>Sort by: {}</p>
         <select
-          value={cardSort}
-          onChange={(e) => {setCardSort(e.target.value)}}
+          value={cardsSort}
+          onChange={(e) => {setCardsSort(e.target.value)}}
         >
           <option value='number'>Set Number -asc-</option>
           <option value='revNumber'>Set Number -desc-</option>
