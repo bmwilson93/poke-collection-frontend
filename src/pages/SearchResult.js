@@ -4,8 +4,7 @@ import CardList from '../components/CardList'
 import PageNavigation from '../components/PageNavigation'
 import Loading from '../components/Loading'
 
-const SearchResult = ({ 
-  cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue, recentSearch }) => {
+const SearchResult = ({ scrollValue, setScrollValue, recentSearch }) => {
   const { cardCount } = useContext(CardContext);
 
   return (
@@ -19,7 +18,7 @@ const SearchResult = ({
           } else {
           return (
             <>
-              <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} scrollValue={scrollValue} setScrollValue={setScrollValue} />
+              <CardList scrollValue={scrollValue} setScrollValue={setScrollValue} />
               <PageNavigation recentSearch={recentSearch}/>
             </>
           )
