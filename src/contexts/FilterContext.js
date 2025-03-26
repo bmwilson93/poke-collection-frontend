@@ -6,7 +6,8 @@ const FilterContext = React.createContext();
 export const FilterProvider = ({ children }) => {
   const [cardsFilter, setCardsFilter] = useState('all'); // Filters for card list (IE: collected/not collected)
   const [cardsSort, setCardsSort] = useState('number'); // Sort options for card list
-  const [setsFilter, setSetsFilter] = useState('All') // Filter for sets by series
+  // const [setsFilter, setSetsFilter] = useState('All') // Filter for sets by series
+  const [seriesFilter, setSeriesFilter] = useState('All')
   const [setsSort, setSetsSort] = useState('newest'); // Sort for sets
   
   return (
@@ -15,8 +16,8 @@ export const FilterProvider = ({ children }) => {
       setCardsFilter,
       cardsSort,
       setCardsSort,
-      setsFilter, 
-      setSetsFilter,
+      seriesFilter, 
+      setSeriesFilter,
       setsSort,
       setSetsSort
      }}>

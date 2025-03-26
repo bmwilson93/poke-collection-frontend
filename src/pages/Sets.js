@@ -1,12 +1,14 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import FilterContext from '../contexts/FilterContext';
 import Loading from '../components/Loading';
 import SetItem from '../components/SetItem';
 import './css/Sets.css'
 
 import { getSets } from '../utils/fetchData';
 
-const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
+const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValue }) => {
+  const { setsSort, setSetsSort, seriesFilter, setSeriesFilter } = useContext(FilterContext);
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
 
@@ -52,7 +54,7 @@ const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, se
   // Update the mapped Sets when sort or filter is updated
   useEffect(() => {
     handleDisplaySets();
-  }, [selectedSort, seriesFilter])
+  }, [setsSort, seriesFilter])
 
   const mapSets = (allSets) => {
     return allSets.map((item) => {
@@ -73,7 +75,7 @@ const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, se
       filteredSets.push(...sets)
     }
 
-    if (selectedSort === 'oldest') {
+    if (setsSort === 'oldest') {
       setMappedSets(mapSets(filteredSets.toReversed()));
     } else {
       setMappedSets(mapSets(filteredSets));
@@ -94,8 +96,8 @@ const Sets = ({ seriesFilter, setSeriesFilter, selectedSort, setSelectedSort, se
             <div className='sort-item'>
                 <p>Sort by Release Date: </p>
                 <select
-                  value={selectedSort}
-                  onChange={(e) => {setSelectedSort(e.target.value)}}
+                  value={setsSort}
+                  onChange={(e) => {setSetsSort(e.target.value)}}
                 >
                   <option value='newest'>Newest</option>
                   <option value='oldest'>Oldest</option>
