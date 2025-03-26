@@ -114,6 +114,22 @@ input:-webkit-autofill {
   display: none;
 }
 
+.pw-req-container {
+  /* border: 1px solid blue; */
+  margin: -35px 0 00;
+  font-size: 15px;
+}
+
+.pw-req-ul {
+  /* border: 1px solid blue; */
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  text-align: left;
+  padding-left: 38px;
+  list-style-type: disc;
+}
+
 @media screen and (max-width: 420px) {
   .login-container, 
   .signup-container {
