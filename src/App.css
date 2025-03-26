@@ -58,6 +58,17 @@ input, .old-email {
   font-size: 18px;
 }
 
+.error-msg {
+  font-weight: 100;
+  font-size: 16px;
+  color: #D73558;
+}
+
+.error-border {
+  border: 1px solid #D73558 !important;
+  background-color: rgba(255, 0, 0, 0.25) !important; 
+}
+
 
 /* Hover Effect */
 .hover-grow {
