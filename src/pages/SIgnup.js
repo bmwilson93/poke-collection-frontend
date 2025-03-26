@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import FormInput from "../components/FormInput";
 
 import { fetchAPI } from "../utils/fetchAPI";
 import validator from "validator";
@@ -21,10 +22,7 @@ const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // Form Input Handlers
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handleUsernameChange = e => setUsername(e.target.value);
-  const handlePasswordChange = e => setPassword(e.target.value);
+  const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async (e) => {
     setEmailError(false);
@@ -38,7 +36,7 @@ const Signup = () => {
 
     if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempUsername, {min: 1, max: 64})) {
-        if (validator.isLength(tempPass, {min: 6, max: 20})) { 
+        if (validator.isLength(tempPass, {min: 8, max: 20})) { 
 
           let body = JSON.stringify({
             "email": tempEmail,
@@ -76,32 +74,54 @@ const Signup = () => {
         <form autoComplete="off">
           <div>
           <span className={emailError ? 'error' : 'error hidden'}>Email Error</span>
-            <input 
-              type='email' 
-              value={email} 
-              onChange={handleEmailChange} 
+            
+            <FormInput 
+              type='email'
+              value={email}
+              setValue={setEmail}
               placeholder='Email'
+              autoComplete='off'
+              showError={submissionError}
+              setShowError={setSubmissionError}
             />
           </div>
 
           <div>
           <span className={usernameError ? 'error' : 'error hidden'}>Username Error</span>
-            <input 
-              type='text' 
+            
+          <FormInput 
+              type='text'
               value={username}
-              onChange={handleUsernameChange} 
+              setValue={setUsername}
               placeholder='Username'
+              autoComplete='off'
+              showError={submissionError}
+              setShowError={setSubmissionError}
             />
           </div>
 
           <div>
           <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
-          <input 
-            type='password' 
-            value={password} 
-            onChange={handlePasswordChange} 
-            placeholder='Password'
-          />
+          
+          <FormInput 
+              type='password'
+              value={password}
+              setValue={setPassword}
+              placeholder='Password'
+              autoComplete='new-password'
+              showError={submissionError}
+              setShowError={setSubmissionError}
+            />
+          </div>
+
+          <div className='pw-req-container'>
+            <p>Passwords must contain:</p>
+            <ul className="pw-req-ul">
+              <li>a lowercase letter</li>
+              <li>an uppercase letter</li>
+              <li>a number</li>
+              <li>8 - 20 characters</li>
+            </ul>
           </div>
 
           <button onClick={handleSubmit}>Sign Up</button>
