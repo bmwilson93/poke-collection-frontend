@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import UserContext from '../contexts/UserContext';
 import CardContext from '../contexts/CardContext';
 
 import CardList from '../components/CardList';
@@ -9,8 +8,7 @@ import Loading from '../components/Loading';
 import './css/Set.css';
 
 
-const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, setScrollValue }) => {
-  const { user } = useContext(UserContext);
+const Set = ({ scrollValue, setScrollValue }) => {
   const { cards, getAllSetCards } = useContext(CardContext);
   const location = useLocation();
   const dataOfSet = location.state.set;
@@ -56,7 +54,7 @@ const Set = ({ cardSort, setCardSort, filterState, setFilterState, scrollValue, 
 
       <div className="card-list-container2">
         {cards.length > 0 
-        ? <CardList cardSort={cardSort} setCardSort={setCardSort} filterState={filterState} setFilterState={setFilterState} cards={cards} user={user} scrollValue={scrollValue} setScrollValue={setScrollValue}/>
+        ? <CardList scrollValue={scrollValue} setScrollValue={setScrollValue}/>
         : <Loading />}
         
       </div>

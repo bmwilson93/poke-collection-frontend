@@ -101,10 +101,6 @@ function App() {
           <Route 
             path="/set/:id" 
             element={<Set 
-              // cardSort={cardSort}
-              // setCardSort={setCardSort}
-              // filterState={filterState}
-              // setFilterState={setFilterState}
               scrollValue={scrollValue}
               setScrollValue={setScrollValue}
             />} 
