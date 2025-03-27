@@ -1,3 +1,5 @@
+import { getSets } from "./fetchData";
+
 // total cards in collection
 const getTotalCards = (collection) => {
   let runningTotal = 0;
@@ -24,5 +26,22 @@ const getTotalUniqueCards = (collection) => {
 }
 
 // completed sets
+const getCompletedSets = async (collection) => {
+  let runningTotal = 0;
+  let allSets = await getSets();
+  allSets = allSets.data;
+  
+  for (let i = 0; i < collection.length; i++) {
+    for (let j = 0; j < allSets.length; j++) {
+      if (collection[i].set_id === allSets[j].id) {
+        if (collection[i].cards.length == allSets[j].total) {
+          runningTotal++;
+          allSets.splice(j, 1);
+        }
+      }
+    }
+  }
+  return runningTotal;
+}
 
-export {getTotalCards, getTotalUniqueCards}
+export {getTotalCards, getTotalUniqueCards, getCompletedSets}
