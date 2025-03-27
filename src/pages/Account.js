@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 
 import { fetchAPI } from "../utils/fetchAPI";
-import { getTotalCards, getTotalUniqueCards } from '../utils/collectionStats';
+import { getTotalCards, getTotalUniqueCards, getCompletedSets } from '../utils/collectionStats';
 import { getCollectionValue } from '../utils/getCollectionValue';
 
 import AccountUser from '../components/account/AccountUser';
@@ -17,6 +17,7 @@ const Account = () => {
   const navigate = useNavigate();
   const [collectionValue, setCollectionValue] = useState(-1)
   const [calculating, setCalculating] = useState(false)
+  const [collectedSets, setcollectedSets] = useState(0)
   
 
   // On load, check if logged in
@@ -25,6 +26,17 @@ const Account = () => {
       navigate('/login')
     }
   }, [checkingUser])
+
+  useEffect(() => {
+    const fetchCompletedSets = async () => {
+      if (user) {
+        const setsCount = await getCompletedSets(user.collection.sets);
+        setcollectedSets(setsCount); // Set state with the resolved value
+      }
+    };
+  
+    fetchCompletedSets();
+  }, [user]); // Add `user` to dependency array
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -57,12 +69,12 @@ const Account = () => {
 
               <div className='collection-item bottom-border'>
                 <h4>Sets in Collection:</h4>
-                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
+                <span className='num-display'>{user.collection.sets.length}</span>
               </div>
 
               <div className='collection-item bottom-border'>
                 <h4>Completed Sets:</h4>
-                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
+                <span className='num-display'>{collectedSets}</span>
               </div>
 
 
