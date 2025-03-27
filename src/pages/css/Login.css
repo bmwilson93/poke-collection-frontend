@@ -115,13 +115,11 @@ input:-webkit-autofill {
 }
 
 .pw-req-container {
-  /* border: 1px solid blue; */
-  margin: -35px 0 00;
+  margin: -35px 0 0 0;
   font-size: 15px;
 }
 
 .pw-req-ul {
-  /* border: 1px solid blue; */
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
