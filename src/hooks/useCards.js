@@ -40,7 +40,12 @@ export const useCards = (user) => {
     }
   };
 
+  const clearCards = () => {
+    setCards([]);
+    setCardCount(-1);
+  }
+
   useEffect(() => applyCollection(), [user]);
 
-  return { cards, setCards, cardCount, pages, currentPage, getCards, getAllSetCards };
+  return { cards, setCards, cardCount, pages, currentPage, getCards, getAllSetCards, clearCards };
 };
