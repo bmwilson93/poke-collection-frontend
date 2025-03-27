@@ -1,9 +1,11 @@
-import React from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import CardContext from '../contexts/CardContext';
 import { getTypeImage } from '../utils/getTypeImage';
 
 const CardInfoDetails = ({ card }) => {
   const navigate = useNavigate();
+  const { clearCards } = useContext(CardContext);
 
   // Map each of the card details (attacks, abilities, rules, etc...)
   const abilities = (card?.abilities 
@@ -128,7 +130,10 @@ const CardInfoDetails = ({ card }) => {
               <div className="center-text">
                 <p>Set</p>
                 <div className="card-set-container link"
-                  onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}
+                  onClick={() => {
+                    clearCards();
+                    navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})                  
+                  }}
                 >
                   <span>{card?.set?.name}</span>
                   <img src={card?.set?.images?.symbol} alt="" width="30px"/>
