@@ -39,10 +39,7 @@ const Account = () => {
       ? <div className='account-container'>
 
           <div className='account-info'>
-
-            
             <AccountUser/>
-            
 
             <div className='collection-info'>
               <h3>Your Collection</h3>
@@ -55,6 +52,16 @@ const Account = () => {
 
               <div className='collection-item bottom-border'>
                 <h4>Unique Cards:</h4>
+                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
+              </div>
+
+              <div className='collection-item bottom-border'>
+                <h4>Sets in Collection:</h4>
+                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
+              </div>
+
+              <div className='collection-item bottom-border'>
+                <h4>Completed Sets:</h4>
                 <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
               </div>
 
