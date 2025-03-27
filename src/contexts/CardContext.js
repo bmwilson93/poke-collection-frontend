@@ -10,7 +10,8 @@ export const CardProvider = ({ user, children }) => {
     pages, 
     currentPage, 
     getAllSetCards, 
-    getCards 
+    getCards,
+    clearCards 
   } = useCards(user);
   
   return (
@@ -20,7 +21,8 @@ export const CardProvider = ({ user, children }) => {
       pages, 
       currentPage, 
       getCards,
-      getAllSetCards
+      getAllSetCards,
+      clearCards
     }}>
       {children}
     </CardContext.Provider>
