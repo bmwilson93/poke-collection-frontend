@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import CardContext from '../contexts/CardContext';
 
@@ -11,7 +11,7 @@ import './css/Set.css';
 const Set = ({ scrollValue, setScrollValue }) => {
   const { cards, getAllSetCards } = useContext(CardContext);
   const location = useLocation();
-  const dataOfSet = location.state.set;
+  const [dataOfSet, setDataOfSet] = useState(location.state.set)
 
   useEffect(() => {
     if (cards.length > 0) {
