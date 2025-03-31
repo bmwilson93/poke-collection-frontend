@@ -71,6 +71,7 @@ const Signup = () => {
 
       <div className="signup-container">
         <h2>Sign Up</h2>
+        <p>With a Poke-Collect account you can save cards to track your collection</p>
         <form autoComplete="off">
           <div>
           <span className={emailError ? 'error' : 'error hidden'}>Email Error</span>
