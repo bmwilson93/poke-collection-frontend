@@ -20,10 +20,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Form Input Handlers
-  // const handleEmailChange = e => setEmail(e.target.value);
-  // const handlePasswordChange = e => setPassword(e.target.value);
-
   const handleSubmit = async (e) => {
     setEmailError(false);
     setPasswordError(false);
@@ -34,6 +30,7 @@ const Login = () => {
 
     if (validator.isEmail(tempEmail) 
       && validator.isLength(tempEmail, {min: 3, max: 128})) {
+
       if (validator.isLength(tempPass, {min: 6, max: 20})) {
         setPasswordError(false);
 
@@ -49,12 +46,10 @@ const Login = () => {
         }
 
       } else { // Issue with password
-        // setPasswordError(true);
         setSubmissionError(true);
       }
 
     } else { // Issue with Email
-      // setEmailError(true);
       setSubmissionError(true);
     }
 
@@ -78,12 +73,6 @@ const Login = () => {
               showError={submissionError}
               setShowError={setSubmissionError}
             />
-            {/* <input 
-              type='email' 
-              value={email} 
-              onChange={handleEmailChange} 
-              placeholder='Email'
-            /> */}
           </div>
           <div>
             <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
@@ -96,13 +85,8 @@ const Login = () => {
               showError={submissionError}
               setShowError={setSubmissionError}
             />
-            {/* <input 
-              type='password' 
-              value={password} 
-              onChange={handlePasswordChange} 
-              placeholder='Password'
-            /> */}
           </div>
+          {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
           <button onClick={handleSubmit}>Log In</button>
         </form>
         <p>Don't have an account? <a onClick={() => {navigate('/signup')}}>Sign Up</a></p>
