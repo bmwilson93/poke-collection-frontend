@@ -7,7 +7,7 @@ const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError
 
   return (
     <input 
-      className = {(isTouched && value.trim() === '') || (showError) ? 'error-border' : ''}
+      className = {(isTouched && value.trim() === '') || (showError && value.trim() === '') ? 'error-border' : ''}
       type={type} 
       value={value}
       onChange={(e) => {
