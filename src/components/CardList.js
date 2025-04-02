@@ -79,19 +79,19 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       {user
       ? <div className='filter-container'>
           <button 
-            onClick={() => setCardsFilter('all')} 
+            onClick={() => {setScrollValue(0, 0); setCardsFilter('all')}} 
             className={cardsFilter === 'all' ? 'selected' : ''}
           >
             All Cards
           </button>
           <button 
-            onClick={() => setCardsFilter('collected')} 
+            onClick={() => { setScrollValue(0, 0); setCardsFilter('collected')}} 
             className={cardsFilter === 'collected' ? 'selected' : ''}
           >
             Collected
           </button>
           <button 
-            onClick={() => setCardsFilter('notCollected')} 
+            onClick={() => { setScrollValue(0, 0); setCardsFilter('notCollected')}} 
             className={cardsFilter === 'notCollected' ? 'selected' : ''}
           >
             Not Collected
@@ -104,7 +104,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
         <p>Sort by: {}</p>
         <select
           value={cardsSort}
-          onChange={(e) => {setCardsSort(e.target.value)}}
+          onChange={(e) => {setScrollValue(0, 0); setCardsSort(e.target.value)}}
         >
           <option value='number'>Set Number -asc-</option>
           <option value='revNumber'>Set Number -desc-</option>
