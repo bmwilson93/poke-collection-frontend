@@ -41,11 +41,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
       {card.collectedQuantity}
       
-      <CardItem name={card.name} 
-        setName={card.set.name} 
-        avgSellPrice={card.cardmarket?.prices?.averageSellPrice}
-        tcgPrices={card.tcgplayer?.prices}
-        imgSrc={card.images.small}/>
+      <CardItem card={card}/>
     </li>);
     })
   }
