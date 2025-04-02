@@ -1,92 +1,48 @@
 // Get Collection Value
 // uses the user collection to determine a rough estimate of the collection value
 
-
-// Iterate over the sets in the collection
-// for each set in the collection, call the API to get the cards in that set
-//
-// for each card in the set in the collection 
-// iterate to find that card in the set, and check the prices
-//
-// first check tcgplayer prices, then check cardmarket if no tcgplayer
-// 
-// add the value to the running total
-//
-// return the total
-
 import { getCardsBySet } from "./fetchData";
 
 const getCollectionValue = async (collection) => {
-  let collectionValue = 0;
+  // Use an object to avoid race conditions
+  const result = { value: 0 };
 
-  // loop through the collected sets
-  for (let set = 0; set < collection.sets.length; set++) {
-    console.log("starting the collection sets loop");
-    let fetchedCards = [];
+  await Promise.all(collection.sets.map(async (set) => {
+    try {
+      const fetchedCards = await getCardsBySet(set.set_id);
+      const cardLookup = fetchedCards.reduce((acc, card) => {
+        acc[card.id] = card;
+        return acc;
+      }, {});
 
-    let page = 1;
-    let endOfSet = false;
-
-    do {
-      let response = await getCardsBySet(collection.sets[set].set_id, page);
-
-      if ('error' in response) {
-        console.log("Error with getting cards");
-        endOfSet = true;
-        // break;
-      } else {
-        fetchedCards.push(...response.data);
-        console.log(fetchedCards);
-        if (response.totalCount <= response.pageSize * page) {
-          endOfSet = true;
-        } else {
-          page ++;
+      set.cards.forEach(collectedCard => {
+        const matchedCard = cardLookup[collectedCard.card_id];
+        if (!matchedCard) {
+          console.warn(`Card ${collectedCard.card_id} not found in set ${set.set_id}`);
+          return;
         }
-      }
-    } while (!endOfSet);
 
-    // loop through the cards in the collected set
-    for (let card = 0; card < collection.sets[set].cards.length; card++) {
-      console.log("starting the cards in the set loop");
+        collectedCard.quantities.forEach(variantObj => {
+          const [variant, quantity] = Object.entries(variantObj)[0];
+          const price = matchedCard.tcgplayer?.prices?.[variant]?.market || 
+                       matchedCard.cardmarket?.prices?.averageSellPrice;
 
-      console.log(fetchedCards.length);
-
-      // loop through the fetched cards to find the cards that are collected
-      for (let i = 0; i < fetchedCards.length; i++) {
-        console.log("starting the fetchedCards loop");
-
-        if (fetchedCards[i].id === collection.sets[set].cards[card].card_id) {
-          console.log("found the collected card");
-          
-          // loop through the card variant quantites
-          for (let variant = 0; variant < collection.sets[set].cards[card].quantities.length; variant++) {
-            console.log('starting the variant loop')
-            
-            // get the variant name from the object
-            let cardVariant = Object.keys(collection.sets[set].cards[card].quantities[variant])[0];
-            console.log(`Card variant: ${cardVariant}`)
-
-            // check if the card has tcgplayer prices
-            if (fetchedCards[i].tcgplayer?.prices && fetchedCards[i].tcgplayer.prices[cardVariant]) {
-              console.log("Using TCGPLAYER prices")
-              collectionValue += fetchedCards[i].tcgplayer.prices[cardVariant].market * collection.sets[set].cards[card].quantities[variant][cardVariant]
-              console.log(fetchedCards[i].tcgplayer.prices[cardVariant].market)
-              console.log(collection.sets[set].cards[card].quantities[variant][cardVariant])
-
-            } else if (fetchedCards[i].cardmarket?.prices?.averageSellPrice) { // check if the card has cardmarket instead
-              console.log("useing Cardmarket prices")
-              collectionValue += fetchedCards[i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant]
-              console.log(fetchedCards[i].cardmarket.prices.averageSellPrice * collection.sets[set].cards[card].quantities[variant][cardVariant])
-
-            }
+          if (price) {
+            const contribution = price * quantity;
+            result.value += contribution;
+            console.log(`Added $${contribution} for ${variant} variant of card ${collectedCard.card_id}`);
+          } else {
+            console.warn(`No price found for ${variant} variant of card ${collectedCard.card_id}`);
           }
-        }
-      }
+        });
+      });
+    } catch (error) {
+      console.error(`Error processing set ${set.set_id}:`, error);
     }
-  }
+  }));
 
-  console.log(collectionValue)
-  return collectionValue;
-}
+  console.log(`Total collection value: $${result.value}`);
+  return result.value;
+};
 
-export {getCollectionValue}
+export { getCollectionValue };
