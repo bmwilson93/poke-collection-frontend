@@ -2,13 +2,12 @@
 // Takes an array of card objects, and an option ('high' or 'low)
 // Sorts the array of cards depending on the option and returns a new array with the results
 
+import { variants } from "./variantList";
+
 // Helper Function to get the market price for a given variant
 const getMarketPrice = (item, variant) => {
   return item.tcgplayer?.prices?.[variant]?.market || item.tcgplayer?.prices?.[variant]?.mid || 0;
 };
-
-// Define the priority order of variants
-const variants = ['normal', 'holofoil', 'reverseHolofoil', 'unlimitedNormal', 'unlimitedHolofoil', '1stEditionNormal', '1stEditionHolofoil'];
 
 const sortByPrice = (cardArray, option = 'high') => {
   let newArray = [...cardArray];
