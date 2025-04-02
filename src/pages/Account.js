@@ -88,7 +88,7 @@ const Account = () => {
                         className="value-btn white-link" 
                         onClick={async () => {
                           setCalculating(true);
-                          setCollectionValue((await getCollectionValue(user.collection)).toFixed(2));
+                          setCollectionValue((await getCollectionValue(user.collection)));
                           setCalculating(false);
                         }}
                       >
@@ -100,7 +100,18 @@ const Account = () => {
                     : <></>
                   }
                   {calculating ? <Loading size={'small'}/> : <></>}
-                  {collectionValue > -1 ? <p className='num-display'>${collectionValue}</p> : <></>}
+                  {typeof collectionValue === 'number' && collectionValue > -1 
+                    ? (
+                      <p className='num-display'>
+                        {collectionValue.toLocaleString('en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}
+                      </p>
+                    ) 
+                    : null}
                 </div>
               </div>
 
