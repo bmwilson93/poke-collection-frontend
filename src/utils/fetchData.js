@@ -24,7 +24,7 @@ const fetchData = async (url) => {
 // }
 
 const getCardsBySet = async (setId) => {
-  return await pokemon.card.all({ q: 'set.id:' + setId})
+  return await pokemon.card.all({ q: 'set.id:' + setId, orderBy: 'number'})
 }
 
 // getCards takes a search or query, and returns a list of cards
