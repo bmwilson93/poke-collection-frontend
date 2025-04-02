@@ -4,7 +4,7 @@
 
 // Helper Function to get the market price for a given variant
 const getMarketPrice = (item, variant) => {
-  return item.tcgplayer?.prices?.[variant]?.market || 0;
+  return item.tcgplayer?.prices?.[variant]?.market || item.tcgplayer?.prices?.[variant]?.mid || 0;
 };
 
 // Define the priority order of variants
