@@ -58,13 +58,13 @@ const Account = () => {
 
               <div className='collection-item bottom-border'>
                 <h4>Total Cards:</h4>
-                <span className='num-display'>{getTotalCards(user.collection.sets)}</span>
+                <span className='num-display'>{getTotalCards(user.collection.sets).toLocaleString('en-US')}</span>
               </div>
 
 
               <div className='collection-item bottom-border'>
                 <h4>Unique Cards:</h4>
-                <span className='num-display'>{getTotalUniqueCards(user.collection.sets)}</span>
+                <span className='num-display'>{getTotalUniqueCards(user.collection.sets).toLocaleString('en-US')}</span>
               </div>
 
               <div className='collection-item bottom-border'>
