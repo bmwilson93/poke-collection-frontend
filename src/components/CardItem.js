@@ -1,29 +1,28 @@
 import React from 'react';
 import './css/CardItem.css';
 
-const CardItem = ({ name, setName, avgSellPrice, tcgPrices, imgSrc}) => {
+import { variants } from '../utils/variantList';
+
+const CardItem = ({ card }) => {
   const displayAveragePrice = () => {
-    if (tcgPrices?.normal) {
-      return tcgPrices?.normal?.market?.toFixed(2) || tcgPrices?.normal?.mid?.toFixed(2);
-    } else if (tcgPrices?.holofoil) {
-      return tcgPrices?.holofoil?.market?.toFixed(2) || tcgPrices?.holofoil?.mid?.toFixed(2);
-    } else if (tcgPrices?.reverseHolofoil) {
-      return tcgPrices?.reverseHolofoil?.market?.toFixed(2) || tcgPrices?.reverseHolofoil?.mid?.toFixed(2);
-    } else {
-      if (avgSellPrice) {
-        return avgSellPrice.toFixed(2);
-      } else {
-        return 'NA';
+    for (const variant of variants) {
+      const priceData = card.tcgplayer?.prices?.[variant];
+      if (priceData) {
+        const price = priceData.market || priceData.mid;
+        if (price) return price.toFixed(2);
       }
     }
-  }
+    
+    // Fallback to cardmarket price if no TCG price found
+    return card.cardmarket?.prices?.avgSellPrice?.toFixed(2) || 'NA';
+  };
 
 
   return (
     <div
       className="card-item hover-grow"
     >
-      <img src={imgSrc} 
+      <img src={card.images.small} 
         className="cardlist-image"
         loading='lazy'
       />
