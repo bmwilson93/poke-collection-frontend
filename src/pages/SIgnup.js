@@ -8,6 +8,8 @@ import validator from "validator";
 
 import './css/Login.css';
 
+const pwregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
+
 const Signup = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Signup = () => {
 
     if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempUsername, {min: 1, max: 64})) {
-        if (validator.isLength(tempPass, {min: 8, max: 20})) { 
+        if (validator.isLength(tempPass, {min: 8, max: 20}) && pwregex.test(tempPass)) { 
 
           let body = JSON.stringify({
             "email": tempEmail,
