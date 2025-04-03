@@ -11,108 +11,33 @@ const getMarketPrice = (item, variant) => {
       || 0;
 };
 
+const getBestPrice = (item) => {
+  // Check TCG prices first (in variant priority order)
+  for (const variant of variants) {
+    const price = getMarketPrice(item, variant);
+    if (price > 0) return { price, source: 'tcg' };
+  }
+  
+  // Fallback to cardmarket
+  if (item.cardmarket?.prices?.averageSellPrice) {
+    return { price: item.cardmarket.prices.averageSellPrice, source: 'cardmarket' };
+  }
+  
+  return { price: 0, source: 'none' };
+};
 
 const sortByPrice = (cardArray, option = 'high') => {
-  let newArray = [...cardArray];
+  return [...cardArray].sort((a, b) => {
+    const { price: priceA, source: sourceA } = getBestPrice(a);
+    const { price: priceB, source: sourceB } = getBestPrice(b);
 
-  if (option === 'high') {
-    newArray.sort((x, y) => {
-
-      if (x.tcgplayer?.prices) {
-        if (y.tcgplayer?.prices) {
-
-          for (let i = 0; i < variants.length; i++) {
-            if (x.tcgplayer.prices[variants[i]]) {
-              for (let j = 0; j < variants.length; j++) {
-                if (y.tcgplayer.prices[variants[j]]) {
-                  return getMarketPrice(y, variants[j]) - getMarketPrice(x, variants[i]);
-                }
-              }
-            }
-          }
-          return 0;
-
-        } else if (y.cardmarket?.prices) {
-          
-          for (let i = 0; i < variants.length; i++) {
-            if (x.tcgplayer.prices[variants[i]]) {
-              return y.cardmarket.prices.averageSellPrice - getMarketPrice(x, variants[i]);
-            }
-          }
-
-        } else { // y doesn't have price
-          return -1;
-        }
-
-
-      } else if (x.cardmarket?.prices) {
-
-        if (y.tcgplayer?.prices) {
-          for (let j = 0; j < variants.length; j++) {
-            if (y.tcgplayer.prices[variants[j]]) {
-              return  getMarketPrice(y, variants[j]) - x.cardmarket.prices.averageSellPrice;
-            }
-          }
-        } else if (y.cardmarket?.prices) {
-          return y.cardmarket.prices.avgSellPrice - x.cardmarket.prices.averageSellPrice;
-        }
-
-
-      } else { // x doesn't have price data
-        return 1;
-      }
-    });
-  } else { 
-    newArray.sort((x, y) => {
-      
-      if (x.tcgplayer?.prices) {
-        if (y.tcgplayer?.prices) {
-
-          for (let i = 0; i < variants.length; i++) {
-            if (x.tcgplayer.prices[variants[i]]) {
-              for (let j = 0; j < variants.length; j++) {
-                if (y.tcgplayer.prices[variants[j]]) {
-                  return getMarketPrice(x, variants[i]) - getMarketPrice(y, variants[j]);
-                }
-              }
-            }
-          }
-          return 0;
-
-        } else if (y.cardmarket?.prices) {
-          
-          for (let i = 0; i < variants.length; i++) {
-            if (x.tcgplayer.prices[variants[i]]) {
-              return getMarketPrice(x, variants[i]) - y.cardmarket.prices.averageSellPrice;
-            }
-          }
-
-        } else { // y doesn't have price
-          return 1;
-        }
-
-
-      } else if (x.cardmarket?.prices) {
-
-        if (y.tcgplayer?.prices) {
-          for (let j = 0; j < variants.length; j++) {
-            if (y.tcgplayer.prices[variants[j]]) {
-              return x.cardmarket.prices.averageSellPrice - getMarketPrice(y, variants[j]);
-            }
-          }
-        } else if (y.cardmarket?.prices) {
-          return x.cardmarket.prices.averageSellPrice - y.cardmarket.prices.avgSellPrice;
-        }
-
-
-      } else { // x doesn't have price data
-        return -1;
-      }
-
-
-    });
-  }
-  return newArray;
-}
+    // Items with prices come before items without
+    if (sourceA === 'none' && sourceB !== 'none') return 1;
+    if (sourceB === 'none' && sourceA !== 'none') return -1;
+    
+    // Sort by price (adjust direction based on option)
+    return option === 'high' ? priceB - priceA : priceA - priceB;
+  });
+};
 
 export {sortByPrice}
