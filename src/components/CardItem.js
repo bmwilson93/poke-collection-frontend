@@ -14,7 +14,7 @@ const CardItem = ({ card }) => {
     }
     
     // Fallback to cardmarket price if no TCG price found
-    return card.cardmarket?.prices?.avgSellPrice?.toFixed(2) || 'NA';
+    return card.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 'NA';
   };
 
 
