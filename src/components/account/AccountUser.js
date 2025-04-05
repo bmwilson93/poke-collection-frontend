@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import UserContext from '../../contexts/UserContext';
 import validator from 'validator';
-import { fetchAPIRaw } from '../../utils/fetchAPI';
+import { fetchAPI } from '../../utils/fetchAPI';
 import FormInput from '../FormInput';
 
 
@@ -56,23 +56,20 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
             "password": tempPass
           });
 
-          const response = await fetchAPIRaw('update-email', 'POST', body);
-          if (response) {
-            if (response?.ok) {
-              let newUser = await response.json();
-              setUser(newUser)
-              setUpdateResult("Email Updated")
-            } else {
-              let updateText = await response?.text();
-              setIsResultError(true);
-              setUpdateResult(updateText)
-            }
-          } else { // response is null
+          const response = await fetchAPI('update-email', 'POST', body);
+          
+          if (response.user) {
+            setUser(response.user)
+            setUpdateResult("Email Updated");
+          } else {
             setIsResultError(true);
-            setUpdateResult("There was an error with updating your email. Please try again.")
+            setUpdateResult(response?.error || "There was an error with updating your email. Please try again.")
           }
+
           setSubmissionError(false);
           setUpdateStage('result');
+
+
         } else { 
           // Password Error
           setSubmissionError(true);
@@ -136,23 +133,19 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
         "password": tempPass
       });
 
-      const response = await fetchAPIRaw('change-password', 'POST', body);
-      if (response) {
-        if (response?.ok) {
-          let newUser = await response.json();
-          setUser(newUser)
-          setUpdateResult("Your password was updated")
-        } else {
-          let updateText = await response?.text();
-          setIsResultError(true);
-          setUpdateResult(updateText)
-        }
-      } else { // response is null
+      const response = await fetchAPI('change-password', 'POST', body);
+          
+      if (response.user) {
+        setUser(response.user)
+        setUpdateResult("Your password was updated");
+      } else {
         setIsResultError(true);
-        setUpdateResult("There was an error with updating your password. Please try again.")
+        setUpdateResult(response?.error || "There was an error with updating your password. Please try again.")
       }
+
       setSubmissionError(false);
       setUpdateStage('result');
+
     } else { 
       // Password Error
       setSubmissionError(true);
