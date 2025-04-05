@@ -38,18 +38,29 @@ const Signup = () => {
 
     if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempUsername, {min: 1, max: 64})) {
-        if (validator.isLength(tempPass, {min: 8, max: 20}) && pwregex.test(tempPass)) { 
+        if (validator.isLength(tempPass, {min: 8, max: 20})) { 
 
-          let body = JSON.stringify({
-            "email": tempEmail,
-            "username": tempUsername,
-            "password": tempPass
-          })
-          const response = await fetchAPI('register', 'POST', body);
-          setUser(response);
-          if (response) {
-            setPassword('');
-            navigate('/');
+          try {
+            let body = JSON.stringify({
+              "email": tempEmail,
+              "username": tempUsername,
+              "password": tempPass
+            })
+  
+            const response = await fetchAPI('register', 'POST', body);
+
+            if (response.user) {
+              setUser(response.user);
+              setPassword('');
+              navigate('/');
+            } else {
+              if (response?.error) {
+                alert(response.error); // Show server error
+              }
+            }
+          } catch (error) {
+            console.error('Registration failed:', error);
+            alert('Registration failed. Please try again.');
           }
 
         } else {
