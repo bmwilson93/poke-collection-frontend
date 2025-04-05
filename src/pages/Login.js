@@ -39,10 +39,13 @@ const Login = () => {
           "password": tempPass
         });
         const response = await fetchAPI('login', 'POST', body);
-        setUser(response);
-        if (response) {
+
+        if (response.user) {
+          setUser(response.user);
           setPassword('');
           navigate('/');
+        } else {
+          // TODO access response.error to display error message from server
         }
 
       } else { // Issue with password
