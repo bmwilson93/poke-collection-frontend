@@ -1,7 +1,10 @@
+// fetchAPI
+// Makes calls to the backend API for user related functionaolity
+// always returns an object {}
+
 const fetchAPI = async (route, method, body) => {
-  console.log('fetchAPI')
   try {
-    const result = await fetch(`${process.env.REACT_APP_API_PATH}/${route}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_PATH}/${route}`, {
       method: method,
       headers: {
         "Content-Type": "application/json",
@@ -9,35 +12,16 @@ const fetchAPI = async (route, method, body) => {
       body: body,
       credentials: "include"
     });
-    if (result.ok) {
-      const data = await result.json();
-      console.log("data:")
-      console.log(data);
-      return data;
-    }
-    return null;
+
+
+    const data = await response.json().catch(() => ({})); 
+
+    return data;
+
   } catch (error) {
     console.log(error);
-    return null
+    return {error: error}
   }
 }
 
-const fetchAPIRaw = async (route, method, body) => {
-  console.log('fetchAPIRaw')
-  try {
-    const result = await fetch(`${process.env.REACT_APP_API_PATH}/${route}`, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: body,
-      credentials: "include"
-    });
-    return result;
-  } catch (error) {
-    console.log(error);
-    return null
-  }
-}
-
-module.exports = {fetchAPI, fetchAPIRaw}
+module.exports = {fetchAPI}
