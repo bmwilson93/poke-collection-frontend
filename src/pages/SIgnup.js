@@ -1,7 +1,10 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import { useSubmissionError } from "../hooks/useSubmissionError";
+
 import FormInput from "../components/FormInput";
+import ErrorDisplay from "../components/ErrorDisplay";
 
 import { fetchAPI } from "../utils/fetchAPI";
 import validator from "validator";
@@ -15,22 +18,16 @@ const Signup = () => {
   const navigate = useNavigate();
 
   // Form Error States
-  const [emailError, setEmailError] = useState(false)
-  const [usernameError, setUsernameError] = useState(false)
-  const [passwordError, setPasswordError] = useState(false)
+  const {submissionError, submissionErrorMessage, showError, clearError} = useSubmissionError();
 
   // Form Input States
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [submissionError, setSubmissionError] = useState(false)
-
   const handleSubmit = async (e) => {
-    setEmailError(false);
-    setUsernameError(false);
-    setPasswordError(false);
     e.preventDefault();
+    clearError();
 
     let tempEmail = validator.trim(validator.escape(email));
     let tempUsername = validator.trim(validator.escape(username));
@@ -38,7 +35,7 @@ const Signup = () => {
 
     if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
       if (validator.isLength(tempUsername, {min: 1, max: 64})) {
-        if (validator.isLength(tempPass, {min: 8, max: 20})) { 
+        if (validator.isLength(tempPass, {min: 8, max: 20}) && pwregex.test(tempPass)) { 
 
           try {
             let body = JSON.stringify({
@@ -54,25 +51,23 @@ const Signup = () => {
               setPassword('');
               navigate('/');
             } else {
-              if (response?.error) {
-                alert(response.error); // Show server error
-              }
+              showError(response.error || "There was an error. Please try again.");
             }
           } catch (error) {
             console.error('Registration failed:', error);
-            alert('Registration failed. Please try again.');
+            showError('Registration failed. Please try again.');
           }
 
         } else {
-          setPasswordError(true)
+          showError("Please enter a valid password");
         }
 
       } else {
-        setUsernameError(true);
+        showError("Please enter a valid username");
       }
 
     } else {
-      setEmailError(true);
+      showError("Please enter a valid email address");
     }
 
     
@@ -86,9 +81,7 @@ const Signup = () => {
         <h2>Sign Up</h2>
         <p>With a Poke-Collect account you can save cards to track your collection</p>
         <form autoComplete="off">
-          <div>
-          <span className={emailError ? 'error' : 'error hidden'}>Email Error</span>
-            
+          <div>        
             <FormInput 
               type='email'
               value={email}
@@ -96,13 +89,11 @@ const Signup = () => {
               placeholder='Email'
               autoComplete='off'
               showError={submissionError}
-              setShowError={setSubmissionError}
+              // setShowError={setSubmissionError}
             />
           </div>
 
           <div>
-          <span className={usernameError ? 'error' : 'error hidden'}>Username Error</span>
-            
           <FormInput 
               type='text'
               value={username}
@@ -110,13 +101,11 @@ const Signup = () => {
               placeholder='Username'
               autoComplete='off'
               showError={submissionError}
-              setShowError={setSubmissionError}
+              // setShowError={setSubmissionError}
             />
           </div>
 
           <div>
-          <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
-          
           <FormInput 
               type='password'
               value={password}
@@ -124,7 +113,7 @@ const Signup = () => {
               placeholder='Password'
               autoComplete='new-password'
               showError={submissionError}
-              setShowError={setSubmissionError}
+              // setShowError={setSubmissionError}
             />
           </div>
 
@@ -137,6 +126,8 @@ const Signup = () => {
               <li>8 - 20 characters</li>
             </ul>
           </div>
+
+          <ErrorDisplay submissionError={submissionError} submissionErrorMessage={submissionErrorMessage} />
 
           <button onClick={handleSubmit}>Sign Up</button>
         </form>
