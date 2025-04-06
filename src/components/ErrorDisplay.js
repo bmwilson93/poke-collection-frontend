@@ -1,8 +1,8 @@
 import React from 'react'
 
-const ErrorDisplay = () => {
+const ErrorDisplay = ({ submissionError, submissionErrorMessage }) => {
   return (
-    <div>ErrorDisplay</div>
+    <div>{submissionError ? <p className='error-msg'>{submissionErrorMessage}</p> : <></>}</div>
   )
 }
 
