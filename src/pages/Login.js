@@ -1,9 +1,11 @@
 import { useState, useContext } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import { useSubmissionError } from "../hooks/useSubmissionError";
 
 import { fetchAPI } from "../utils/fetchAPI";
 import FormInput from "../components/FormInput";
+import ErrorDisplay from "../components/ErrorDisplay";
 import validator from 'validator';
 import './css/Login.css';
 
@@ -12,17 +14,14 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Form Error States
-  const [emailError, setEmailError] = useState(false)
-  const [passwordError, setPasswordError] = useState(false)
-  const [submissionError, setSubmissionError] = useState(false);
+  const {submissionError, submissionErrorMessage, showError, clearError} = useSubmissionError();
 
   // Form Input States
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
-    setEmailError(false);
-    setPasswordError(false);
+    clearError();
     e.preventDefault();
 
     let tempEmail = validator.trim(validator.escape(email));;
@@ -32,7 +31,6 @@ const Login = () => {
       && validator.isLength(tempEmail, {min: 3, max: 128})) {
 
       if (validator.isLength(tempPass, {min: 6, max: 20})) {
-        setPasswordError(false);
 
         let body = JSON.stringify({
           "email": tempEmail,
@@ -45,15 +43,15 @@ const Login = () => {
           setPassword('');
           navigate('/');
         } else {
-          // TODO access response.error to display error message from server
+          showError(response.error || "There was an error. Please try again.")
         }
 
       } else { // Issue with password
-        setSubmissionError(true);
+        showError("Please enter a valid password");
       }
 
     } else { // Issue with Email
-      setSubmissionError(true);
+      showError("Please enter a valid email address");
     }
 
   }
@@ -66,7 +64,6 @@ const Login = () => {
         <h2>Log In</h2>
         <form>
           <div>
-            <span className={emailError ? 'error' : 'error hidden'}>Email Error</span>
             <FormInput 
               type='email'
               value={email}
@@ -74,11 +71,10 @@ const Login = () => {
               placeholder='Email'
               autoComplete=''
               showError={submissionError}
-              setShowError={setSubmissionError}
+              // setShowError={setSubmissionError}
             />
           </div>
           <div>
-            <span className={passwordError ? 'error' : 'error hidden'}>Password Error</span>
             <FormInput 
               type='password'
               value={password}
@@ -86,10 +82,12 @@ const Login = () => {
               placeholder='Password'
               autoComplete=''
               showError={submissionError}
-              setShowError={setSubmissionError}
+              // setShowError={setSubmissionError}
             />
           </div>
-          {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
+
+          <ErrorDisplay submissionError={submissionError} submissionErrorMessage={submissionErrorMessage} />
+          
           <button onClick={handleSubmit}>Log In</button>
         </form>
         <p>Don't have an account? <a onClick={() => {navigate('/signup')}}>Sign Up</a></p>
