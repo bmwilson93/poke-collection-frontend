@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { fetchAPI } from '../utils/fetchAPI';
 
 export const useUser = () => {
   const [user, setUser] = useState(null);
@@ -6,24 +7,12 @@ export const useUser = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_PATH}/isloggedin`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          method: 'GET',
-          credentials: "include",
-          withCredentials: true
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          setUser(data);
-        }
-      } catch (error) {
-        console.log(error);
+      const response = await fetchAPI('isloggedin', 'GET', null);
+      
+      if (response.user) {
+        setUser(response.user);
       }
+
       setCheckingUser(false);
     }
 
