@@ -7,11 +7,11 @@ import FormInput from "../components/FormInput";
 import ErrorDisplay from "../components/ErrorDisplay";
 
 import { fetchAPI } from "../utils/fetchAPI";
+import { isValidEmail, isValidPassword, isValidUsername } from "../utils/validateInput";
 import validator from "validator";
 
 import './css/Login.css';
 
-const pwregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
 
 const Signup = () => {
   const { setUser } = useContext(UserContext);
@@ -33,9 +33,9 @@ const Signup = () => {
     let tempUsername = validator.trim(validator.escape(username));
     let tempPass = validator.trim(validator.escape(password));
 
-    if (validator.isEmail(tempEmail) && validator.isLength(tempEmail, {min: 3, max: 128})) {
-      if (validator.isLength(tempUsername, {min: 1, max: 64})) {
-        if (validator.isLength(tempPass, {min: 8, max: 20}) && pwregex.test(tempPass)) { 
+    if (isValidEmail(tempEmail)) {
+      if (isValidUsername(tempUsername)) {
+        if (isValidPassword(tempPass)) { 
 
           try {
             let body = JSON.stringify({
