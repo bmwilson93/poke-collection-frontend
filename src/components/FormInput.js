@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false, setShowError }) => {
+const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError = false }) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const handleBlur = () => setIsTouched(true);
@@ -11,7 +11,6 @@ const FormInput = ({ type, value, setValue, placeholder, autoComplete, showError
       type={type} 
       value={value}
       onChange={(e) => {
-        setShowError(false);
         setValue(e.target.value);
       }}
       onBlur={handleBlur}
