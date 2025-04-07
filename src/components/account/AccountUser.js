@@ -1,9 +1,12 @@
 import { useState, useContext } from 'react'
 import UserContext from '../../contexts/UserContext';
+import { useSubmissionError } from '../../hooks/useSubmissionError';
+
+import FormInput from '../FormInput';
+import ErrorDisplay from "../ErrorDisplay";
+
 import validator from 'validator';
 import { fetchAPI } from '../../utils/fetchAPI';
-import FormInput from '../FormInput';
-
 
 const UserDisplay = ({ setUpdateStage }) => {
   const { user } = useContext(UserContext);
@@ -32,13 +35,15 @@ const UserDisplay = ({ setUpdateStage }) => {
 
 const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError }) => {
   const { user, setUser } = useContext(UserContext);
+  const {submissionError, submissionErrorMessage, showError, clearError} = useSubmissionError();
   
   const [newEmail, setNewEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault();
+    clearError();
+
     let tempEmail = validator.trim(validator.escape(newEmail));
     let tempPass = validator.trim(validator.escape(password));
 
@@ -61,23 +66,19 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
           if (response.user) {
             setUser(response.user)
             setUpdateResult("Email Updated");
+            setUpdateStage('result');
           } else {
-            setIsResultError(true);
-            setUpdateResult(response?.error || "There was an error with updating your email. Please try again.")
+            showError(response?.error || "There was an error with updating your email. Please try again.")
           }
-
-          setSubmissionError(false);
-          setUpdateStage('result');
-
 
         } else { 
           // Password Error
-          setSubmissionError(true);
+          showError("Please enter a valid password");
         }
 
     } else { 
       // Email Error
-      setSubmissionError(true);
+      showError("Please enter a valid email address");
     }
   }
 
@@ -93,7 +94,7 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
           placeholder='New Email'
           autoComplete='off'
           showError={submissionError}
-          setShowError={setSubmissionError}
+          // setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -102,25 +103,29 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
-          setShowError={setSubmissionError}
+          // setShowError={setSubmissionError}
         />
-        {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
-      <button className='white-link' onClick={handleSubmit}>Update</button>
-    </form>
-    <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
-  </div>
+        
+        <ErrorDisplay submissionError={submissionError} submissionErrorMessage={submissionErrorMessage} />
+        <button className='white-link' onClick={handleSubmit}>Update</button>
+      </form>
+      <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
+    </div>
   )
 }
 
 const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError }) => {
   const { user, setUser } = useContext(UserContext);
+  const {submissionError, submissionErrorMessage, showError, clearError} = useSubmissionError();
   
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  const [submissionError, setSubmissionError] = useState(false)
+  // const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault();
+    clearError();
+
     let tempNewPass = validator.trim(validator.escape(newPassword));
     let tempPass = validator.trim(validator.escape(password));
 
@@ -138,17 +143,14 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
       if (response.user) {
         setUser(response.user)
         setUpdateResult("Your password was updated");
+        setUpdateStage('result');
       } else {
-        setIsResultError(true);
-        setUpdateResult(response?.error || "There was an error with updating your password. Please try again.")
+        showError(response?.error || "There was an error with updating your password. Please try again.")
       }
-
-      setSubmissionError(false);
-      setUpdateStage('result');
 
     } else { 
       // Password Error
-      setSubmissionError(true);
+      showError("Please enter a valid password");
     }
   }
 
@@ -163,7 +165,7 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
           placeholder='New Password'
           autoComplete='new-password'
           showError={submissionError}
-          setShowError={setSubmissionError}
+          // setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -172,13 +174,15 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
-          setShowError={setSubmissionError}
+          // setShowError={setSubmissionError}
         />
         {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
-      <button className='white-link' onClick={handleSubmit}>Update</button>
-    </form>
-    <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
-  </div>
+        
+        <ErrorDisplay submissionError={submissionError} submissionErrorMessage={submissionErrorMessage} />
+        <button className='white-link' onClick={handleSubmit}>Update</button>
+      </form>
+      <button className='white-link' onClick={() => setUpdateStage('none')}>Cancel</button>
+    </div>
   )
 }
 
