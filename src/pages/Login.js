@@ -4,8 +4,11 @@ import UserContext from "../contexts/UserContext";
 import { useSubmissionError } from "../hooks/useSubmissionError";
 
 import { fetchAPI } from "../utils/fetchAPI";
+import { isValidEmail, isValidPassword } from "../utils/validateInput";
+
 import FormInput from "../components/FormInput";
 import ErrorDisplay from "../components/ErrorDisplay";
+
 import validator from 'validator';
 import './css/Login.css';
 
@@ -27,10 +30,8 @@ const Login = () => {
     let tempEmail = validator.trim(validator.escape(email));;
     let tempPass = validator.trim(validator.escape(password));
 
-    if (validator.isEmail(tempEmail) 
-      && validator.isLength(tempEmail, {min: 3, max: 128})) {
-
-      if (validator.isLength(tempPass, {min: 6, max: 20})) {
+    if (isValidEmail(tempEmail)) {
+      if (isValidPassword(tempPass)) {
 
         let body = JSON.stringify({
           "email": tempEmail,
