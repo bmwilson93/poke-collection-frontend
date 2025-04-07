@@ -14,7 +14,7 @@ const Header = ({ setRecentSearch, search, setSearch}) => {
   const location = useLocation();
 
   return (
-    <header>
+    <header className={location.pathname !== '/' ? 'add-margin' : ''}>
         <div className="home-container">
           <Link to='/' className="header-home-link white-link">
             <img src={logo} alt="logo" width="40px"/>
