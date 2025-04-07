@@ -7,6 +7,7 @@ import ErrorDisplay from "../ErrorDisplay";
 
 import validator from 'validator';
 import { fetchAPI } from '../../utils/fetchAPI';
+import { isValidEmail, isValidPassword } from '../../utils/validateInput';
 
 const UserDisplay = ({ setUpdateStage }) => {
   const { user } = useContext(UserContext);
@@ -48,10 +49,8 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
     let tempPass = validator.trim(validator.escape(password));
 
     // check the email and password fields are not empty or invalid
-    if (validator.isEmail(tempEmail) 
-      && validator.isLength(tempEmail, {min: 3, max: 128})) {
-
-        if (validator.isLength(tempPass, {min: 6, max: 20})) {
+    if (isValidEmail(tempEmail)) {
+        if (isValidPassword(tempPass)) {
 
           // build the body for the request 
           // make request to fetchAPI
@@ -94,7 +93,6 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
           placeholder='New Email'
           autoComplete='off'
           showError={submissionError}
-          // setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -103,7 +101,6 @@ const UpdateEmailDisplay = ({ setUpdateResult, setUpdateStage, setIsResultError 
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
-          // setShowError={setSubmissionError}
         />
         
         <ErrorDisplay submissionError={submissionError} submissionErrorMessage={submissionErrorMessage} />
@@ -120,7 +117,6 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
   
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  // const [submissionError, setSubmissionError] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -129,8 +125,7 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
     let tempNewPass = validator.trim(validator.escape(newPassword));
     let tempPass = validator.trim(validator.escape(password));
 
-    // check the email and password fields are not empty or invalid
-    if (validator.isLength(tempPass, {min: 3, max: 128}) && validator.isLength(tempNewPass, {min: 6, max: 20})) {
+    if (isValidPassword(tempPass) && isValidPassword(tempNewPass)) {
       // make request to fetchAPI
       let body = JSON.stringify({
         "email": user.email,
@@ -165,7 +160,6 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
           placeholder='New Password'
           autoComplete='new-password'
           showError={submissionError}
-          // setShowError={setSubmissionError}
         />
         <FormInput 
           type='password'
@@ -174,7 +168,6 @@ const UpdatePasswordDisplay = ({ setUpdateResult, setUpdateStage, setIsResultErr
           placeholder='Password'
           autoComplete='new-password'
           showError={submissionError}
-          // setShowError={setSubmissionError}
         />
         {submissionError ? <p className='error-msg'>Please ensure all fields are filled out with valid information</p> : <></>}
         
