@@ -8,6 +8,7 @@ header {
     height: 80px;
     background-color: var(--fore-color);
     gap: 18px;
+    /* margin-bottom: 100px; */
 }
 
 .home-container {
@@ -40,7 +41,10 @@ nav {
     flex-direction: column;
     gap: 10px;
     height: 110px;
-    /* margin-bottom: 80px; */
+  }
+
+  .add-margin {
+    margin-bottom: 80px;
   }
 
   nav {

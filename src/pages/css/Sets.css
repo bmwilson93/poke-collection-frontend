@@ -101,12 +101,6 @@
   }
 }
 
-@media (max-width: 820px) {
-  .sets-container {
-    margin-top: 100px;
-  }
-}
-
 @media (max-width: 800px) {
   .sets-list {
     grid-template-columns: 1fr;
