@@ -18,11 +18,6 @@ const fetchData = async (url) => {
   return data;
 }
 
-// const getCardsBySet = async (setId, page = 1) => {
-//   let searchUrl = url + 'cards?q=set.id:' + setId + '&orderBy=number&page=' + page;
-//   return await fetchData(searchUrl);
-// }
-
 const getCardsBySet = async (setId) => {
   return await pokemon.card.all({ q: 'set.id:' + setId, orderBy: 'number'})
 }
@@ -33,14 +28,10 @@ const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
   return await fetchData(searchUrl);
 }
 
-
-
-const getCard = async (id) => {
-  return await fetchData(`${url}cards/${id}`)
-}
-
-const testgetCard = async (id) => {
-  return await pokemon.card.find(id)
+const getCardById = async (id) => {
+  let data = await fetchData(`${url}cards/${id}`)
+  // console.log(data.data);
+  return data.data
 }
 
 const getSets = async () => {
@@ -55,7 +46,5 @@ const testgetSets = async () => {
 export {getCardsBySearch, 
   getCardsBySet, 
   getSets, 
-  getCard, 
-  testgetCard,
-  testgetSets
+  getCardById
 }
