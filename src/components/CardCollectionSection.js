@@ -20,41 +20,6 @@ const CardCollectionSection = ({ card, setCard }) => {
     const response = await fetchAPI(`collection/${action}`, 'POST', body)
 
     if (response.user) setUser(response.user);
-
-    //update the card state to display the added variant
-    setCard(prevCard => {
-
-      if (!prevCard.collected) {
-
-        prevCard.collected = true;
-        prevCard.collectedQuantities = [{[variant]: 1}]
-
-      } else {
-
-        let found = false;
-        for (let i = 0; i < prevCard.collectedQuantities.length; i++) {
-          if (Object.hasOwn(prevCard.collectedQuantities[i], variant)) {
-            found = true;
-            if (action === "add" ) {
-              prevCard.collectedQuantities[i][variant]++;
-            } else { // remove
-              prevCard.collectedQuantities[i][variant]--;
-              if (prevCard.collectedQuantities[i][variant] === 0) prevCard.collectedQuantities.splice(i, 1)
-              if (prevCard.collectedQuantities.length < 1) {
-                delete prevCard.collected;
-              }
-            }
-          }
-        }
-
-        if (!found && action === "add") { // variant not found, add it to the collectedQuantities array
-          prevCard.collectedQuantities.push({[variant]: 1})
-        }
-      }
-
-
-      return prevCard;
-    })
   }  
 
   // Displays the collected qty
@@ -71,6 +36,7 @@ const CardCollectionSection = ({ card, setCard }) => {
   .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
   .map(key => (
     <CollectionVariant 
+      key={key}
       variant={key}
       handleCollectionClick={handleCollectionClick}
       displayQuantities={displayQuantities} 
@@ -88,6 +54,7 @@ const CardCollectionSection = ({ card, setCard }) => {
         : <ul>
             {Object.keys({'normal':"", 'holofoil':"", 'reverseHolofoil':""})
             .map(key => (<CollectionVariant 
+                key={key}
                 variant={key} 
                 handleCollectionClick={handleCollectionClick}
                 displayQuantities={displayQuantities} 
