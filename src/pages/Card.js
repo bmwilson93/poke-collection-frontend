@@ -1,11 +1,11 @@
 // Page that displays the detailed information for a specific card
 
 import React, { useState, useEffect, useContext } from 'react'
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import CardContext from '../contexts/CardContext';
 
 import { getTypeImage } from '../utils/getTypeImage';
-import { getCard } from '../utils/fetchData';
 import checkmark from '../assets/check-circle-solid-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
@@ -16,34 +16,24 @@ import './Card.css';
 
 const Card = () => {
   const { user } = useContext(UserContext);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { cards, getCard } = useContext(CardContext);
   const { id } = useParams();
 
-  const getTheCard = async () => {
-    console.log("get the card")
-    const response = await getCard(id);
-    console.log(response);
-    if ('error' in response) {
-      console.log("found an error");
-    } else {
-      navigate(`/card/${response.data.id}`, {state:{card: response.data}})
-      navigate(0);
-    }
+  const navigate = useNavigate();
 
-  }
+  const [card, setCard] = useState({})
+  
 
-  const [card, setCard] = useState(location?.state?.card || {})
-  
-  
+  //Window Size
   // Get window size for rendering collection section
   const getWindowSize = () => {
     const {innerWidth, innerHeight} = window;
     return {innerWidth, innerHeight};
   }
-  
+
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
+  // Tracks the window size to correctly display the collection buttons
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowSize(getWindowSize());
@@ -54,14 +44,32 @@ const Card = () => {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
+  // END Window Size
+
 
   useEffect(() => {
-    console.log("fresh load")
-
-    if (!card.id) {
-      getTheCard();
+    const findCard = async () => {
+      // on load, find the card in the cards state using the id from the params
+      const cardData = cards.find(card => card.id === id);
+      if (cardData) {
+        setCard(cardData);
+      } else { // card isn't in the cards state, fetch the card directly
+        getCard(id);
+      }
     }
+
+    findCard();
+
   },[])
+
+  useEffect(() => {
+    if (!card.id) {
+      const cardData = cards.find(card => card.id === id);
+      if (cardData) {
+        setCard(cardData);
+      }
+    }
+  }, [cards])
 
   const subtypes = card?.subtypes ? card?.subtypes.map((item) => <span key={item.id}>{item} </span>) : <></>
 
