@@ -4,10 +4,10 @@ import { useUser } from '../hooks/useUser';
 const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
-  const { user, setUser, checkingUser } = useUser();
+  const { user, setUser, checkingUser, updateCollection } = useUser();
   
   return (
-    <UserContext.Provider value={{ user, setUser, checkingUser }}>
+    <UserContext.Provider value={{ user, setUser, checkingUser, updateCollection }}>
       {children}
     </UserContext.Provider>
   );
