@@ -1,25 +1,17 @@
 import { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 
-import { fetchAPI } from '../utils/fetchAPI';
 import CollectionVariant from './CollectionVariant';
 
 import { variants } from '../utils/variantList';
 
   
-const CardCollectionSection = ({ card, setCard }) => {
-  const { setUser } = useContext(UserContext);
+const CardCollectionSection = ({ card }) => {
+  const { updateCollection } = useContext(UserContext);
 
   // runs the call to the backend to update the collection
   const handleCollectionClick = async (action, variant) => {
-    const body = JSON.stringify({
-      "card_id": card.id,
-      "set_id": card.set.id,
-      "variant": variant
-    })
-    const response = await fetchAPI(`collection/${action}`, 'POST', body)
-
-    if (response.user) setUser(response.user);
+    updateCollection(card.id, card.set.id, action, variant)
   }  
 
   // Displays the collected qty
