@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { fetchAPI } from '../utils/fetchAPI';
 
 export const useUser = () => {
@@ -20,31 +20,33 @@ export const useUser = () => {
   }, []);
 
 
-  let requestQueue = [];
-  let isProcessing = false;
-
+  const requestQueue = useRef([]);
+  const isProcessing = useRef(false);
+  
   const processQueue = async () => {
-    if (isProcessing || requestQueue.length === 0) return;
+    // Skip if already processing or queue is empty
+    if (isProcessing.current || requestQueue.current.length === 0) return;
     
-    isProcessing = true;
-    const { cardId, setId, action, variant } = requestQueue.shift(); // Get next request
+    isProcessing.current = true;
+    const request = requestQueue.current.shift(); // Get next request
     
     try {
       const body = JSON.stringify({
-        card_id: cardId,
-        set_id: setId,
-        variant: variant
+        card_id: request.cardId,
+        set_id: request.setId,
+        variant: request.variant
       });
-      const response = await fetchAPI(`collection/${action}`, 'POST', body);
+      const response = await fetchAPI(`collection/${request.action}`, 'POST', body);
       if (response.user) setUser(response.user);
     } finally {
-      isProcessing = false;
+      isProcessing.current = false;
       processQueue(); // Process next item
     }
   };
-
+  
   const updateCollection = async (cardId, setId, action, variant) => {
-    requestQueue.push({ cardId, setId, action, variant });
+    requestQueue.current.push({ cardId, setId, action, variant });
+    console.log(requestQueue.current.length);
     processQueue();
   }
 
