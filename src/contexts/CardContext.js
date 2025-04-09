@@ -11,6 +11,7 @@ export const CardProvider = ({ user, children }) => {
     currentPage, 
     getAllSetCards, 
     getCards,
+    getCard,
     clearCards 
   } = useCards(user);
   
@@ -21,6 +22,7 @@ export const CardProvider = ({ user, children }) => {
       pages, 
       currentPage, 
       getCards,
+      getCard,
       getAllSetCards,
       clearCards
     }}>
