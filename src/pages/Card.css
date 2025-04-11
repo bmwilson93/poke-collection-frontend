@@ -233,7 +233,7 @@
   background-color: var(--link-color);
   color: var(--back-color);
   cursor: pointer;
-  /* touch-action: manipulation; */
+  touch-action: manipulation;
 }
 
 .collection-btn:active {
@@ -241,12 +241,11 @@
   color: var(--text-color);
 }
 
-/* @media (hover: hover) {
+@media (hover: hover) {
   .collection-btn:hover {
-    background-color: var(--accent-color);
     color: var(--text-color);
   }
-} */
+}
 
 
 .variant-total {
