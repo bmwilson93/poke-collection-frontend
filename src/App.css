@@ -1,4 +1,6 @@
-/* Variables */
+/* ====================== */
+/* Variables & Base Styles
+/* ====================== */
 :root {
   --back-color: #191D32;
   --fore-color: #282F44;
@@ -29,8 +31,9 @@ html, body {
   flex-direction: column;
 }
 
-
-/* Global Styles */
+/* ====================== */
+/* Global Styles 
+/* ====================== */
 ul {
   list-style-type: none;
 }
@@ -103,8 +106,7 @@ a:hover, .link:hover {
 }
 
 
-
-
+/* Scroll Styles */
 .scroll-button {
   position: fixed;
   left: 10px;
@@ -120,12 +122,9 @@ a:hover, .link:hover {
 
 
 
-
-/* Search Results */
-/* .search-results-container {
-  min-height: calc(100vh - 180px);
-} */
-
+/* ====================== */
+/* Search Results Page
+/* ====================== */
 .not-found-message {
   display: flex;
   justify-content: center;
@@ -134,7 +133,6 @@ a:hover, .link:hover {
   font-size: 28px;
   top: 50%;
 }
-
 
 /* Page Navigation Comp */
 .page-navigation-container {
@@ -158,7 +156,10 @@ a:hover, .link:hover {
   background-color: #4b5572;
 }
 
-/* Sort Dropdown */
+
+/* ====================== */
+/* Sort Styles
+/* ====================== */
 .sort-container {
   margin-bottom: 50px;
   display: flex;
