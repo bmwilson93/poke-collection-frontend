@@ -35,7 +35,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
     return cardlist.map((card) => {
       return (<li key={card.id} onClick={() => {
         setScrollValue(window.scrollY);
-        navigate(`/card/${card.id}`, {state:{card: card}})}
+        navigate(`/card/${card.id}`)}
       }>
         
       {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
