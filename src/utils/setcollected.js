@@ -26,6 +26,8 @@ const setCollected = (cards, collection) => {
     if (currentSet == null || card.set.id !== currentSet.set_id) {
       currentSet = findSet(card.set.id, collection.sets);
       if (!currentSet) {
+        // If the card isn't in the set but has the collected property,
+        // remove the collected property before returning the card
         if (card.collected) {
           delete card.collected;
           delete card.collectedQuantities;
@@ -35,15 +37,19 @@ const setCollected = (cards, collection) => {
 
     const found = findInSet(card.id, currentSet.cards);
     if (found) {
+
+      // TODO, update to check for incomming or wanted status 
+      // in addition to the collected property
       card.collected = true;
       card.collectedQuantities = found.quantities;
+
     } else { // not found
       if (card.collected) {
         delete card.collected;
         delete card.collectedQuantities;
       }
     }
-    return card; // TODO updated to remove collected property
+    return card;
   })
 
   return updatedCards;
