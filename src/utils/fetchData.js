@@ -13,9 +13,16 @@ const options = {
 }
 
 const fetchData = async (url) => {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  return data;
+  try {
+    console.log("fetching data")
+    const response = await fetch(url, options);
+    const data = await response.json().catch((error) => ({error: error}));
+    return data;
+
+  } catch (error) {
+    console.log(error);
+    return {error: error}
+  }
 }
 
 const getCardsBySet = async (setId) => {
@@ -29,9 +36,17 @@ const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
 }
 
 const getCardById = async (id) => {
-  let data = await fetchData(`${url}cards/${id}`)
-  // console.log(data.data);
-  return data.data
+    console.log("getting card by Id");
+
+    let data = await fetchData(`${url}cards/${id}`)
+
+    if (data.error) {
+      return data;
+    }
+    console.log("no error I guess");
+    console.log(data)
+    // console.log(data.data);
+    return data.data
 }
 
 const getSets = async () => {
