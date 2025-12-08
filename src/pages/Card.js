@@ -11,6 +11,7 @@ import checkmark from '../assets/check-circle-solid-48.png';
 import CardCollectionSection from '../components/CardCollectionSection';
 import CardInfoPrices from '../components/CardInfoPrices';
 import CardInfoDetails from '../components/CardInfoDetails';
+import Loading from '../components/Loading';
 
 import './Card.css';
 
@@ -22,7 +23,8 @@ const Card = () => {
   const navigate = useNavigate();
 
   const [card, setCard] = useState({})
-  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   //Window Size
   // Get window size for rendering collection section
@@ -50,11 +52,18 @@ const Card = () => {
   useEffect(() => {
     const findCard = async () => {
       // on load, find the card in the cards state using the id from the params
-      const cardData = cards.find(card => card.id === id);
+      const cardData = cards.find(card => card?.id === id);
       if (cardData) {
         setCard(cardData);
       } else { // card isn't in the cards state, fetch the card directly
-        getCard(id);
+        setLoading(true);
+        let response = await getCard(id);
+        if (response.error) {
+          setLoading(false);
+          setError(true);
+        } else {
+          setLoading(false);
+        }
       }
     }
 
@@ -64,7 +73,7 @@ const Card = () => {
 
   useEffect(() => {
     if (!card.id) {
-      const cardData = cards.find(card => card.id === id);
+      const cardData = cards.find(card => card?.id === id);
       if (cardData) {
         setCard(cardData);
       }
@@ -76,6 +85,9 @@ const Card = () => {
   
   return (
     <div className="card-container">
+
+      {loading ? <><Loading></Loading></> : <></>}
+      {error ? <>ERROR</> : <></>}
 
       {/* Collection Section - Only shows if screen is smaller than 820px wide */}
       {user && windowSize.innerWidth <= 820
