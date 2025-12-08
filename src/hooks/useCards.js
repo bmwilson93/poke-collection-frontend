@@ -42,8 +42,12 @@ export const useCards = (user) => {
 
   const getCard = async (id) => {
     let card = await getCardById(id);
+    if (card.error) {
+      applyCollection([]);
+      return card;
+    }
     applyCollection([card]);
-    return cards[0];
+    return card;
   }
 
   const clearCards = () => {
