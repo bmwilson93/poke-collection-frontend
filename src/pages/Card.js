@@ -59,11 +59,9 @@ const Card = () => {
         setLoading(true);
         let response = await getCard(id);
         if (response.error) {
-          setLoading(false);
           setError(true);
-        } else {
-          setLoading(false);
         }
+        setLoading(false);
       }
     }
 
@@ -86,70 +84,79 @@ const Card = () => {
   return (
     <div className="card-container">
 
-      {loading ? <><Loading></Loading></> : <></>}
-      {error ? <>ERROR</> : <></>}
+      {loading ? 
+      <div className="loading"><Loading></Loading></div>
+      : error ?
+        <div className="full-height center">
+          <h2>There was an issue with loading the card</h2>
+        </div> 
+      :
+      <>
 
-      {/* Collection Section - Only shows if screen is smaller than 820px wide */}
-      {user && windowSize.innerWidth <= 820
-        ? <CardCollectionSection 
-            card={card} 
-            setCard={setCard}
-          />
-        : <></>
-      }
+        {/* Collection Section - Only shows if screen is smaller than 820px wide */}
+        {user && windowSize.innerWidth <= 820
+          ? <CardCollectionSection 
+              card={card} 
+              setCard={setCard}
+            />
+          : <></>
+        }
 
-      <div id='back-btn'>
-        <button onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}>&lt; Back to Cards</button>
-      </div>
-      
-      {/* Card Image */}
-      <div className="image-container">
-        <img className="card-image" src={card?.images?.large} alt={card?.name}/>
+        <div id='back-btn'>
+          <button onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}>&lt; Back to Cards</button>
+        </div>
+        
+        {/* Card Image */}
+        <div className="image-container">
+          <img className="card-image" src={card?.images?.large} alt={card?.name}/>
 
-        {/* Checkmark for collected card */}
-        {card?.collected 
-        ? <img src={checkmark} alt={''} className='checkmark-card'/>
-        : <></>}
-      </div>
-
-      {/* Card Info */}
-      <div className="card-info-container">
-
-        {/* Card Title Section */}
-        <div className="card-info-title bottom-border">
-          <div className="card-name-container">
-            <h1 className="card-name">{card.name}</h1>
-            
-            <span className="card-type">
-              {card?.supertype} {card?.subtypes ?  <> - {subtypes}</> : ""}
-            </span>
-          
-          </div>
-          <div className="card-hp-container">
-            {card?.hp 
-              ? <span className="card-hp">HP {card?.hp}</span>
-              : null
-            }
-            {card?.types 
-              ? <img className="type-image"src={getTypeImage(card?.types[0])} alt=""/>
-              : null
-            }
-          </div>
+          {/* Checkmark for collected card */}
+          {card?.collected 
+          ? <img src={checkmark} alt={''} className='checkmark-card'/>
+          : <></>}
         </div>
 
-        {/* ollection Section - Only shows if screen is larger than 820px wide */}
-        {user && windowSize.innerWidth > 820
-        ? <CardCollectionSection 
-            card={card} 
-            setCard={setCard}
-          />
-        : <></>
-      }
+        {/* Card Info */}
+        <div className="card-info-container">
 
-        <CardInfoPrices card={card}/>
-        <CardInfoDetails card={card} />
-        
-      </div>
+          {/* Card Title Section */}
+          <div className="card-info-title bottom-border">
+            <div className="card-name-container">
+              <h1 className="card-name">{card.name}</h1>
+              
+              <span className="card-type">
+                {card?.supertype} {card?.subtypes ?  <> - {subtypes}</> : ""}
+              </span>
+            
+            </div>
+            <div className="card-hp-container">
+              {card?.hp 
+                ? <span className="card-hp">HP {card?.hp}</span>
+                : null
+              }
+              {card?.types 
+                ? <img className="type-image"src={getTypeImage(card?.types[0])} alt=""/>
+                : null
+              }
+            </div>
+          </div>
+
+          {/* ollection Section - Only shows if screen is larger than 820px wide */}
+          {user && windowSize.innerWidth > 820
+          ? <CardCollectionSection 
+              card={card} 
+              setCard={setCard}
+            />
+          : <></>
+        }
+
+          <CardInfoPrices card={card}/>
+          <CardInfoDetails card={card} />
+          
+        </div>
+
+      </>}
+
     </div>
   )
 }
