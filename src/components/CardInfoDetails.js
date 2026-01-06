@@ -132,11 +132,11 @@ const CardInfoDetails = ({ card }) => {
                 <div className="card-set-container link"
                   onClick={() => {
                     clearCards();
-                    navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})                  
+                    navigate(`/set/${card?.expansion?.id}`, {state:{set: card?.expansion}})                  
                   }}
                 >
-                  <span>{card?.set?.name}</span>
-                  <img src={card?.set?.images?.symbol} alt="" width="30px"/>
+                  <span>{card?.expansion?.name}</span>
+                  <img src={card?.expansion?.images?.symbol} alt="" width="30px"/>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@ const CardInfoDetails = ({ card }) => {
             <div>
               <div className="card-number-container center-text">
                 <p>Number</p>
-                <p>{card?.number} / {card?.set?.printedTotal}</p>
+                <p>{card?.number} / {card?.expansion?.printed_total}</p>
               </div>
             </div>
           </div>
