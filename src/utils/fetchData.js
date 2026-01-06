@@ -4,11 +4,13 @@ pokemon.configure({apiKey: process.env.REACT_APP_API_KEY});
 
 
 
-const url = "https://api.pokemontcg.io/v2/";
+const old_url = "https://api.pokemontcg.io/v2/";
+const url = "https://api.scrydex.com/pokemon/v1/en/"
 
 const options = {
   headers: {
     'X-Api-Key': process.env.REACT_APP_API_KEY,
+    'X-Team_ID': process.env.REACT_APP_TEAM_ID
   }
 }
 
@@ -50,7 +52,7 @@ const getCardById = async (id) => {
 }
 
 const getSets = async () => {
-  let setUrl = url + 'sets?orderBy=releaseDate';
+  let setUrl = url + 'expansions?orderBy=releaseDate';
   return await fetchData(setUrl);
 }
 
