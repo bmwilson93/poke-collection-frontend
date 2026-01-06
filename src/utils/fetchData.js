@@ -86,8 +86,43 @@ const getCardById = async (id) => {
 }
 
 const getSets = async () => {
-  let setUrl = url + 'expansions?orderBy=releaseDate';
-  return await fetchData(setUrl);
+  // let setUrl = url + 'expansions?orderBy=releaseDate';
+  // return await fetchData(setUrl);
+
+  let sets = [];
+  let page = 1;
+  const pageSize = 100;
+  let hasMore = true;
+
+  console.log("Starting GetSets");
+
+  while (hasMore) {
+    console.log(`Fetching page ${page}`);
+    let results = await fetchData(`${url}expansions?orderBy=release_date&page=${page}`);
+
+    if (results.error) {
+      console.log("Error fetching sets:", results.error);
+      break;
+    }
+
+    if (results.data && results.data.length > 0) {
+      sets.push(...results.data);
+      // If we got fewer sets than page size, we're at the end
+      if (results.data.length < pageSize) {
+        hasMore = false;
+        console.log("Reached end of sets");
+      } else {
+        page++;
+      }
+    } else {
+      // No data returned, done
+      hasMore = false;
+      console.log("No more sets found");
+    }
+  }
+
+  console.log(`Returning ${sets.length} sets`);
+  return sets;
 }
 
 export {getCardsBySearch, 
