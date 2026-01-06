@@ -11,17 +11,17 @@ import './css/Set.css';
 const Set = ({ scrollValue, setScrollValue }) => {
   const { cards, getAllSetCards } = useContext(CardContext);
   const location = useLocation();
-  const [dataOfSet, setDataOfSet] = useState(location.state.set)
+  const [expansionData, setExpansionData] = useState(location.state.set)
 
   useEffect(() => {
     if (cards.length > 0) {
-      if (cards[0].set.id !== dataOfSet.id) {
+      if (cards[0].set.id !== expansionData.id) {
         setScrollValue(0);
-        getAllSetCards(dataOfSet.id);
+        getAllSetCards(expansionData.id);
       }
     } else {
       setScrollValue(0);
-      getAllSetCards(dataOfSet.id);
+      getAllSetCards(expansionData.id);
     }
   }, []);
 
@@ -31,22 +31,22 @@ const Set = ({ scrollValue, setScrollValue }) => {
 
       
       <div className="set-image-container">
-        <img src={dataOfSet.images.logo} alt={dataOfSet.name} width='340px'/>
+        <img src={expansionData.logo} alt={expansionData.name} width='340px'/>
       </div>
 
       <div className="set-info-container">
 
         <div className="set-name-container">
-          <h1>{dataOfSet.name}</h1>
-          <p>Release Date: {dataOfSet.releaseDate}</p>
+          <h1>{expansionData.name}</h1>
+          <p>Release Date: {expansionData.release_date}</p>
         </div>
 
 
         <div className="set-details">
-          <p>Series: {dataOfSet.series}</p>
-          <p>Printed Total: {dataOfSet.printedTotal}</p>
-          <p>Total: {dataOfSet.total}</p>
-          <img src={dataOfSet.images.symbol} alt={dataOfSet.name + " symbol"} width='40px' />
+          <p>Series: {expansionData.series}</p>
+          <p>Printed Total: {expansionData.printed_total}</p>
+          <p>Total: {expansionData.total}</p>
+          <img src={expansionData.symbol} alt={expansionData.name + " symbol"} width='40px' />
         </div>
 
       </div>
