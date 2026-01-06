@@ -1,10 +1,7 @@
-import pokemon from 'pokemontcgsdk';
+// import pokemon from 'pokemontcgsdk';
 
-pokemon.configure({apiKey: process.env.REACT_APP_API_KEY});
+// pokemon.configure({apiKey: process.env.REACT_APP_API_KEY});
 
-
-
-const old_url = "https://api.pokemontcg.io/v2/";
 const url = "https://api.scrydex.com/pokemon/v1/en/"
 
 const options = {
@@ -19,6 +16,8 @@ const fetchData = async (url) => {
     console.log("fetching data")
     const response = await fetch(url, options);
     const data = await response.json().catch((error) => ({error: error}));
+    console.log("Fetched Data:")
+    console.log(data);
     return data;
 
   } catch (error) {
@@ -27,13 +26,48 @@ const fetchData = async (url) => {
   }
 }
 
-const getCardsBySet = async (setId) => {
-  return await pokemon.card.all({ q: 'set.id:' + setId, orderBy: 'number'})
+const getCardsBySet = async (expansionId) => {
+  // return await pokemon.card.all({ q: 'set.id:' + setId, orderBy: 'number'})
+
+  let cards = [];
+  let page = 1;
+  const pageSize = 100;
+  let hasMore = true;
+
+  console.log("Starting GetCardsBySet");
+
+  while (hasMore) {
+    console.log(`Fetching page ${page}`);
+    let results = await fetchData(`${url}expansions/${expansionId}/cards?orderBy=number&page=${page}&include=prices`);
+
+    if (results.error) {
+      console.log("Error fetching cards:", results.error);
+      break;
+    }
+
+    if (results.data && results.data.length > 0) {
+      cards.push(...results.data);
+      // If we got fewer cards than page size, we're at the end
+      if (results.data.length < pageSize) {
+        hasMore = false;
+        console.log("Reached end of set");
+      } else {
+        page++;
+      }
+    } else {
+      // No data returned, done
+      hasMore = false;
+      console.log("No more cards found");
+    }
+  }
+
+  console.log(`Returning ${cards.length} cards`);
+  return cards;
 }
 
 // getCards takes a search or query, and returns a list of cards
 const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
-  let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate';
+  let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate&include=prices';
   return await fetchData(searchUrl);
 }
 
@@ -54,10 +88,6 @@ const getCardById = async (id) => {
 const getSets = async () => {
   let setUrl = url + 'expansions?orderBy=releaseDate';
   return await fetchData(setUrl);
-}
-
-const testgetSets = async () => {
-  return await pokemon.set.all()
 }
 
 export {getCardsBySearch, 
