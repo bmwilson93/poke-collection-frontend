@@ -18,8 +18,8 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
     if ('error' in response) {
       console.log("Error getting the sets");
     } else {
-      getSeries(response.data);
-      let orderedData = response.data;
+      getSeries(response);
+      let orderedData = response;
       orderedData.reverse();
       setSets(orderedData);
       setMappedSets(mapSets(orderedData));
