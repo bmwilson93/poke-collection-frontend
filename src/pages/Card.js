@@ -108,7 +108,7 @@ const Card = () => {
         
         {/* Card Image */}
         <div className="image-container">
-          <img className="card-image" src={card?.images?.large} alt={card?.name}/>
+          <img className="card-image" src={card?.images?.[0]?.large} alt={card?.name}/>
 
           {/* Checkmark for collected card */}
           {card?.collected 
