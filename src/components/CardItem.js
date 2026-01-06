@@ -22,7 +22,7 @@ const CardItem = ({ card }) => {
     <div
       className="card-item hover-grow"
     >
-      <img src={card.images.small} 
+      <img src={card?.images[0]?.small} 
         className="cardlist-image"
         loading='lazy'
       />
