@@ -15,7 +15,7 @@ const Set = ({ scrollValue, setScrollValue }) => {
 
   useEffect(() => {
     if (cards.length > 0) {
-      if (cards[0].set.id !== expansionData.id) {
+      if (cards?.[0]?.set?.id !== expansionData.id) {
         setScrollValue(0);
         getAllSetCards(expansionData.id);
       }
