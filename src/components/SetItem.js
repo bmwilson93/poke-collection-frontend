@@ -14,10 +14,10 @@ const SetItem = ({ set, setCurrentSet, setSetsScrollValue }) => {
       }}
     >
       <div>
-        <img className='set-icon' src={set.images.symbol} alt=""/>
+        <img className='set-icon' src={set.symbol} alt=""/>
       </div>
       <div className="set-image-container">
-        <img className="set-img" src={set.images.logo} alt={set.name} width="100px"/>
+        <img className="set-img" src={set.logo} alt={set.name} width="100px"/>
       </div>
       <div className='info-container'>
         <div className="name-container">
@@ -25,8 +25,8 @@ const SetItem = ({ set, setCurrentSet, setSetsScrollValue }) => {
             <p>{set.name}</p>
           </div>
         </div>
-        <span className="release-date">Released {set.releaseDate}</span>
-        <span>Printed Total: {set.printedTotal}</span>
+        <span className="release-date">Released {set.release_date}</span>
+        <span>Printed Total: {set.printed_total}</span>
         <span>Total: {set.total}</span>
       </div>
     </li>
