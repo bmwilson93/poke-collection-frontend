@@ -6,58 +6,49 @@ import { variants } from '../utils/variantList'
 const CardInfoPrices = ({ card }) => {
   return (
     <div className="card-info-prices bottom-border">
-          <h2 className="price-header bold">Prices</h2>
-          {card?.tcgplayer
-            ? <a href={card?.tcgplayer?.url} className='bold' target='_blank' rel="noreferrer">Buy Now From TCGPlayer</a>
-            : <></>}
-          <p className="update-date">Last Updated {card?.tcgplayer?.updatedAt}</p>
-
-          {/* Check if card has TCGplayer section */}
-          {card?.tcgplayer?.prices 
-            ?<div className="pricing-container">
-            {/* Renders the prices for each card price type found */}
-            {Object.keys(card?.tcgplayer?.prices || {})
-            .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
-            .map(key => (
-                <div className={`${key}-price-container prices-container`}>
-                  <div>
-                    <p className="price-title">{formatLabel(key)} Market</p>
-                    <p className="price price-market">
-                      ${card?.tcgplayer?.prices[key].market?.toFixed(2)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="price-title">{formatLabel(key)} Low</p>
-                    <p className="price price-low">
-                    ${card?.tcgplayer?.prices[key].low?.toFixed(2)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="price-title">{formatLabel(key)} Mid</p>
-                    <p className="price price-mid">
-                    ${card?.tcgplayer?.prices[key].mid?.toFixed(2)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="price-title">{formatLabel(key)} High</p>
-                    <p className="price price-high">
-                    ${card?.tcgplayer?.prices[key].high?.toFixed(2)}
-                    </p>
-                  </div>
+      <h2 className="price-header bold">Prices</h2>
+      
+      {card?.variants && card.variants.length > 0 ? (
+        <div className="pricing-container">
+          {card.variants.map((variant, index) => {
+            // Find NM condition price (most common for card pricing)
+            const nmPrice = variant.prices?.find(p => p.condition === "NM");
+            // Or get the first available price
+            const firstPrice = variant.prices?.[0];
+            const displayPrice = nmPrice || firstPrice;
+            
+            return (
+              <div key={`${variant.name}-${index}`} className={`${variant.name}-price-container prices-container`}>
+                <div>
+                  <p className="price-title">{formatLabel(variant.name)} Market</p>
+                  <p className="price price-market">
+                    ${displayPrice?.market?.toFixed(2) || 'N/A'}
+                  </p>
                 </div>
-              ))
-            }      
-            </div>
-            : 
-            card?.cardmarket?.prices
-            ? <div>
-              <p className='price-title'>Average Sell Price</p>
-              <p className='price price-market'>${card?.cardmarket?.prices?.averageSellPrice.toFixed(2)}</p>
-            </div>
-            : <span class="no-prices">No Prices Found</span>
-          }
-          
+                {displayPrice?.low && (
+                  <div>
+                    <p className="price-title">{formatLabel(variant.name)} Low</p>
+                    <p className="price price-low">
+                      ${displayPrice.low.toFixed(2)}
+                    </p>
+                  </div>
+                )}
+                {displayPrice && (
+                  <div>
+                    <p className="price-title">Condition</p>
+                    <p className="price price-condition">
+                      {formatLabel(displayPrice.condition)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
+      ) : (
+        <span className="no-prices">No Prices Found</span>
+      )}
+    </div>
   )
 }
 
