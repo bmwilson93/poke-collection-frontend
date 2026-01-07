@@ -23,8 +23,8 @@ const setCollected = (cards, collection) => {
   
   let updatedCards = cards.map(card => {
     // check the current set, and if the set is in the collection
-    if (currentSet == null || card.set.id !== currentSet.set_id) {
-      currentSet = findSet(card.set.id, collection.sets);
+    if (currentSet == null || card.expansion.id !== currentSet.set_id) {
+      currentSet = findSet(card.expansion.id, collection.sets);
       if (!currentSet) {
         // If the card isn't in the set but has the collected property,
         // remove the collected property before returning the card
