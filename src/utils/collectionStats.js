@@ -29,7 +29,6 @@ const getTotalUniqueCards = (collection) => {
 const getCompletedSets = async (collection) => {
   let runningTotal = 0;
   let allSets = await getSets();
-  allSets = allSets.data;
   
   for (let i = 0; i < collection.length; i++) {
     for (let j = 0; j < allSets.length; j++) {
