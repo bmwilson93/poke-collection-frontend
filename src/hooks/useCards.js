@@ -44,7 +44,7 @@ export const useCards = (user) => {
     let card = await getCardById(id);
     if (card.error) {
       applyCollection([]);
-      return card;
+      return {};
     }
     applyCollection([card]);
     return card;
