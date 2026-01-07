@@ -16,8 +16,6 @@ const fetchData = async (url) => {
     console.log("fetching data")
     const response = await fetch(url, options);
     const data = await response.json().catch((error) => ({error: error}));
-    console.log("Fetched Data:")
-    console.log(data);
     return data;
 
   } catch (error) {
@@ -27,8 +25,6 @@ const fetchData = async (url) => {
 }
 
 const getCardsBySet = async (expansionId) => {
-  // return await pokemon.card.all({ q: 'set.id:' + setId, orderBy: 'number'})
-
   let cards = [];
   let page = 1;
   const pageSize = 100;
@@ -72,23 +68,17 @@ const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
 }
 
 const getCardById = async (id) => {
-    console.log("getting card by Id");
+    try {
+    const response = await fetchData(`${url}cards/${id}?include=prices`)
+    return response.data;
 
-    let data = await fetchData(`${url}cards/${id}`)
-
-    if (data.error) {
-      return data;
-    }
-    console.log("no error I guess");
-    console.log(data)
-    // console.log(data.data);
-    return data.data
+  } catch (error) {
+    console.log(error);
+    return {error: error}
+  }
 }
 
 const getSets = async () => {
-  // let setUrl = url + 'expansions?orderBy=releaseDate';
-  // return await fetchData(setUrl);
-
   let sets = [];
   let page = 1;
   const pageSize = 100;
