@@ -24,18 +24,6 @@ const CardCollectionSection = ({ card }) => {
     return 0;
   }
 
-  // TODO - Update to get the variants from scrydex format
-  // const variantList = Object.keys(card.tcgplayer?.prices || {})
-  // .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
-  // .map(key => (
-  //   <CollectionVariant 
-  //     key={key}
-  //     variant={key}
-  //     handleCollectionClick={handleCollectionClick}
-  //     displayQuantities={displayQuantities} 
-  //   />
-  // ));
-
   const variantList = card?.variants
     ? card.variants
     .sort((a, b) => variants.indexOf(a) - variants.indexOf(b))
