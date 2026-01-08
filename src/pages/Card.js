@@ -103,7 +103,7 @@ const Card = () => {
         }
 
         <div id='back-btn'>
-          <button onClick={() => navigate(`/set/${card?.set?.id}`, {state:{set: card?.set}})}>&lt; Back to Cards</button>
+          <button onClick={() => navigate(`/set/${card?.expansion?.id}`)}>&lt; Back to Cards</button>
         </div>
         
         {/* Card Image */}
