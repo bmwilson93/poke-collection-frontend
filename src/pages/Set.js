@@ -1,28 +1,93 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import CardContext from '../contexts/CardContext';
 
 import CardList from '../components/CardList';
 import Loading from '../components/Loading';
 import './css/Set.css';
 
+import { getSets } from '../utils/fetchData';
 
-const Set = ({ scrollValue, setScrollValue }) => {
+const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
   const { cards, getAllSetCards } = useContext(CardContext);
-  const location = useLocation();
-  const [expansionData, setExpansionData] = useState(location.state.set)
+  const { id } = useParams();
+  // const location = useLocation();
+  const [expansionData, setExpansionData] = useState({})
+
+  const fetchSets = async () => {
+    let response = await getSets();
+
+    if ('error' in response) {
+      console.log("Error getting the sets");
+    } else {
+      let orderedData = response;
+      orderedData.reverse();
+      setSets(orderedData);
+    }
+  };
 
   useEffect(() => {
-    if (cards.length > 0) {
-      if (cards?.[0]?.set?.id !== expansionData?.id) {
-        setScrollValue(0);
-        getAllSetCards(expansionData?.id);
+    const findExpansion = async () => {
+      console.log('Running the findExpansion function in the useEffect.', {
+        'expansionId: ': id,
+        'expansionData: ': expansionData
+      })
+
+      if (sets.length > 0) {
+        
+        console.log("Sets have been found. Search for the correct set by id: ", id)
+        
+        const expansion = sets.find(expansion => expansion?.id === id);
+
+        console.log(`found expansion result: `, expansion)
+
+        if (expansion) {
+          setExpansionData(expansion);
+          if (cards.length > 0) {
+            if (cards?.[0]?.expansion?.id !== expansion?.id) {
+              setScrollValue(0);
+              getAllSetCards(expansion?.id);
+            }
+          } else {
+            setScrollValue(0);
+            getAllSetCards(expansion?.id);
+          }
+        } else { // Couldn't find the expansion
+          // show an error
+          console.log("Couldn't find the set")
+        }
+
+      } else { // No sets fetched, fetch all sets
+
+        console.log("So sets have been fetched. Fetch the sets.")
+
+        await fetchSets();
+
+        console.log("Fetched sets.")
+        console.log(sets)
+
+        const expansion = sets.find(expansion => expansion?.id === id);
+        if (expansion) {
+          setExpansionData(expansion);
+          if (cards.length > 0) {
+            if (cards?.[0]?.expansion?.id !== expansion?.id) {
+              setScrollValue(0);
+              getAllSetCards(expansion?.id);
+            }
+          } else {
+            setScrollValue(0);
+            getAllSetCards(expansion?.id);
+          }
+        } else { // Couldn't find the expansion
+          // show an error
+          console.log("Couldn't find the set")
+        }
+
       }
-    } else {
-      setScrollValue(0);
-      getAllSetCards(expansionData?.id);
     }
+
+    findExpansion();
   }, []);
 
 
