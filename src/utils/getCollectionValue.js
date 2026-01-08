@@ -24,8 +24,12 @@ const getCollectionValue = async (collection) => {
 
         collectedCard.quantities.forEach(variantObj => {
           const [variant, quantity] = Object.entries(variantObj)[0];
-          const price = matchedCard.tcgplayer?.prices?.[variant]?.market || 
-                       matchedCard.cardmarket?.prices?.averageSellPrice;
+
+          // Find the variants price, prioritize the NM, or use the first found condition
+          let foundVariant = matchedCard.variants.find(v => v.name === variant);
+          let nmPrice = foundVariant?.prices.find(p => p.condition === "NM");
+          const priceData = nmPrice || foundVariant.prices[0];
+          const price = priceData?.market || priceData?.low || 0;
 
           if (price) {
             const contribution = price * quantity;
