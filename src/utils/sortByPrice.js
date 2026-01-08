@@ -4,23 +4,52 @@
 
 import { variants } from "./variantList";
 
-// Helper Function to get the market price for a given variant
-const getMarketPrice = (item, variant) => {
-  return item.tcgplayer?.prices?.[variant]?.market 
-      || item.tcgplayer?.prices?.[variant]?.mid 
-      || 0;
+// Helper Function to get the market price from card variants
+const getMarketPrice = (item) => {
+  // Check if card has variants array
+  if (!item?.variants || item.variants.length === 0) {
+    return 0;
+  }
+  
+  // Check variants in priority order (from variants list)
+  for (const variantName of variants) {
+    // Find the variant with this name
+    const variant = item.variants.find(v => v.name === variantName);
+    if (variant?.prices && variant.prices.length > 0) {
+      // Find NM price first, or use first available price
+      const nmPrice = variant.prices.find(p => p.condition === "NM");
+      const priceData = nmPrice || variant.prices[0];
+      
+      if (priceData?.market) {
+        return priceData.market;
+      } else if (priceData?.low) {
+        return priceData.low;
+      }
+    }
+  }
+  
+  // If no price found in priority order, check any variant
+  for (const variant of item.variants) {
+    if (variant?.prices && variant.prices.length > 0) {
+      const nmPrice = variant.prices.find(p => p.condition === "NM");
+      const priceData = nmPrice || variant.prices[0];
+      
+      if (priceData?.market) {
+        return priceData.market;
+      } else if (priceData?.low) {
+        return priceData.low;
+      }
+    }
+  }
+  
+  return 0;
 };
 
 const getBestPrice = (item) => {
-  // Check TCG prices first (in variant priority order)
-  for (const variant of variants) {
-    const price = getMarketPrice(item, variant);
-    if (price > 0) return { price, source: 'tcg' };
-  }
+  const price = getMarketPrice(item);
   
-  // Fallback to cardmarket
-  if (item.cardmarket?.prices?.averageSellPrice) {
-    return { price: item.cardmarket.prices.averageSellPrice, source: 'cardmarket' };
+  if (price > 0) {
+    return { price, source: 'variants' };
   }
   
   return { price: 0, source: 'none' };
@@ -40,4 +69,4 @@ const sortByPrice = (cardArray, option = 'high') => {
   });
 };
 
-export {sortByPrice}
+export { sortByPrice };
