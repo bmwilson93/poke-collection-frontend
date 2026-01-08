@@ -131,8 +131,8 @@ const CardInfoDetails = ({ card }) => {
                 <p>Set</p>
                 <div className="card-set-container link"
                   onClick={() => {
-                    clearCards();
-                    navigate(`/set/${card?.expansion?.id}`, {state:{set: card?.expansion}})                  
+                    // clearCards();
+                    navigate(`/set/${card?.expansion?.id}`)                  
                   }}
                 >
                   <span>{card?.expansion?.name}</span>
