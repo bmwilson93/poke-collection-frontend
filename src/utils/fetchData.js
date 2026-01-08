@@ -62,8 +62,8 @@ const getCardsBySet = async (expansionId) => {
 }
 
 // getCards takes a search or query, and returns a list of cards
-const getCardsBySearch = async (search, page = 1, pageSize = 25) => {
-  let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=set.releaseDate&include=prices';
+const getCardsBySearch = async (search, page = 1, pageSize = 50) => {
+  let searchUrl = url + 'cards?q=name:*' + search.replace(/ /g, '.') + '*&page=' + page + '&pageSize=' + pageSize + '&orderBy=expansion.release_date&include=prices';
   return await fetchData(searchUrl);
 }
 
