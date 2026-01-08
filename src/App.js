@@ -91,6 +91,8 @@ function App() {
           <Route 
             path="/set/:id" 
             element={<Set 
+              sets={sets} 
+              setSets={setSets} 
               scrollValue={scrollValue}
               setScrollValue={setScrollValue}
             />} 
