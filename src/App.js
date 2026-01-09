@@ -112,7 +112,10 @@ function App() {
           />
           <Route 
             path="/account/:username" 
-            element={<Account />} 
+            element={<Account 
+              sets={sets} 
+              setSets={setSets} 
+            />} 
           />
           <Route 
             path="*" 
