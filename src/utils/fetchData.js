@@ -111,8 +111,12 @@ const getSets = async () => {
     }
   }
 
+  // reverse the ordered sets, putting newest first
+  let orderedSets = sets
+  orderedSets.reverse();
+
   console.log(`Returning ${sets.length} sets`);
-  return sets;
+  return orderedSets;
 }
 
 export {getCardsBySearch, 
