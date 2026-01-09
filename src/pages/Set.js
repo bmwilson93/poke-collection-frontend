@@ -21,9 +21,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
     if ('error' in response) {
       console.log("Error getting the sets");
     } else {
-      let orderedData = response;
-      orderedData.reverse();
-      setSets(orderedData);
+      setSets(response);
     }
   };
 
