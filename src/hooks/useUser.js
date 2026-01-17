@@ -45,7 +45,7 @@ export const useUser = () => {
     }
   };
   
-  const updateCollection = async (cardId, setId, action, variant, cardImage) => {
+  const updateCollection = async (cardId, setId, action, variant, cardImage = 'https://images.pokemontcg.io/thisimagedoesnotexist') => {
     requestQueue.current.push({ cardId, setId, action, variant, cardImage });
     console.log(requestQueue.current.length);
     processQueue();

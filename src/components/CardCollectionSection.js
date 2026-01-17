@@ -15,7 +15,7 @@ const CardCollectionSection = ({ card }) => {
       card.expansion.id, 
       action, 
       variant, 
-      card?.images?.[0]?.small || 'https://images.pokemontcg.io/thisimagedoesnotexist'
+      card?.images?.[0]?.small
     )
   }  
 
