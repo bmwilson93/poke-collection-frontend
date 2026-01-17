@@ -26,27 +26,50 @@ const setCollected = (cards, collection) => {
     if (currentSet == null || card.expansion.id !== currentSet.set_id) {
       currentSet = findSet(card.expansion.id, collection.sets);
       if (!currentSet) {
-        // If the card isn't in the set but has the collected property,
+        // If the card isn't in the collection but has the collected property,
         // remove the collected property before returning the card
         if (card.collected) {
           delete card.collected;
           delete card.collectedQuantities;
         }
+        if (card.incoming) {
+          delete card.incoming;
+          delete card.incomingVariants;
+        }
+        if (card.wishlist) {
+          delete card.wishlisted;
+          delete card.wishlistedVariants;
+        }
         return card }
     }
 
     const found = findInSet(card.id, currentSet.cards);
-    if (found) {
+    if (found) { // Add any collection properties to the card
+      if (found.quantities) {
+        card.collected = true;
+        card.collectedQuantities = found.quantities;
+      }
+      if (found.incoming) {
+        card.incoming = true;
+        card.incomingVariants = found.incoming.variants
+      }
+      if (found.wishlist) {
+        card.wishlisted = true;
+        card.wishlistedVariants = found?.wishlist?.variants
+      }
 
-      // TODO, update to check for incomming or wanted status 
-      // in addition to the collected property
-      card.collected = true;
-      card.collectedQuantities = found.quantities;
-
-    } else { // not found
+    } else { // card not found in collection, if this card has any collection properties, remove them
       if (card.collected) {
         delete card.collected;
         delete card.collectedQuantities;
+      }
+      if (card.incoming) {
+          delete card.incoming;
+          delete card.incomingVariants;
+      }
+      if (card.wishlist) {
+        delete card.wishlisted;
+        delete card.wishlistedVariants;
       }
     }
     return card;
