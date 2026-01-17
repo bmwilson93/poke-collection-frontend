@@ -34,7 +34,8 @@ export const useUser = () => {
       const body = JSON.stringify({
         card_id: request.cardId,
         set_id: request.setId,
-        variant: request.variant
+        variant: request.variant,
+        card_image: request.cardImage
       });
       const response = await fetchAPI(`collection/${request.action}`, 'POST', body);
       if (response.user) setUser(response.user);
@@ -44,8 +45,8 @@ export const useUser = () => {
     }
   };
   
-  const updateCollection = async (cardId, setId, action, variant) => {
-    requestQueue.current.push({ cardId, setId, action, variant });
+  const updateCollection = async (cardId, setId, action, variant, cardImage) => {
+    requestQueue.current.push({ cardId, setId, action, variant, cardImage });
     console.log(requestQueue.current.length);
     processQueue();
   }
