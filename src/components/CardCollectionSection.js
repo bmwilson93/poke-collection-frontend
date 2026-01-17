@@ -11,7 +11,12 @@ const CardCollectionSection = ({ card }) => {
 
   // runs the call to the backend to update the collection
   const handleCollectionClick = async (action, variant) => {
-    updateCollection(card.id, card.expansion.id, action, variant)
+    updateCollection(card.id, 
+      card.expansion.id, 
+      action, 
+      variant, 
+      card?.images?.[0]?.small || 'https://images.pokemontcg.io/thisimagedoesnotexist'
+    )
   }  
 
   // Displays the collected qty
