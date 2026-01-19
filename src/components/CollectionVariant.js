@@ -18,12 +18,19 @@ const CollectionVariant = ({ variant, handleCollectionClick, displayQuantities, 
     return false
   }
 
-  const handleIncomingClick = () => {
+  const handleIncomingClick = async () => {
     if (hasIncoming()) {
       handleCollectionClick('incoming/remove', variant)
     } else {
       handleCollectionClick('incoming/add', variant);
     }
+  }
+
+  const handleAddToCollection = async () => {
+    if (hasIncoming()) {
+      await handleIncomingClick();
+    }
+    handleCollectionClick('add', variant);
   }
 
   return (
@@ -59,7 +66,7 @@ const CollectionVariant = ({ variant, handleCollectionClick, displayQuantities, 
 
         <button
           className='collection-btn'
-          onClick={() => handleCollectionClick('add', variant)}
+          onClick={() => handleAddToCollection()}
         >
           +
         </button>
