@@ -230,6 +230,7 @@
   color: var(--back-color);
   cursor: pointer;
   touch-action: manipulation;
+  flex-shrink: 0;
 }
 
 .collection-btn:active {
@@ -277,6 +278,14 @@
   display: flex;
   align-items: center;
   gap: 30px;
+}
+
+
+.variant-btns {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 100px;
 }
 
 .incoming-btn {
@@ -453,6 +462,14 @@
   .attack-container {
     margin-bottom: 30px;
   }
+
+  .variant-name {
+  gap: 10px;
+}
+
+.variant-name p {
+  width: 70%;
+}
 
 }
 

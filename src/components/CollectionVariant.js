@@ -36,7 +36,7 @@ const CollectionVariant = ({ variant, handleCollectionClick, displayQuantities, 
   return (
     <li key={variant} className='li-variant'>
       <div className='variant variant-name'>
-        {formatLabel(variant)}
+        <p>{formatLabel(variant)}</p>
         {!hasCollected()
         ? <button 
             className='incoming-btn'
@@ -45,7 +45,7 @@ const CollectionVariant = ({ variant, handleCollectionClick, displayQuantities, 
           </button>
         : <></>}
         </div>
-      <div>
+      <div className='variant-btns'>
 
         {
           hasCollected()
