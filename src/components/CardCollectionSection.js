@@ -46,7 +46,6 @@ const CardCollectionSection = ({ card }) => {
   return (
     <div className="card-collection bottom-border">
       <h2 className='price-header bold'>Your Collection</h2>
-      <p>{card.name}</p>
       {/* If card has variants, use them to display all card variants */}
         {card?.variants && card.variants.length > 0
         ?
