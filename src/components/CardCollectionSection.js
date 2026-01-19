@@ -38,6 +38,7 @@ const CardCollectionSection = ({ card }) => {
         variant={variant.name}
         handleCollectionClick={handleCollectionClick}
         displayQuantities={displayQuantities}
+        card={card}
       />
     ))
     : [];
