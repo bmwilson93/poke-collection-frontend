@@ -261,12 +261,28 @@
   padding-bottom: 0;
 }
 
-.checkmark-card {
+.checkmark-card, .incoming-card {
   width: 58px;
   height: 58px;
   position: absolute;
   left: -28px;
   top: -28px;
+}
+
+.incoming-card {
+  left: 20px;
+}
+
+.variant-name {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.incoming-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 /* Media Queries */

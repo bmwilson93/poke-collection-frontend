@@ -42,7 +42,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
       {card.collectedQuantity}
 
-      {card.incoming ? <img src={mailIcon} className='checkmark-list' /> : <></>}
+      {card.incoming ? <img src={mailIcon} className='incoming-list' /> : <></>}
       
       <CardItem card={card}/>
     </li>);

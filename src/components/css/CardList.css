@@ -17,12 +17,16 @@
   position: relative;
 }
 
-.checkmark-list {
+.checkmark-list, .incoming-list {
   width: 36px;
   height: 36px;
   position: absolute;
   left: -18px;
   top: -16px;
+}
+
+.incoming-list {
+  left: 10px;
 }
 
 

@@ -117,7 +117,7 @@ const Card = () => {
           : <></>}
           {/* Mail Icon for imconing card */}
           {card?.incoming
-          ? <img src={mailIcon} alt={''} className='checkmark-card'/>
+          ? <img src={mailIcon} alt={''} className='incoming-card'/>
           : <></>}
         </div>
 
