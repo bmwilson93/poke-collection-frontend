@@ -57,6 +57,8 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       filteredCards = cards.filter(card => Object.hasOwn(card, "collected"));
     } else if (cardsFilter === 'notCollected') {
       filteredCards = cards.filter(card => !Object.hasOwn(card, "collected"));
+    } else if (cardsFilter === 'incoming') {
+      filteredCards = cards.filter(card => Object.hasOwn(card, "incoming"));
     } else { // all cards
       filteredCards.push(...cards);
     }
@@ -98,6 +100,12 @@ const CardList = ({ scrollValue, setScrollValue }) => {
             className={cardsFilter === 'notCollected' ? 'selected' : ''}
           >
             Not Collected
+          </button>
+          <button 
+            onClick={() => { setScrollValue(0, 0); setCardsFilter('incoming')}} 
+            className={cardsFilter === 'incoming' ? 'selected' : ''}
+          >
+            Incoming
           </button>
         </div>
       : <></>
