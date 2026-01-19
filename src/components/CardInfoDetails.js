@@ -111,8 +111,8 @@ const CardInfoDetails = ({ card }) => {
 
               <div className="retreat-cost-container">
                 <p>Retreat Cost</p>
-                {card?.retreatCost 
-                  ? <ul>{card?.retreatCost.map((item) => <li><img className="type-image" src={getTypeImage(item)} alt={item}/></li>)}</ul> 
+                {card?.retreat_cost 
+                  ? <ul>{card?.retreat_cost.map((item) => <li><img className="type-image" src={getTypeImage(item)} alt={item}/></li>)}</ul> 
                   : <p>N/A</p>
                 }
               </div>
