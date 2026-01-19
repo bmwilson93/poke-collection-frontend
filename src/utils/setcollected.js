@@ -48,14 +48,23 @@ const setCollected = (cards, collection) => {
       if (found.quantities) {
         card.collected = true;
         card.collectedQuantities = found.quantities;
+      } else {
+        delete card.collected;
+        delete card.collectedQuantities;
       }
       if (found.incoming) {
         card.incoming = true;
         card.incomingVariants = found.incoming.variants
+      } else { 
+        delete card.incoming;
+        delete card.incomingVariants;
       }
       if (found.wishlist) {
         card.wishlisted = true;
         card.wishlistedVariants = found?.wishlist?.variants
+      } else {
+        delete card.wishlisted;
+        delete card.wishlistedVariants;
       }
 
     } else { // card not found in collection, if this card has any collection properties, remove them
