@@ -7,6 +7,7 @@ import CardContext from '../contexts/CardContext';
 
 import { getTypeImage } from '../utils/getTypeImage';
 import checkmark from '../assets/check-circle-solid-48.png';
+import mailIcon from '../assets/mail-send-regular-48.png';
 
 import CardCollectionSection from '../components/CardCollectionSection';
 import CardInfoPrices from '../components/CardInfoPrices';
@@ -113,6 +114,10 @@ const Card = () => {
           {/* Checkmark for collected card */}
           {card?.collected 
           ? <img src={checkmark} alt={''} className='checkmark-card'/>
+          : <></>}
+          {/* Mail Icon for imconing card */}
+          {card?.incoming
+          ? <img src={mailIcon} alt={''} className='checkmark-card'/>
           : <></>}
         </div>
 

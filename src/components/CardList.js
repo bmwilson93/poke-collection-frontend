@@ -11,6 +11,7 @@ import './css/CardList.css';
 import { sortByPrice } from '../utils/sortByPrice';
 
 import checkmark from '../assets/check-circle-solid-36.png'
+import mailIcon from '../assets/mail-send-regular-36.png'
 
 const CardList = ({ scrollValue, setScrollValue }) => {
   const { user } = useContext(UserContext);
@@ -40,6 +41,8 @@ const CardList = ({ scrollValue, setScrollValue }) => {
         
       {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>}
       {card.collectedQuantity}
+
+      {card.incoming ? <img src={mailIcon} className='checkmark-list' /> : <></>}
       
       <CardItem card={card}/>
     </li>);
