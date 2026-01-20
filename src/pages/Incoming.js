@@ -8,8 +8,6 @@ const Incoming = () => {
   const { user, setUser, checkingUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [incomingCards, setIncomingCards] = useState([]);
-
   const getIncomingCards= (collection) => {
     const incomingCards = [];
     if (!collection || !collection.sets || !Array.isArray(collection.sets)) {
@@ -24,7 +22,6 @@ const Incoming = () => {
         });
       }
     });
-    console.log(incomingCards)
     return incomingCards;
   }
 
@@ -39,9 +36,24 @@ const Incoming = () => {
                 <button onclick={navigate('/login')}>Sign In</button>
               </div>
         : <div className="card-list-container">
-            <p>Test</p>
+            <h2 style={{'margin-bottom': '50px'}}>Your Incoming Cards</h2>
             <ul className="card-list">
-              {getIncomingCards(user.collection).map(card => (<li><img src={card?.incoming?.card_image}/></li>))}
+              {getIncomingCards(user.collection).map(card => (
+                <li 
+                  key={card?.card_id}
+                  onClick={() => {
+                    navigate(`/card/${card.card_id}`)
+                  }}
+                  style={{'cursor': 'pointer'}}
+                  className='hover-grow'
+                >
+                  <img 
+                    src={card?.incoming?.card_image}
+                    className="cardlist-image"
+                    loading='lazy'
+                  />
+                </li>
+              ))}
             </ul>
           </div>
       }
