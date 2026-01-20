@@ -27,6 +27,9 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
   const getSeries = (setList) => {
     let seriesArray = [];
     for (let i = 0; i < setList.length; i++) {
+      if (setList[i].series === 'Pokémon TCG Pocket') {
+        continue;
+      }
       if (seriesArray.indexOf(setList[i].series) < 0) {
         seriesArray.push(setList[i].series)
       }
@@ -72,6 +75,8 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
     } else {
       filteredSets.push(...sets)
     }
+
+    filteredSets = filteredSets.filter(set => set.series !== "Pokémon TCG Pocket");
 
     if (setsSort === 'oldest') {
       setMappedSets(mapSets(filteredSets.toReversed()));
