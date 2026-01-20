@@ -48,8 +48,14 @@
   padding-left: 28px;
 } 
 
-.collection-info > h3 {
+.split > h3 {
   font-size: 30px;
+}
+
+.split {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .collection-item {
@@ -99,7 +105,8 @@ small {
 
 .logout > button,
 .account-user-container button,
-.value-btn {
+.value-btn,
+.view-all-btn {
   padding: 8px 16px;
   font-size: 20px;
   border: 1px solid var(--accent-color);

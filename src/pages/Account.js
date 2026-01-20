@@ -72,7 +72,13 @@ const Account = ({ sets, setSets }) => {
             <AccountUser/>
 
             <div className='collection-info'>
+              <div className='split'>
               <h3>Your Collection</h3>
+              <button 
+                className='view-all-btn white-link'
+                onClick={() => navigate('/account/incoming')}
+              >View All Incoming Cards</button>
+              </div>
 
               <div className='collection-item bottom-border'>
                 <h4>Total Cards:</h4>
