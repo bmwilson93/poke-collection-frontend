@@ -4,9 +4,9 @@ import { getSets } from "./fetchData";
 const getTotalCards = (collection) => {
   let runningTotal = 0;
   for (let i = 0; i < collection.length; i++) {
-    for (let j = 0; j < collection[i].cards.length; j++) {
-      for (let k = 0; k < collection[i].cards[j].quantities.length; k++) {
-        const qty = Object.values(collection[i].cards[j].quantities[k]);
+    for (let j = 0; j < collection?.[i]?.cards?.length; j++) {
+      for (let k = 0; k < collection?.[i]?.cards?.[j]?.quantities?.length; k++) {
+        const qty = Object.values(collection?.[i]?.cards?.[j]?.quantities[k]);
         runningTotal += qty[0];
       }
     }
@@ -18,7 +18,7 @@ const getTotalCards = (collection) => {
 const getTotalUniqueCards = (collection) => {
   let runningTotal = 0;
   for (let i = 0; i < collection.length; i++) {
-    for (let j = 0; j < collection[i].cards.length; j++) {
+    for (let j = 0; j < collection?.[i]?.cards?.length; j++) {
       runningTotal++;
     }
   }
@@ -33,7 +33,7 @@ const getCompletedSets = async (collection, allSets = []) => {
   for (let i = 0; i < collection.length; i++) {
     for (let j = 0; j < allSets.length; j++) {
       if (collection[i].set_id === allSets[j].id) {
-        if (collection[i].cards.length == allSets[j].total) {
+        if (collection?.[i]?.cards?.length == allSets[j].total) {
           runningTotal++;
           allSets.splice(j, 1);
         }
