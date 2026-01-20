@@ -20,6 +20,7 @@ import Card from './pages/Card';
 import Login from './pages/Login';
 import SIgnup from './pages/SIgnup';
 import Account from './pages/Account';
+import Incoming from './pages/Incoming';
 import NoPage from './pages/NoPage';
 
 
@@ -116,6 +117,10 @@ function App() {
               sets={sets} 
               setSets={setSets} 
             />} 
+          />
+          <Route
+            path="/account/incoming"
+            element={<Incoming />}
           />
           <Route 
             path="*" 
