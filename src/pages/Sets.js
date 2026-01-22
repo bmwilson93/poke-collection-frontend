@@ -11,17 +11,21 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
   const { setsSort, setSetsSort, seriesFilter, setSeriesFilter } = useContext(FilterContext);
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const fetchSets = async () => {
+    setIsLoading(true);
     let response = await getSets();
 
     if ('error' in response) {
-      console.log("Error getting the sets");
+      setHasError(true);
     } else {
       getSeries(response);
       setSets(response);
       setMappedSets(mapSets(response));
     }
+    setIsLoading(false);
   };
 
   const getSeries = (setList) => {
@@ -54,8 +58,10 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
 
   // Update the mapped Sets when sort or filter is updated
   useEffect(() => {
-    handleDisplaySets();
-  }, [setsSort, seriesFilter])
+    if (!isLoading && sets.length > 0) {
+      handleDisplaySets();
+    }
+  }, [setsSort, seriesFilter, isLoading])
 
   const mapSets = (allSets) => {
     return allSets.map((item) => {
@@ -79,7 +85,7 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
     filteredSets = filteredSets.filter(set => set.series !== "Pokémon TCG Pocket");
 
     if (setsSort === 'oldest') {
-      setMappedSets(mapSets(filteredSets.toReversed()));
+      setMappedSets(mapSets(filteredSets));
     } else {
       setMappedSets(mapSets(filteredSets));
     }
@@ -92,8 +98,13 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
 
       <div className='list-container'>
         {/* If no sets, display Loading component */}
-        {sets.length > 0 
-        ? <>
+        {isLoading
+        ? <Loading />
+        : hasError 
+          ? <div className="full-height center">
+              <h2>There was an issue with loading the expansions</h2>
+            </div> 
+          : <>
           <div className="sort-container">
 
             <div className='sort-item'>
@@ -121,8 +132,7 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
             
 
             <ul className="sets-list">{mappedSets}</ul> 
-          </>
-        : <Loading />}
+          </>}
       </div>
 
     </div>
