@@ -11,7 +11,7 @@ const Sets = ({ sets, setSets, setCurrentSet, setsScrollValue, setSetsScrollValu
   const { setsSort, setSetsSort, seriesFilter, setSeriesFilter } = useContext(FilterContext);
   const [mappedSets, setMappedSets] = useState([<li></li>]);
   const [series, setSeries] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   const fetchSets = async () => {
