@@ -92,7 +92,7 @@ const getSets = async () => {
 
     if (results.error) {
       console.log("Error fetching sets:", results.error);
-      break;
+      return results;
     }
 
     if (results.data && results.data.length > 0) {
