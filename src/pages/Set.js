@@ -42,7 +42,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
 
         if (expansion) {
           setExpansionData(expansion);
-          if (cards.length > 0) {
+          if (cards.length == expansion.total) {
             if (cards?.[0]?.expansion?.id !== expansion?.id) {
               setScrollValue(0);
               getAllSetCards(expansion?.id);
