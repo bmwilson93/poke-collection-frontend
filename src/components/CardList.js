@@ -117,7 +117,13 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       </div>
 
       <div className='variant-toggle-container'>
-        <input type="checkbox" checked={toggleDisplayVariants} onChange={() => setToggleDisplayVariants(!toggleDisplayVariants)} />
+        <div><span>Show Card Variants: </span></div>
+        <div>
+          <label className="switch">
+            <input type="checkbox" id='toggle' checked={toggleDisplayVariants} onChange={() => setToggleDisplayVariants(!toggleDisplayVariants)} />
+            <span className='slider round'></span>
+          </label>
+        </div>
       </div>
       
       <ul className="card-list">
