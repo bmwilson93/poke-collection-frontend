@@ -86,6 +86,7 @@
 .sort-container {
   display: flex;
   gap: 50px;
+  margin-bottom: 18px;
 }
 
 .sort-item {
