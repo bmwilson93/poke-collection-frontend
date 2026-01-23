@@ -65,6 +65,7 @@
   border: 1px solid var(--accent-color);
   border-radius: 18px;
   background-color: var(--fore-color);
+  transition: .3s;
 }
 
 .card-variant-list {
@@ -159,6 +160,12 @@ input:checked + .slider:before {
   gap: 25px;
   align-items: center;
   margin-bottom: 48px;
+}
+
+.hide {
+  border: none;
+  background: none;
+  transition: .3s;
 }
 
 /* 1440 - 4 wide*/
