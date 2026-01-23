@@ -1,9 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/CardItem.css';
 
-import { variants } from '../utils/variantList';
+import checkmark from '../assets/check-circle-solid-36.png'
+import mailIcon from '../assets/mail-send-regular-36.png'
 
-const CardItem = ({ card }) => {
+import { variants } from '../utils/variantList';
+import { formatLabel } from '../utils/formatLabel';
+
+const CardItem = ({ card, setScrollValue }) => {
+  const navigate = useNavigate();
+
   const displayAveragePrice = () => {
     // If card has variants array
     if (card?.variants && card.variants.length > 0) {
@@ -43,17 +50,61 @@ const CardItem = ({ card }) => {
     return '--';
   };
 
+  const hasVariantCollected = (card, variant) => {
+    if (card?.collectedQuantities) {
+      let result = card.collectedQuantities.filter(obj => Object.hasOwn(obj, variant.name))
+      if (result.length > 0) return true
+    }
+    return false;
+  }
+
+  const hasVariantIncoming = (card, variant) => {
+    if (card?.incomingVariants) {
+      let result = card.incomingVariants.filter(obj => Object.hasOwn(obj, variant.name))
+      if (result.length > 0) return true
+    }
+    return false;
+  }
+
 
   return (
-    <div
-      className="card-item hover-grow"
-    >
-      <img src={card?.images[0]?.small} 
-        className="cardlist-image"
-        loading='lazy'
-      />
-      <span className="avg-price">Market Average: ${displayAveragePrice()}</span>
-    </div>
+    <li key={card.id} 
+      className="card-list-card">
+        
+      {/* {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>} */}
+      {/* {card.incoming ? <img src={mailIcon} className='incoming-list' /> : <></>} */}
+      
+      <div
+        onClick={() => {
+        setScrollValue(window.scrollY);
+        navigate(`/card/${card.id}`)}
+      }
+        className="card-item hover-grow"
+      >
+        <img src={card?.images[0]?.small} 
+          className="cardlist-image"
+          loading='lazy'
+        />
+        <span className="avg-price">Market Average: ${displayAveragePrice()}</span>
+      </div>
+
+      {card?.variants 
+        ? <div>
+            <ul
+              className='card-variant-list'
+            >
+              {card.variants.map(variant => (
+                <li className='card-variant'>
+                  <span>{formatLabel(variant.name)}</span>
+                  <div className='box'>
+                    {hasVariantCollected(card, variant) ? <img src={checkmark} className='master-check'/> : <></>}
+                    {hasVariantIncoming(card, variant) ? <img src={mailIcon} className='master-check'/> : <></>}
+                  </div>
+                </li>))}
+            </ul>
+          </div> 
+        : <></>}
+    </li>
   )
 }
 
