@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import CardContext from '../contexts/CardContext';
 import FilterContext from '../contexts/FilterContext';
@@ -14,7 +13,7 @@ import { sortByPrice } from '../utils/sortByPrice';
 const CardList = ({ scrollValue, setScrollValue }) => {
   const { user } = useContext(UserContext);
   const { cards } = useContext(CardContext);
-  const { cardsFilter, setCardsFilter, cardsSort, setCardsSort } = useContext(FilterContext);
+  const { cardsFilter, setCardsFilter, cardsSort, setCardsSort, toggleDisplayVariants, setToggleDisplayVariants } = useContext(FilterContext);
   const [mappedCards, setMappedCards] = useState([]);
 
 
@@ -31,7 +30,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
 
   const mapCards = (cardlist) => {
     return cardlist.map((card) => {
-      return (<CardItem card={card} setScrollValue={setScrollValue} />)
+      return (<CardItem card={card} setScrollValue={setScrollValue} toggleDisplayVariants={toggleDisplayVariants}/>)
     })
   }
 
@@ -96,6 +95,13 @@ const CardList = ({ scrollValue, setScrollValue }) => {
         </div>
       : <></>
       }
+{/* 
+      {user && cardsFilter === 'collected'
+      ? <div>
+        <button>Partially Collected</button>
+        <button>Fully Collected</button>
+      </div>
+      :<></>} */}
 
       <div className='sort-container'>
         <p>Sort by: {}</p>
@@ -108,6 +114,10 @@ const CardList = ({ scrollValue, setScrollValue }) => {
           <option value='price h-l'>Price high-low</option>
           <option value='price l-h'>Price low-high</option>
         </select>
+      </div>
+
+      <div className='variant-toggle-container'>
+        <input type="checkbox" checked={toggleDisplayVariants} onChange={() => setToggleDisplayVariants(!toggleDisplayVariants)} />
       </div>
       
       <ul className="card-list">

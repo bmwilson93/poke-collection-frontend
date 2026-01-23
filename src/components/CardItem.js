@@ -1,5 +1,6 @@
-import React from 'react';
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import FilterContext from '../contexts/FilterContext';
 import './css/CardItem.css';
 
 import checkmark from '../assets/check-circle-solid-36.png'
@@ -10,6 +11,7 @@ import { formatLabel } from '../utils/formatLabel';
 
 const CardItem = ({ card, setScrollValue }) => {
   const navigate = useNavigate();
+  const { toggleDisplayVariants } = useContext(FilterContext);
 
   const displayAveragePrice = () => {
     // If card has variants array
@@ -70,7 +72,6 @@ const CardItem = ({ card, setScrollValue }) => {
   return (
     <li key={card.id} 
       className="card-list-card">
-        
       {/* {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>} */}
       {/* {card.incoming ? <img src={mailIcon} className='incoming-list' /> : <></>} */}
       
@@ -88,7 +89,7 @@ const CardItem = ({ card, setScrollValue }) => {
         <span className="avg-price">Market Average: ${displayAveragePrice()}</span>
       </div>
 
-      {card?.variants 
+      {card?.variants && toggleDisplayVariants
         ? <div>
             <ul
               className='card-variant-list'
