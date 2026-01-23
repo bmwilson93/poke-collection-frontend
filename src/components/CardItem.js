@@ -71,7 +71,7 @@ const CardItem = ({ card, setScrollValue }) => {
 
   return (
     <li key={card.id} 
-      className="card-list-card">
+      className={!toggleDisplayVariants ? 'hide card-list-card' :"card-list-card"}>
       {/* {card.collected ? <img src={checkmark} className='checkmark-list' /> : <></>} */}
       {/* {card.incoming ? <img src={mailIcon} className='incoming-list' /> : <></>} */}
       
