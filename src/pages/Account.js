@@ -54,6 +54,10 @@ const Account = ({ sets, setSets }) => {
     };
   
     fetchCompletedSets();
+
+    if (user?.collection?.collection_value) {
+      setCollectionValue(user.collection.collection_value)
+    }
   }, [user]); // Add `user` to dependency array
 
   const handleLogout = async (e) => {
@@ -61,6 +65,52 @@ const Account = ({ sets, setSets }) => {
     await fetchAPI('logout', 'POST', "");
     setUser(null)
     navigate('/');
+  }
+
+  const displayValue = () => {
+    if (collectionValue > -1) {
+      return (
+        <div className='value-container'>
+          <p className='num-display'>
+            {collectionValue.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}
+          </p>
+          <div className='value-btn-container'>
+            <button 
+              className="value-btn white-link" 
+              onClick={async () => {
+                setCalculating(true);
+                setCollectionValue((await getCollectionValue(user.collection)));
+                setCalculating(false);
+              }}
+            >
+              Recalculate Collection Value
+            </button>
+            <small>*This may take several minutes*</small>
+          </div>
+        </div>
+      )
+    } else { // no value, show only button
+      return (
+        <div>
+          <button 
+            className="value-btn white-link" 
+            onClick={async () => {
+              setCalculating(true);
+              setCollectionValue((await getCollectionValue(user.collection)));
+              setCalculating(false);
+            }}
+          >
+            Recalculate Collection Value
+          </button>
+          <small>*This may take several minutes*</small>
+        </div>
+      )
+    }
   }
 
   return (
@@ -106,36 +156,12 @@ const Account = ({ sets, setSets }) => {
               <div className='collection-item'>
                 <h4>Collection value</h4>
                 <div className='collection-value'>
-                  {collectionValue < 0 && !calculating ?
-                    <>
-                      <button 
-                        className="value-btn white-link" 
-                        onClick={async () => {
-                          setCalculating(true);
-                          setCollectionValue((await getCollectionValue(user.collection)));
-                          setCalculating(false);
-                        }}
-                      >
-                        Calculate Collection Value
-                      </button>
-                      <small>*This may take several minutes*</small>
-                    </>
 
-                    : <></>
+                  {calculating
+                    ? <Loading size={'small'}/>
+                    : displayValue()
                   }
-                  {calculating ? <Loading size={'small'}/> : <></>}
-                  {typeof collectionValue === 'number' && collectionValue > -1 
-                    ? (
-                      <p className='num-display'>
-                        {collectionValue.toLocaleString('en-US', {
-                          style: 'currency',
-                          currency: 'USD',
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        })}
-                      </p>
-                    ) 
-                    : null}
+
                 </div>
               </div>
 
