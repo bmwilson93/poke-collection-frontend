@@ -87,6 +87,20 @@
   /* justify-content: center; */
 }
 
+.value-container {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.value-btn-container {
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+}
+
 small {
   color: var(--text-color);
   opacity: 0.5;
