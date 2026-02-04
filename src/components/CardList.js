@@ -19,7 +19,18 @@ const CardList = ({ scrollValue, setScrollValue }) => {
 
   // Set to saved scroll on page load
   useEffect(() => {
-    setTimeout(() => {window.scrollTo(0, scrollValue)}, 10);
+    const scrollAfterLayout = () => {
+      // Wait for two animation frames to ensure layout is complete
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: scrollValue, behavior: 'auto'});
+        });
+      });
+    };
+
+    if (mappedCards.length > 0) {
+      scrollAfterLayout();
+    }
   }, [mappedCards]);
 
   // Trying this out,to see if I can get this to run once the filter or sort state updates
