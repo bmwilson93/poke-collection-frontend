@@ -22,6 +22,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
       console.log("Error getting the sets");
     } else {
       setSets(response);
+      return response;
     }
   };
 
@@ -60,12 +61,12 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
 
         console.log("So sets have been fetched. Fetch the sets.")
 
-        await fetchSets();
+        const fetchedSets = await fetchSets();
 
         console.log("Fetched sets.")
         console.log(sets)
 
-        const expansion = sets.find(expansion => expansion?.id === id);
+        const expansion = fetchedSets.find(expansion => expansion?.id === id);
         if (expansion) {
           setExpansionData(expansion);
           if (cards.length > 0) {
