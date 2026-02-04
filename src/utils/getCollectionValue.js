@@ -2,6 +2,7 @@
 // uses the user collection to determine a rough estimate of the collection value
 
 import { getCardsBySet } from "./fetchData";
+import { fetchAPI } from "./fetchAPI";
 
 const getCollectionValue = async (collection) => {
   // Use an object to avoid race conditions
@@ -21,6 +22,8 @@ const getCollectionValue = async (collection) => {
           console.warn(`Card ${collectedCard.card_id} not found in set ${set.set_id}`);
           return;
         }
+
+        if (!collectedCard.quantities) return
 
         collectedCard.quantities.forEach(variantObj => {
           const [variant, quantity] = Object.entries(variantObj)[0];
@@ -45,8 +48,16 @@ const getCollectionValue = async (collection) => {
     }
   }));
 
-  console.log(`Total collection value: $${result.value}`);
-  return result.value;
+  // console.log(`Total collection value: $${result.value}`);
+  const response = await fetchAPI(
+    'collection/value/update', 
+    'POST',
+    JSON.stringify({value: result.value}) )
+  if ('error' in response) {
+    return result
+  }
+  result.user = response.user;
+  return result;
 };
 
 export { getCollectionValue };
