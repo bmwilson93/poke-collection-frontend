@@ -41,12 +41,12 @@ const Account = ({ sets, setSets }) => {
 
   useEffect(() => {
     const fetchCompletedSets = async () => {
-      if (user) {
+      if (user && user.collection) {
         if (sets.length > 0) {
           const setsCount = await getCompletedSets(user.collection.sets, sets);
           setcollectedSets(setsCount); // Set state with the resolved value
         } else { // No sets current fetched, fetch the sets before running the completed sets
-          const allSets = fetchSets();
+          const allSets = await fetchSets();
           const setsCount = await getCompletedSets(user.collection.sets, allSets);
           setcollectedSets(setsCount); // Set state with the resolved value
         }
@@ -59,12 +59,18 @@ const Account = ({ sets, setSets }) => {
       setCollectionValue(user.collection.collection_value)
     }
   }, [user]); // Add `user` to dependency array
-
+  
   const handleLogout = async (e) => {
     e.preventDefault();
     await fetchAPI('logout', 'POST', "");
     setUser(null)
     navigate('/');
+  }
+
+  const generateCollectionValue = async (collection) => {
+    const result = await getCollectionValue(collection);
+    if (result.user) setUser(result.user);
+    setCollectionValue(result.value);
   }
 
   const displayValue = () => {
@@ -84,7 +90,7 @@ const Account = ({ sets, setSets }) => {
               className="value-btn white-link" 
               onClick={async () => {
                 setCalculating(true);
-                setCollectionValue((await getCollectionValue(user.collection)));
+                await generateCollectionValue(user.collection);
                 setCalculating(false);
               }}
             >
@@ -101,17 +107,18 @@ const Account = ({ sets, setSets }) => {
             className="value-btn white-link" 
             onClick={async () => {
               setCalculating(true);
-              setCollectionValue((await getCollectionValue(user.collection)));
+              await generateCollectionValue(user.collection);
               setCalculating(false);
             }}
           >
-            Recalculate Collection Value
+            Calculate Collection Value
           </button>
           <small>*This may take several minutes*</small>
         </div>
       )
     }
   }
+
 
   return (
     <div className='full-height'>
@@ -132,18 +139,18 @@ const Account = ({ sets, setSets }) => {
 
               <div className='collection-item bottom-border'>
                 <h4>Total Cards:</h4>
-                <span className='num-display'>{getTotalCards(user.collection.sets).toLocaleString('en-US')}</span>
+                <span className='num-display'>{user?.collection?.sets ? getTotalCards(user.collection.sets).toLocaleString('en-US') : '0'}</span>
               </div>
 
 
               <div className='collection-item bottom-border'>
                 <h4>Unique Cards:</h4>
-                <span className='num-display'>{getTotalUniqueCards(user.collection.sets).toLocaleString('en-US')}</span>
+                <span className='num-display'>{user?.collection?.sets ? getTotalUniqueCards(user.collection.sets).toLocaleString('en-US') : '0'}</span>
               </div>
 
               <div className='collection-item bottom-border'>
                 <h4>Sets in Collection:</h4>
-                <span className='num-display'>{user.collection.sets.length}</span>
+                <span className='num-display'>{user?.collection?.sets?.length}</span>
               </div>
 
               <div className='collection-item bottom-border'>
