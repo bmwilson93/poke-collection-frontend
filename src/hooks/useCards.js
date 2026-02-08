@@ -51,9 +51,10 @@ export const useCards = (user) => {
     if ('error' in result) {
       console.error('Error with searching cards.');
     } else {
-      console.log('Search result:', result.totalCount, 'total cards');
-      setCardCount(result.totalCount);
-      setPages(Math.ceil(result.totalCount / result.pageSize));
+      console.log('Search result:', result.total_count, 'total cards');
+      console.log(result);
+      setCardCount(result.total_count);
+      setPages(Math.ceil(result.total_count / result.page_size));
       setCurrentPage(result.page);
       applyCollection(result.data);
     }
