@@ -85,6 +85,7 @@ const CardItem = ({ card, setScrollValue }) => {
         <img src={card?.images[0]?.small} 
           className="cardlist-image"
           loading='lazy'
+          alt={card?.name}
         />
         <span className="avg-price">Market Average: ${displayAveragePrice()}</span>
       </div>
