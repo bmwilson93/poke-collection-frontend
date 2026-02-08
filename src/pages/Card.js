@@ -104,7 +104,7 @@ const Card = () => {
         }
 
         <div id='back-btn'>
-          <button onClick={() => navigate(`/set/${card?.expansion?.id}`)}>&lt; Back to Cards</button>
+          <button onClick={() => navigate(-1)}>&lt; Back to Cards</button>
         </div>
         
         {/* Card Image */}
