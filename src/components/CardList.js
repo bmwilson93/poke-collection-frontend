@@ -19,18 +19,42 @@ const CardList = ({ scrollValue, setScrollValue }) => {
 
   // Set to saved scroll on page load
   useEffect(() => {
-    const scrollAfterLayout = () => {
-      // Wait for two animation frames to ensure layout is complete
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: scrollValue, behavior: 'auto'});
-        });
+      if (scrollValue === 0) return;
+      
+      const images = document.querySelectorAll('.card-list img');
+      const totalImages = images.length;
+      let loadedImages = 0;
+      
+      if (totalImages === 0) {
+        // No images, scroll immediately
+        window.scrollTo(0, scrollValue);
+        return;
+      }
+      
+      const checkImagesLoaded = () => {
+        loadedImages++;
+        if (loadedImages === totalImages) {
+          // All images loaded, now scroll
+          window.scrollTo(0, scrollValue);
+        }
+      };
+      
+      images.forEach(img => {
+        if (img.complete) {
+          checkImagesLoaded();
+        } else {
+          img.addEventListener('load', checkImagesLoaded);
+          img.addEventListener('error', checkImagesLoaded); // Also handle errors
+        }
       });
-    };
-
-    if (mappedCards.length > 0) {
-      scrollAfterLayout();
-    }
+      
+      // Cleanup
+      return () => {
+        images.forEach(img => {
+          img.removeEventListener('load', checkImagesLoaded);
+          img.removeEventListener('error', checkImagesLoaded);
+        });
+      };
   }, [mappedCards]);
 
   // Trying this out,to see if I can get this to run once the filter or sort state updates
