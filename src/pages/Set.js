@@ -14,6 +14,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
   const { id } = useParams();
   // const location = useLocation();
   const [expansionData, setExpansionData] = useState({})
+  const [error, setError] = useState(false);
 
   const fetchSets = async () => {
     let response = await getSets();
@@ -55,6 +56,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
         } else { // Couldn't find the expansion
           // show an error
           console.log("Couldn't find the set")
+          setError(true);
         }
 
       } else { // No sets fetched, fetch all sets
@@ -81,6 +83,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
         } else { // Couldn't find the expansion
           // show an error
           console.log("Couldn't find the set")
+          setError(true);
         }
 
       }
@@ -117,9 +120,13 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
 
 
       <div className="card-list-container2">
-        {cards.length > 0 
+        {error 
+        ? <p>There was an error with dispaying the expansion.</p>
+        :
+        cards.length > 0 
         ? <CardList scrollValue={scrollValue} setScrollValue={setScrollValue}/>
-        : <Loading />}
+        : <Loading />
+        }
         
       </div>
 
