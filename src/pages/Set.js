@@ -29,18 +29,18 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
 
   useEffect(() => {
     const findExpansion = async () => {
-      console.log('Running the findExpansion function in the useEffect.', {
-        'expansionId: ': id,
-        'expansionData: ': expansionData
-      })
+      // console.log('Running the findExpansion function in the useEffect.', {
+      //   'expansionId: ': id,
+      //   'expansionData: ': expansionData
+      // })
 
       if (sets.length > 0) {
         
-        console.log("Sets have been found. Search for the correct set by id: ", id)
+        // console.log("Sets have been found. Search for the correct set by id: ", id)
         
         const expansion = sets.find(expansion => expansion?.id === id);
 
-        console.log(`found expansion result: `, expansion)
+        // console.log(`found expansion result: `, expansion)
 
         if (expansion) {
           setExpansionData(expansion);
@@ -55,18 +55,18 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
           }
         } else { // Couldn't find the expansion
           // show an error
-          console.log("Couldn't find the set")
+          // console.log("Couldn't find the set")
           setError(true);
         }
 
       } else { // No sets fetched, fetch all sets
 
-        console.log("So sets have been fetched. Fetch the sets.")
+        // console.log("So sets have been fetched. Fetch the sets.")
 
         const fetchedSets = await fetchSets();
 
-        console.log("Fetched sets.")
-        console.log(sets)
+        // console.log("Fetched sets.")
+        // console.log(sets)
 
         const expansion = fetchedSets.find(expansion => expansion?.id === id);
         if (expansion) {
@@ -82,7 +82,7 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
           }
         } else { // Couldn't find the expansion
           // show an error
-          console.log("Couldn't find the set")
+          // console.log("Couldn't find the set")
           setError(true);
         }
 
