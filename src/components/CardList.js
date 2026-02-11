@@ -73,7 +73,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       };
       
       // Start checking after a brief delay
-      setTimeout(checkImages, 100);
+      setTimeout(checkImages, 10);
     }, [mappedCards]);
 
   // Trying this out,to see if I can get this to run once the filter or sort state updates
