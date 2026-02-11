@@ -68,18 +68,32 @@ const CardItem = ({ card, setScrollValue }) => {
     return false;
   }
 
+  const handleCardClick = () => {
+    // Save the current scroll position BEFORE navigation
+    const scrollPosition = window.scrollY;
+    console.log('Saving scroll position:', scrollPosition);
+    
+    // Save to state (if using prop)
+    setScrollValue(scrollPosition);
+    
+    // Save to sessionStorage as backup
+    sessionStorage.setItem('set-scroll-position', scrollPosition.toString());
+    sessionStorage.setItem('last-card-id', card.id);
+    
+    // Navigate to card page
+    navigate(`/card/${card.id}`);
+  }
+
 
   return (
     <li key={card.id} 
+      data-card-id={card.id}
       className={!toggleDisplayVariants ? 'hide card-list-card' :"card-list-card"}>
       {card.collected && !toggleDisplayVariants ? <img src={checkmark} className='checkmark-list' /> : <></>}
       {card.incoming && !toggleDisplayVariants ? <img src={mailIcon} className='incoming-list' /> : <></>}
       
       <div
-        onClick={() => {
-        setScrollValue(window.scrollY);
-        navigate(`/card/${card.id}`)}
-      }
+        onClick={() => {handleCardClick()}}
         className="card-item hover-grow"
       >
         <img src={card?.images[0]?.small} 
