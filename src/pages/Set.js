@@ -17,13 +17,18 @@ const Set = ({ sets, setSets, scrollValue, setScrollValue }) => {
   const [error, setError] = useState(false);
 
   const fetchSets = async () => {
-    let response = await getSets();
-
-    if ('error' in response) {
-      console.log("Error getting the sets");
-    } else {
-      setSets(response);
-      return response;
+    try {
+      let response = await getSets();
+  
+      if ('error' in response) {
+        console.log("Error getting the sets");
+        return [];
+      } else {
+        setSets(response);
+        return response;
+      }
+    } catch (error) {
+      return [];
     }
   };
 
