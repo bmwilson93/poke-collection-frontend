@@ -14,7 +14,12 @@
 
 .card-list li {
   width: 250px;
+  /* min-height: 353px; */
   position: relative;
+}
+
+.card-item {
+  min-height: 353px;
 }
 
 .checkmark-list, .incoming-list {
@@ -191,6 +196,10 @@ input:checked + .slider:before {
 @media (max-width: 480px) {
   .card-list li {
     width: 150px;
+  }
+
+  .card-item {
+    min-height: 213px;
   }
 
   .filter-container {
