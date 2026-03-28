@@ -19,39 +19,14 @@ const CardList = ({ scrollValue, setScrollValue }) => {
 
   // Set to saved scroll on page load
   useEffect(() => {
-    if (mappedCards.length === 0) return;
-      
-      const lastCardId = sessionStorage.getItem('last-card-id');
-      const savedScroll = sessionStorage.getItem('set-scroll-position');
-      
-      if (!lastCardId && !savedScroll) return;
-      
-      const restoreScroll = () => {
-        // First try to find the specific card
-        if (lastCardId) {
-          const cardElement = document.querySelector(`[data-card-id="${lastCardId}"]`);
-          if (cardElement) {
-            // Scroll the card to a comfortable position (100px from top)
-            const elementTop = cardElement.offsetTop;
-            window.scrollTo({ 
-              top: Math.max(0, elementTop - 100), 
-              behavior: 'auto' 
-            });
-            
-            console.log('Scrolled to card:', lastCardId, 'at position:', elementTop - 100);
-            sessionStorage.removeItem('last-card-id');
-            sessionStorage.removeItem('set-scroll-position');
-            return;
-          }
-        }
-        
-        // Fallback to saved scroll position
+      const checkScroll = () => {
+        const savedScroll = sessionStorage.getItem('set-scroll-position');
         if (savedScroll) {
           const scrollPosition = parseInt(savedScroll, 10);
           const maxScroll = document.body.scrollHeight - window.innerHeight;
           const targetPosition = Math.min(scrollPosition, maxScroll);
           
-          console.log('Falling back to saved position:', targetPosition);
+          // console.log('Falling back to saved position:', scrollPosition);
           window.scrollTo({ 
             top: targetPosition, 
             behavior: 'auto' 
@@ -59,22 +34,11 @@ const CardList = ({ scrollValue, setScrollValue }) => {
           
           sessionStorage.removeItem('set-scroll-position');
         }
-      };
+      }
       
-      // Wait for images to load
-      const images = document.querySelectorAll('img');
-      const checkImages = () => {
-        const unloaded = Array.from(images).filter(img => !img.complete);
-        if (unloaded.length === 0) {
-          restoreScroll();
-        } else {
-          setTimeout(checkImages, 100);
-        }
-      };
-      
-      // Start checking after a brief delay
-      setTimeout(checkImages, 10);
-    }, [mappedCards]);
+      // // Start checking after a brief delay
+      setTimeout(checkScroll, 10);
+    }, []);
 
   // Trying this out,to see if I can get this to run once the filter or sort state updates
   useEffect(() => {
