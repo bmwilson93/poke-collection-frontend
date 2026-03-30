@@ -43,7 +43,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
   // Trying this out,to see if I can get this to run once the filter or sort state updates
   useEffect(() => {
     handleDisplayCardlist();
-  }, [cardsFilter, cardsSort])
+  }, [cardsFilter, cardsSort, toggleDisplayVariants])
 
 
   const mapCards = (cardlist) => {
@@ -52,14 +52,51 @@ const CardList = ({ scrollValue, setScrollValue }) => {
     })
   }
 
+  const hasAllVariantsCollected = (card) => {
+    if (!card?.variants || !card?.collectedQuantities) return false;
+  
+    console.log('Checking card:', card.name);
+    console.log('Variants:', card.variants.map(v => v.name));
+    console.log('CollectedQuantities:', card.collectedQuantities);
+    
+    // Check if all variants exist in collectedQuantities
+    const result = card.variants.every(variant => {
+      const variantName = variant.name;
+      
+      // Check if any object in collectedQuantities has a property matching the variant name
+      const isCollected = card.collectedQuantities.some(collected => {
+        const hasProperty = collected.hasOwnProperty(variantName);
+        return hasProperty;
+      });
+      
+      return isCollected;
+    });
+    return result;
+  }
+
 
   const handleDisplayCardlist = () => {
     // check the filter
     let filteredCards = [];
     if (cardsFilter === "collected") {
-      filteredCards = cards.filter(card => Object.hasOwn(card, "collected"));
+      if (toggleDisplayVariants) {
+        filteredCards = cards.filter(card => {
+          let result = hasAllVariantsCollected(card)
+          return result;
+        });
+      } else {
+        filteredCards = cards.filter(card => Object.hasOwn(card, "collected"));
+      }
     } else if (cardsFilter === 'notCollected') {
-      filteredCards = cards.filter(card => !Object.hasOwn(card, "collected"));
+      if (toggleDisplayVariants) {
+        filteredCards = cards.filter(card => {
+          let result = !hasAllVariantsCollected(card)
+          return result;
+        });
+      } else {
+        filteredCards = cards.filter(card => !Object.hasOwn(card, "collected"));
+      }
+
     } else if (cardsFilter === 'incoming') {
       filteredCards = cards.filter(card => Object.hasOwn(card, "incoming"));
     } else { // all cards
