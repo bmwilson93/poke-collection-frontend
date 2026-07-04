@@ -2,25 +2,35 @@
 
 // pokemon.configure({apiKey: process.env.REACT_APP_API_KEY});
 
+import axios from 'axios';
+
 const url = "https://api.scrydex.com/pokemon/v1/en/"
 
 const options = {
   headers: {
     'X-Api-Key': process.env.REACT_APP_API_KEY,
-    'X-Team_ID': process.env.REACT_APP_TEAM_ID
+    'X-Team-ID': process.env.REACT_APP_TEAM_ID
   }
 }
 
 const fetchData = async (url) => {
+  // try {
+  //   const response = await fetch(url, options);
+  //   const data = await response.json().catch((error) => ({error: error}));
+  //   return data;
+
+  // } catch (error) {
+  //   console.log(error);
+  //   return {error: error}
+  // }
   try {
-    console.log("fetching data")
-    const response = await fetch(url, options);
+    const encodedUrl = encodeURIComponent(url);
+    const response = await fetch(`${process.env.REACT_APP_API_PATH}/data?url=${encodedUrl}`);
     const data = await response.json().catch((error) => ({error: error}));
     return data;
-
+    // return response.data;
   } catch (error) {
-    console.log(error);
-    return {error: error}
+    return({error: error});
   }
 }
 
@@ -86,9 +96,13 @@ const getSets = async () => {
 
   console.log("Starting GetSets");
 
+  // let results = await fetchData(`${url}expansions?orderBy=release_date&page=${page}`);
+  // console.log(results);
+
   while (hasMore) {
     console.log(`Fetching page ${page}`);
     let results = await fetchData(`${url}expansions?orderBy=release_date&page=${page}`);
+    console.log(results);
 
     if (results.error) {
       console.log("Error fetching sets:", results.error);
@@ -101,14 +115,15 @@ const getSets = async () => {
       if (results.data.length < pageSize) {
         hasMore = false;
         console.log("Reached end of sets");
-      } else {
-        page++;
       }
     } else {
       // No data returned, done
       hasMore = false;
       console.log("No more sets found");
     }
+
+    page++;
+    if (page > 10) hasMore = false;
   }
 
   // reverse the ordered sets, putting newest first
