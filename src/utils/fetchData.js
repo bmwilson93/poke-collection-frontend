@@ -23,14 +23,14 @@ const getCardsBySet = async (expansionId) => {
   const pageSize = 100;
   let hasMore = true;
 
-  console.log("Starting GetCardsBySet");
+  // console.log("Starting GetCardsBySet");
 
   while (hasMore) {
-    console.log(`Fetching page ${page}`);
+    // console.log(`Fetching page ${page}`);
     let results = await fetchData(`${url}expansions/${expansionId}/cards?orderBy=number&page=${page}&include=prices`);
 
     if (results.error) {
-      console.log("Error fetching cards:", results.error);
+      console.error("Error fetching cards:", results.error);
       break;
     }
 
@@ -39,18 +39,18 @@ const getCardsBySet = async (expansionId) => {
       // If we got fewer cards than page size, we're at the end
       if (results.data.length < pageSize) {
         hasMore = false;
-        console.log("Reached end of set");
+        // console.log("Reached end of set");
       } else {
         page++;
       }
     } else {
       // No data returned, done
       hasMore = false;
-      console.log("No more cards found");
+      // console.log("No more cards found");
     }
   }
 
-  console.log(`Returning ${cards.length} cards`);
+  // console.log(`Returning ${cards.length} cards`);
   return cards;
 }
 
@@ -66,7 +66,7 @@ const getCardById = async (id) => {
     return response.data;
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {error: error}
   }
 }
@@ -77,18 +77,18 @@ const getSets = async () => {
   const pageSize = 100;
   let hasMore = true;
 
-  console.log("Starting GetSets");
+  // console.log("Starting GetSets");
 
   // let results = await fetchData(`${url}expansions?orderBy=release_date&page=${page}`);
   // console.log(results);
 
   while (hasMore) {
-    console.log(`Fetching page ${page}`);
+    // console.log(`Fetching page ${page}`);
     let results = await fetchData(`${url}expansions?orderBy=release_date&page=${page}`);
-    console.log(results);
+    // console.log(results);
 
     if (results.error) {
-      console.log("Error fetching sets:", results.error);
+      // console.log("Error fetching sets:", results.error);
       return results;
     }
 
@@ -97,12 +97,12 @@ const getSets = async () => {
       // If we got fewer sets than page size, we're at the end
       if (results.data.length < pageSize) {
         hasMore = false;
-        console.log("Reached end of sets");
+        // console.log("Reached end of sets");
       }
     } else {
       // No data returned, done
       hasMore = false;
-      console.log("No more sets found");
+      // console.log("No more sets found");
     }
 
     page++;
@@ -113,7 +113,7 @@ const getSets = async () => {
   let orderedSets = sets
   orderedSets.reverse();
 
-  console.log(`Returning ${sets.length} sets`);
+  // console.log(`Returning ${sets.length} sets`);
   return orderedSets;
 }
 
