@@ -6,29 +6,12 @@ import axios from 'axios';
 
 const url = "https://api.scrydex.com/pokemon/v1/en/"
 
-const options = {
-  headers: {
-    'X-Api-Key': process.env.REACT_APP_API_KEY,
-    'X-Team-ID': process.env.REACT_APP_TEAM_ID
-  }
-}
-
 const fetchData = async (url) => {
-  // try {
-  //   const response = await fetch(url, options);
-  //   const data = await response.json().catch((error) => ({error: error}));
-  //   return data;
-
-  // } catch (error) {
-  //   console.log(error);
-  //   return {error: error}
-  // }
   try {
     const encodedUrl = encodeURIComponent(url);
     const response = await fetch(`${process.env.REACT_APP_API_PATH}/data?url=${encodedUrl}`);
     const data = await response.json().catch((error) => ({error: error}));
     return data;
-    // return response.data;
   } catch (error) {
     return({error: error});
   }
