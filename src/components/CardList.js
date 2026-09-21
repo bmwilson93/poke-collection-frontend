@@ -194,13 +194,27 @@ const CardList = ({ scrollValue, setScrollValue }) => {
       </div>
 
       <div className='variant-toggle-container'>
-        <div><span>Show Card Variants: </span></div>
-        <div>
-          <label className="switch">
-            <input type="checkbox" id='toggle' checked={toggleDisplayVariants} onChange={() => setToggleDisplayVariants(!toggleDisplayVariants)} />
-            <span className='slider round'></span>
-          </label>
+        <div className='toggle-item'>
+          <div><span>Show Card Variants: </span></div>
+          <div>
+            <label className="switch">
+              <input type="checkbox" id='toggle' checked={toggleDisplayVariants} onChange={() => setToggleDisplayVariants(!toggleDisplayVariants)} />
+              <span className='slider round'></span>
+            </label>
+          </div>
         </div>
+        {toggleDisplayVariants
+        ? <div className='toggle-item'>
+            <div>Ignore Special Variants: </div>
+            <div>
+              <label className="switch">
+                <input type="checkbox" id="toggle_hide" checked={hideSpecialVariants} onChange={() => setHideSpecialVariants(!hideSpecialVariants)} />
+                <span className='slider round'></span>
+              </label>
+            </div>
+          </div>
+        : <></>
+        }
       </div>
       
       <ul className="card-list">
