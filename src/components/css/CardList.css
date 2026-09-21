@@ -162,9 +162,19 @@ input:checked + .slider:before {
 .variant-toggle-container {
   /* border: 1px solid red; */
   display: flex;
-  gap: 25px;
-  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  /* align-items: center; */
   margin-bottom: 48px;
+  /* justify-items: left; */
+}
+
+.toggle-item {
+  /* border: 1px solid blue; */
+  max-width: 280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hide {
@@ -191,6 +201,16 @@ input:checked + .slider:before {
   .card-list {
     grid-template-columns: 1fr 1fr;
   }
+
+  .variant-toggle-container {
+  align-items: center;
+}
+
+.toggle-item {
+  gap: 30px;
+  width: 280px;
+}
+
 }
 
 @media (max-width: 480px) {
@@ -219,8 +239,9 @@ input:checked + .slider:before {
     width: 130px;
   }
 
-  .variant-toggle-container {
-    justify-content: center;
+  .toggle-item {
+    gap: 20px;
+    width: 250px;
   }
 
 }
