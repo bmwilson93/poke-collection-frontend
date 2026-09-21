@@ -10,6 +10,7 @@ export const FilterProvider = ({ children }) => {
   const [seriesFilter, setSeriesFilter] = useState('All')
   const [setsSort, setSetsSort] = useState('newest'); // Sort for sets
   const [toggleDisplayVariants, setToggleDisplayVariants] = useState(false);
+  const [hideSpecialVariants, setHideSpecialVariants] = useState(true);
   
   return (
     <FilterContext.Provider value={{ 
@@ -22,7 +23,9 @@ export const FilterProvider = ({ children }) => {
       setsSort,
       setSetsSort,
       toggleDisplayVariants,
-      setToggleDisplayVariants
+      setToggleDisplayVariants,
+      hideSpecialVariants, 
+      setHideSpecialVariants
      }}>
       {children}
     </FilterContext.Provider>
