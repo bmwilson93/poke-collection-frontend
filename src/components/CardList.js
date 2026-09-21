@@ -8,12 +8,13 @@ import CardItem from './CardItem'
 import './css/CardList.css';
 
 import { sortByPrice } from '../utils/sortByPrice';
+import { variants } from '../utils/variantList';
 
 
 const CardList = ({ scrollValue, setScrollValue }) => {
   const { user } = useContext(UserContext);
   const { cards } = useContext(CardContext);
-  const { cardsFilter, setCardsFilter, cardsSort, setCardsSort, toggleDisplayVariants, setToggleDisplayVariants } = useContext(FilterContext);
+  const { cardsFilter, setCardsFilter, cardsSort, setCardsSort, toggleDisplayVariants, setToggleDisplayVariants, hideSpecialVariants, setHideSpecialVariants } = useContext(FilterContext);
   const [mappedCards, setMappedCards] = useState([]);
 
 
@@ -43,7 +44,7 @@ const CardList = ({ scrollValue, setScrollValue }) => {
   // Trying this out,to see if I can get this to run once the filter or sort state updates
   useEffect(() => {
     handleDisplayCardlist();
-  }, [cardsFilter, cardsSort, toggleDisplayVariants])
+  }, [cardsFilter, cardsSort, toggleDisplayVariants, hideSpecialVariants])
 
 
   const mapCards = (cardlist) => {
@@ -55,22 +56,43 @@ const CardList = ({ scrollValue, setScrollValue }) => {
   const hasAllVariantsCollected = (card) => {
     if (!card?.variants || !card?.collectedQuantities) return false;
   
-    console.log('Checking card:', card.name);
-    console.log('Variants:', card.variants.map(v => v.name));
-    console.log('CollectedQuantities:', card.collectedQuantities);
+    // console.log('Checking card:', card.name);
+    // console.log('Variants:', card.variants.map(v => v.name));
+    // console.log('CollectedQuantities:', card.collectedQuantities);
+
+    // save a list of normal variants that excludes any "special variants"
+    const normalVariants = card.variants.filter(variant => {
+      return variants.includes(variant.name);
+    });
+    console.log('Normal variants:', normalVariants);
+    let result;
     
     // Check if all variants exist in collectedQuantities
-    const result = card.variants.every(variant => {
-      const variantName = variant.name;
-      
-      // Check if any object in collectedQuantities has a property matching the variant name
-      const isCollected = card.collectedQuantities.some(collected => {
-        const hasProperty = collected.hasOwnProperty(variantName);
-        return hasProperty;
+    if (hideSpecialVariants) {
+      result = normalVariants.every(variant => { // Use the normalVariants if we are hiding special variants from the filter
+        const variantName = variant.name;
+        
+        // Check if any object in collectedQuantities has a property matching the variant name
+        const isCollected = card.collectedQuantities.some(collected => {
+          const hasProperty = collected.hasOwnProperty(variantName);
+          return hasProperty;
+        });
+        
+        return isCollected;
       });
-      
-      return isCollected;
-    });
+    } else {
+      result = card.variants.every(variant => {
+        const variantName = variant.name;
+        
+        // Check if any object in collectedQuantities has a property matching the variant name
+        const isCollected = card.collectedQuantities.some(collected => {
+          const hasProperty = collected.hasOwnProperty(variantName);
+          return hasProperty;
+        });
+        
+        return isCollected;
+      });
+    }
     return result;
   }
 
